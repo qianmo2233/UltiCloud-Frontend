@@ -29,17 +29,19 @@
       <br>
       <v-card-text>
         <v-container>
-          <v-text-field label="用户名" placeholder="" outlined type="" v-model="LoginForm.username"></v-text-field>
-          <v-text-field label="密码" placeholder="" outlined type="password" v-model="LoginForm.password"></v-text-field>
+          <v-row v-if="LoginForm.show">
+            <v-col cols="12">
+              <v-btn elevation="5" x-large rounded block @click="Login"><v-icon left>mdi-login</v-icon>使用UltiKits账号登录</v-btn>
+            </v-col>
+            <v-col cols="12">
+              <v-btn elevation="5" x-large rounded block><v-icon left>mdi-github</v-icon>使用Github账号登录</v-btn>
+            </v-col>
+          </v-row>
+          <v-row>
+            <iframe v-if="!LoginForm.show" v-bind:src="LoginForm.url" style="width: 100%; height: 400px; border: medium none;"></iframe>
+          </v-row>
         </v-container>
       </v-card-text>
-      <v-divider></v-divider>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn class="ma-2" :loading="LoginForm.LoginLoading" :disabled="LoginForm.LoginLoading" color="secondary" @click="LoginForm.LoginLoader = 'loading'">
-          登录
-        </v-btn>
-      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -50,11 +52,9 @@ export default {
   data() {
     return {
       LoginForm: {
-        username: '',
-        password: '',
-        LoginLoading: false,
-        LoginLoader: null,
         dialog: false,
+        show: true,
+        url: "https://panel.ultikits.com/login"
       },
       LoginMsg: {
         LoginSuccess:'登录成功',
@@ -68,22 +68,18 @@ export default {
     }
   },
   watch: {
-    "LoginForm.LoginLoader": function () {
-      const u = 'https://panel.ultikits.com/login'
-      this.LoginForm.LoginLoading = true
-      this.$http.get(u, {params: {username: this.LoginForm.username, password: this.LoginForm.password}}).then(function (res) {
-        this.SnackBar.text = res.status+':'+this.LoginMsg.LoginSuccess
-        this.SnackBar.snackbar = true
-        this.LoginForm.dialog = false
-      }, function (res) {
-        this.SnackBar.text = res.status+':'+this.LoginMsg.LoginError
-        this.SnackBar.snackbar = true
-        this.LoginForm.dialog = true
-      })
-      this.LoginForm.LoginLoading = false
-      this.LoginForm.LoginLoader = null
-    },
+    "LoginForm.dialog": function () {
+      if (!this.LoginForm.dialog) {
+        this.LoginForm.show = true
+      }
+    }
   },
+  methods: {
+    Login: function () {
+      this.LoginForm.show = false
+      //
+    }
+  }
 }
 </script>
 <style scoped>
