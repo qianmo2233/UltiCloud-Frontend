@@ -1,24 +1,12 @@
-# vue
+# UltiCloud Frontend - UltiKits云平台前端
 
-## Project setup
+## Application setup - 程序初始化
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Run - 运行程序
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
