@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="LoginForm.dialog" width="500">
+  <v-dialog v-model="LoginForm.dialog" width="500" persistent>
     <v-snackbar v-model="SnackBar.snackbar" :timeout="SnackBar.timeout">
       {{ SnackBar.text }}
       <template v-slot:action="{ attrs }">
@@ -23,24 +23,36 @@
       </v-btn>
     </template>
     <v-card>
-      <v-card-title class="headline blue">
-        登录
-      </v-card-title>
-      <br>
       <v-card-text>
-        <v-container>
-          <v-row v-if="LoginForm.show">
-            <v-col cols="12">
-              <v-btn elevation="5" x-large rounded block @click="Login"><v-icon left>mdi-login</v-icon>使用UltiKits账号登录</v-btn>
-            </v-col>
-            <v-col cols="12">
-              <v-btn elevation="5" x-large rounded block><v-icon left>mdi-github</v-icon>使用Github账号登录</v-btn>
-            </v-col>
-          </v-row>
-          <v-row>
-            <iframe v-if="!LoginForm.show" v-bind:src="LoginForm.url" style="width: 100%; height: 400px; border: medium none;"></iframe>
-          </v-row>
-        </v-container>
+        <v-tabs fixed-tabs>
+          <v-tab><v-icon>mdi-login</v-icon>登录</v-tab>
+          <v-tab><v-icon left>mdi-account-multiple-plus</v-icon>注册</v-tab>
+
+          <v-tab-item>
+            <v-card flat>
+              <v-card-text>
+                <v-text-field label="用户名" filled v-model="LoginForm.username"></v-text-field>
+                <v-text-field label="密码" filled type="password" v-model="LoginForm.password"></v-text-field>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn large color="blue darken-1" text @click="LoginForm.dialog = false"><v-icon left>mdi-close</v-icon>关闭</v-btn>
+                <v-btn large color="blue darken-1" text @click="Auth"><v-icon left>mdi-check</v-icon>登录</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item>
+            <v-card-text>
+              <v-text-field label="电子邮箱" filled></v-text-field>
+              <v-text-field label="用户名" filled></v-text-field>
+              <v-text-field label="密码" filled type="password"></v-text-field>
+              <v-text-field label="重复密码" filled type="password"></v-text-field>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn large color="blue darken-1" text @click="LoginForm.dialog = false"><v-icon left>mdi-close</v-icon>关闭</v-btn>
+              <v-btn large color="blue darken-1" text @click="LoginForm.dialog = false"><v-icon left>mdi-check</v-icon>注册</v-btn>
+            </v-card-actions>
+          </v-tab-item>
+        </v-tabs>
       </v-card-text>
     </v-card>
   </v-dialog>
@@ -54,7 +66,11 @@ export default {
       LoginForm: {
         dialog: false,
         show: true,
-        url: "https://panel.ultikits.com/login"
+        LoginUrl: "http://panel.ultikits.com:8080",
+        RegUrl: "http://panel.ultikits.com:8082",
+        loading: false,
+        username: '',
+        password: '',
       },
       LoginMsg: {
         LoginSuccess:'登录成功',
@@ -78,6 +94,29 @@ export default {
     Login: function () {
       this.LoginForm.show = false
       //
+    },
+    Auth: function () {
+
+      const basic = require('basic-authorization-header');
+      const auth = basic('client', '112233')
+      this.$http.post(
+          this.LoginForm.LoginUrl,
+          {
+            grant_type: 'password',
+            scope: 'all',
+            username: this.LoginForm.username,
+            password: this.LoginForm.password
+          },
+          {
+            headers: {
+              Authorization: auth
+            }
+          }
+      ).then(function (result) {
+        let body = result.text()
+        let json = JSON.parse(body)
+        console.log(json.access_token)
+      })
     }
   }
 }

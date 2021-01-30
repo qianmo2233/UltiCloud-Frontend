@@ -1,11 +1,12 @@
 <template>
-  <v-app app v-navigation-drawer>
+  <v-app app>
     <NavBar/>
     <vue-scroll>
       <v-main>
         <v-container fluid>
-          <router-view>
-          </router-view>
+          <transition name="slide-y-reverse-transition" mode="out-in">
+            <router-view/>
+          </transition>
         </v-container>
       </v-main>
     </vue-scroll>

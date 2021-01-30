@@ -4,9 +4,12 @@ import router from './router'
 import vuetify from './plugins/vuetify'
 import vuescroll from 'vuescroll'
 import VueResource from 'vue-resource'
+import i18n from './i18n'
+import store from './store'
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
+let basic = require('basic-authorization-header');
 Vue.use(vuescroll, {
   ops: {
     vuescroll: {
@@ -28,5 +31,12 @@ Vue.use(vuescroll, {
 new Vue({
   router,
   vuetify,
-  render: h => h(App)
+  i18n,
+  store,
+  render: h => h(App),
+  http: {
+    headers: {
+      Authorization: basic('client', '112233')
+    }
+  }
 }).$mount('#app')
