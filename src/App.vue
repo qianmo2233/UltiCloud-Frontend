@@ -1,6 +1,7 @@
 <template>
   <v-app app>
     <NavBar/>
+    <AppBar/>
     <vue-scroll>
       <v-main>
         <v-container fluid>
@@ -15,16 +16,22 @@
 
 <script>
 import NavBar from "@/components/NavBar";
+import AppBar from "@/components/AppBar";
 
 export default {
   name: 'App',
   components: {
+    AppBar,
     NavBar,
   },
 
   data: () => ({
-    isActive: false,
   }),
+
+  created() {
+    console.log('欢迎来到UltiCloud!\n版本:0.0.1[BETA]')
+    console.log('前端作者:千沫qianmo\n后端作者: wisdomme')
+  }
 };
 </script>
 <style>

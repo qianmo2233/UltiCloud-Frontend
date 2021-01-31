@@ -50,6 +50,9 @@
     },
     "rules": {}
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/qianmo2233"
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
