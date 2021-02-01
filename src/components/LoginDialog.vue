@@ -1,13 +1,5 @@
 <template>
-  <v-dialog v-model="LoginForm.dialog" width="500" persistent>
-    <v-snackbar v-model="SnackBar.snackbar" :timeout="SnackBar.timeout">
-      {{ SnackBar.text }}
-      <template v-slot:action="{ attrs }">
-        <v-btn color="blue" text v-bind="attrs" @click="SnackBar.snackbar = false">
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
+  <v-dialog v-model="LoginForm.dialog" width="500" persistent v-if="!$store.state.user.status">
     <template v-slot:activator="{ on, attrs }">
       <v-btn rounded color="dark" dark light large v-bind="attrs" v-on="on">
         <div>
@@ -25,8 +17,8 @@
     <v-card>
       <v-card-text>
         <v-tabs fixed-tabs>
-          <v-tab><v-icon>mdi-login</v-icon>登录</v-tab>
-          <v-tab><v-icon left>mdi-account-multiple-plus</v-icon>注册</v-tab>
+          <v-tab :disabled="LoginForm.loading"><v-icon left>mdi-login</v-icon>登录</v-tab>
+          <v-tab :disabled="LoginForm.loading"><v-icon left>mdi-account-multiple-plus</v-icon>注册</v-tab>
 
           <v-tab-item>
             <v-card flat>
@@ -36,7 +28,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-btn large color="blue darken-1" text @click="LoginForm.dialog = false"><v-icon left>mdi-close</v-icon>关闭</v-btn>
-                <v-btn large color="blue darken-1" text @click="Auth"><v-icon left>mdi-check</v-icon>登录</v-btn>
+                <v-btn large color="blue darken-1" text @click="LoginForm.loading = true" :loading="LoginForm.loading" :disabled="LoginForm.loading"><v-icon left>mdi-check</v-icon>登录</v-btn>
               </v-card-actions>
             </v-card>
           </v-tab-item>
@@ -61,20 +53,20 @@
 <script>
 export default {
   name: "LoginDialog",
+  components: {},
   data() {
     return {
       LoginForm: {
         dialog: false,
         show: true,
-        LoginUrl: "http://panel.ultikits.com:8080",
-        RegUrl: "http://panel.ultikits.com:8082",
         loading: false,
         username: '',
         password: '',
       },
       LoginMsg: {
         LoginSuccess:'登录成功',
-        LoginError:'登陆失败',
+        LoginError:'用户名或密码错误',
+        ConnErr:'登陆失败',
       },
       SnackBar: {
         snackbar: false,
@@ -84,40 +76,48 @@ export default {
     }
   },
   watch: {
-    "LoginForm.dialog": function () {
-      if (!this.LoginForm.dialog) {
-        this.LoginForm.show = true
+    "LoginForm.loading": function () {
+      if (this.LoginForm.loading) {
+        this.Login()
       }
+      this.LoginForm.loading = false
     }
   },
   methods: {
     Login: function () {
-      this.LoginForm.show = false
-      //
-    },
-    Auth: function () {
-
-      const basic = require('basic-authorization-header');
-      const auth = basic('client', '112233')
+      const url1 = 'http://panel.ultikits.com:8082/user/getToken'
+      const url2 = 'http://panel.ultikits.com:8082/user/'
       this.$http.post(
-          this.LoginForm.LoginUrl,
-          {
-            grant_type: 'password',
-            scope: 'all',
-            username: this.LoginForm.username,
-            password: this.LoginForm.password
-          },
-          {
-            headers: {
-              Authorization: auth
-            }
-          }
+          url1 + '?username=' + this.LoginForm.username + '&password=' + this.LoginForm.password,
       ).then(function (result) {
-        let body = result.text()
-        let json = JSON.parse(body)
-        console.log(json.access_token)
-      })
-    }
+        if (result.data == "" || result.data == null) {
+          this.$snackbar.Launch(this.LoginMsg.LoginError)
+          return
+        }
+        let data = JSON.parse(JSON.stringify(result.data))
+        this.$Login.login(data)
+        this.$http.post(
+            url2 + this.$store.state.user.id,
+            {},
+            {headers: {Authorization: 'Bearer ' + this.$store.state.user.token.access}}
+        ).then(function (result) {
+          let data = JSON.parse(JSON.stringify(result.data))
+          this.$store.state.user.name = data.name
+          this.$store.state.user.status = true
+        }, () => {
+          this.$Login.clean()
+          this.$snackbar.Launch(this.LoginMsg.ConnErr)
+            }
+        )
+        this.LoginForm.dialog = !this.$store.state.user.status
+        if (this.$store.state.user.status) {
+          this.$snackbar.Launch(this.LoginMsg.LoginSuccess)
+        }
+      }, (result) => {
+        this.$snackbar.Launch(result.code+this.LoginMsg.ConnErr)
+          }
+      )
+    },
   }
 }
 </script>

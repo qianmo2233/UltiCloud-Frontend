@@ -1,5 +1,6 @@
 <template>
   <v-app app>
+    <SnackBar/>
     <NavBar/>
     <AppBar/>
     <vue-scroll>
@@ -17,10 +18,12 @@
 <script>
 import NavBar from "@/components/NavBar";
 import AppBar from "@/components/AppBar";
+import SnackBar from "@/components/SnackBar";
 
 export default {
   name: 'App',
   components: {
+    SnackBar,
     AppBar,
     NavBar,
   },

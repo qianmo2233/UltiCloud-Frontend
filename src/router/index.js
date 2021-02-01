@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Vip from "@/views/Vip";
 import Auth from "@/views/Auth";
+import Maker from "@/views/Maker";
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/auth',
     name: 'Auth',
     component: Auth
+  },
+  {
+    path: '/maker',
+    name: 'Maker',
+    component: Maker
   }
 ]
 

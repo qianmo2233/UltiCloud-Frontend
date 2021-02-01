@@ -1,13 +1,40 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VueResource from 'vue-resource'
 
 Vue.use(Vuex)
+Vue.use(VueResource)
 
 export default new Vuex.Store({
   state: {
-    drawer: true,
-    group: null,
-    nav: {
+    SnackBar: {
+      timeout: 3000,
+      text: '',
+      snackbar: false,
+    },
+    user: {
+      token: {
+        access: '',
+        refresh: '',
+      },
+      id: 0,
+      status: false,
+      name: '',
+    },
+    NavBar: {
+      drawer: true,
+      group: null,
+    },
+    LoginForm: {
+      username: '',
+      password: '',
+    },
+    RegForm: {
+      username: '',
+      password: '',
+      email: '',
+    },
+    NavItems: {
       title1: '管理',
       title2: 'UltiKits系列',
       title3: '关于',

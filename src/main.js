@@ -3,13 +3,19 @@ import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify'
 import vuescroll from 'vuescroll'
-import VueResource from 'vue-resource'
 import i18n from './i18n'
 import store from './store'
+import VueResource from 'vue-resource'
+
+import SnackBar from "@/utils/SnackBar";
+import Login from "@/utils/Login";
 
 Vue.config.productionTip = false
+
+Vue.prototype.$snackbar = SnackBar
+Vue.prototype.$Login = Login
+
 Vue.use(VueResource)
-let basic = require('basic-authorization-header');
 Vue.use(vuescroll, {
   ops: {
     vuescroll: {
@@ -33,10 +39,6 @@ new Vue({
   vuetify,
   i18n,
   store,
+  VueResource,
   render: h => h(App),
-  http: {
-    headers: {
-      Authorization: basic('client', '112233')
-    }
-  }
 }).$mount('#app')
