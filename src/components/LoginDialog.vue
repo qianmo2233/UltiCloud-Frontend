@@ -3,10 +3,10 @@
     <template v-slot:activator="{ on, attrs }">
       <v-btn rounded color="dark" dark light large v-bind="attrs" v-on="on">
         <div>
-          未登录
+          {{ $i18n.t('Not logged') }}
           <br>
           <div class="text-caption">
-            点击登录
+            {{ $i18n.t('Click login') }}
           </div>
         </div>
         <v-icon dark right>
@@ -17,31 +17,37 @@
     <v-card>
       <v-card-text>
         <v-tabs fixed-tabs>
-          <v-tab :disabled="LoginForm.loading"><v-icon left>mdi-login</v-icon>登录</v-tab>
-          <v-tab :disabled="LoginForm.loading"><v-icon left>mdi-account-multiple-plus</v-icon>注册</v-tab>
+          <v-tab :disabled="LoginForm.loading"><v-icon left>mdi-login</v-icon>
+            {{ $i18n.t('Login') }}</v-tab>
+          <v-tab :disabled="LoginForm.loading"><v-icon left>mdi-account-multiple-plus</v-icon>
+            {{ $i18n.t('Register') }}</v-tab>
 
           <v-tab-item>
             <v-card flat>
               <v-card-text>
-                <v-text-field label="用户名" filled v-model="LoginForm.username"></v-text-field>
-                <v-text-field label="密码" filled type="password" v-model="LoginForm.password"></v-text-field>
+                <v-text-field :label="$i18n.t('Username')" filled v-model="LoginForm.username"></v-text-field>
+                <v-text-field :label="$i18n.t('Password')" filled type="password" v-model="LoginForm.password"></v-text-field>
               </v-card-text>
               <v-card-actions>
-                <v-btn large color="blue darken-1" text @click="LoginForm.dialog = false"><v-icon left>mdi-close</v-icon>关闭</v-btn>
-                <v-btn large color="blue darken-1" text @click="LoginForm.loading = true" :loading="LoginForm.loading" :disabled="LoginForm.loading"><v-icon left>mdi-check</v-icon>登录</v-btn>
+                <v-btn large color="blue darken-1" text @click="LoginForm.dialog = false"><v-icon left>mdi-close</v-icon>
+                  {{ $i18n.t('Close') }}</v-btn>
+                <v-btn large color="blue darken-1" text @click="LoginForm.loading = true" :loading="LoginForm.loading" :disabled="LoginForm.loading"><v-icon left>mdi-check</v-icon>
+                  {{ $i18n.t('Login') }}</v-btn>
               </v-card-actions>
             </v-card>
           </v-tab-item>
           <v-tab-item>
             <v-card-text>
-              <v-text-field label="电子邮箱" filled></v-text-field>
-              <v-text-field label="用户名" filled></v-text-field>
-              <v-text-field label="密码" filled type="password"></v-text-field>
-              <v-text-field label="重复密码" filled type="password"></v-text-field>
+              <v-text-field :label="$i18n.t('Email')" filled></v-text-field>
+              <v-text-field :label="$i18n.t('Username')" filled></v-text-field>
+              <v-text-field :label="$i18n.t('Password')" filled type="password"></v-text-field>
+              <v-text-field :label="$i18n.t('Repeat password')" filled type="password"></v-text-field>
             </v-card-text>
             <v-card-actions>
-              <v-btn large color="blue darken-1" text @click="LoginForm.dialog = false"><v-icon left>mdi-close</v-icon>关闭</v-btn>
-              <v-btn large color="blue darken-1" text @click="LoginForm.dialog = false"><v-icon left>mdi-check</v-icon>注册</v-btn>
+              <v-btn large color="blue darken-1" text @click="LoginForm.dialog = false"><v-icon left>mdi-close</v-icon>
+                {{ $i18n.t('Close') }}</v-btn>
+              <v-btn large color="blue darken-1" text @click="LoginForm.dialog = false"><v-icon left>mdi-check</v-icon>
+                {{ $i18n.t('Register') }}</v-btn>
             </v-card-actions>
           </v-tab-item>
         </v-tabs>
@@ -99,20 +105,21 @@ export default {
         this.$http.post(
             url2 + this.$store.state.user.id,
             {},
-            {headers: {Authorization: 'Bearer ' + this.$store.state.user.token.access}}
+            {headers: {Authorization: 'Bearer ' + this.$store.state.user.token.access},}
         ).then(function (result) {
           let data = JSON.parse(JSON.stringify(result.data))
-          this.$store.state.user.name = data.name
+          this.$store.state.user.name = data.username
+          this.$GetUser.data(data)
           this.$store.state.user.status = true
+          this.LoginForm.dialog = !this.$store.state.user.status
+          if (this.$store.state.user.status) {
+            this.$snackbar.Launch(this.LoginMsg.LoginSuccess)
+          }
         }, () => {
           this.$Login.clean()
           this.$snackbar.Launch(this.LoginMsg.ConnErr)
             }
         )
-        this.LoginForm.dialog = !this.$store.state.user.status
-        if (this.$store.state.user.status) {
-          this.$snackbar.Launch(this.LoginMsg.LoginSuccess)
-        }
       }, (result) => {
         this.$snackbar.Launch(result.code+this.LoginMsg.ConnErr)
           }

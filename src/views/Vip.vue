@@ -2,27 +2,27 @@
   <div>
     <v-row>
       <v-col cols="12">
-        <v-alert text color="info">
-          <h3 class="headline">免费体验UltiKits会员!</h3>
-          <div>每一个新用户都可以免费领取3天的UltiKits的Pro会员!<br>不试试,如何知道好不好?</div>
-          <v-divider class="my-4 info" style="opacity: 0.22"></v-divider>
-          <v-row align="center" no-gutters>
-            <v-col class="grow">
-              需要通过邮箱验证才能领取<br>已是UltiKits会员不可领取
-            </v-col>
-            <v-spacer></v-spacer>
-            <v-col class="shrink">
-              <v-btn color="info" outlined>点击领取 (*3天会员)</v-btn>
-            </v-col>
-          </v-row>
-        </v-alert>
+        <EvalCard/>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12">
         <v-card>
+          <v-overlay :absolute="true" :value="!$store.state.user.status" :opacity="0.8">
+            <p class="display-1 text--primary">
+              请先登录
+            </p>
+          </v-overlay>
           <v-toolbar flat color="deep-orange" dark>
-            <v-toolbar-title>我的会员<v-chip class="ma-2" color="primary">普通会员  到期: 无</v-chip></v-toolbar-title>
+            <v-toolbar-title>
+              我的会员
+              <v-chip class="ma-2" color="primary">
+                {{ $GetPro.is() }}
+              </v-chip>
+              <v-chip class="ma-2" color="primary">
+                {{ $GetPro.exptime() }}
+              </v-chip>
+            </v-toolbar-title>
           </v-toolbar>
           <v-tabs vertical>
             <v-tab><v-icon left>mdi-cart</v-icon>购买/续费</v-tab>
@@ -110,8 +110,10 @@
 </template>
 
 <script>
+import EvalCard from "@/components/EvalCard";
 export default {
   name: "Vip",
+  components: {EvalCard},
   data() {
     return {
       time: null,

@@ -1,6 +1,7 @@
 <template>
   <v-navigation-drawer app v-model="$store.state.NavBar.drawer" width="280">
     <vue-scroll>
+      <NavTitle/>
       <NoticeCard/>
       <v-lazy transition="fade-transition">
         <v-list nav dense>
@@ -57,7 +58,7 @@
                 <v-icon>mdi-code-braces</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>代码仓库</v-list-item-title>
+                <v-list-item-title>{{ $i18n.t('Code Repositories') }}</v-list-item-title>
                 <v-list-item-subtitle>Github</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -81,9 +82,10 @@
 
 <script>
 import NoticeCard from "@/components/NoticeCard";
+import NavTitle from "@/components/NavTitle";
 export default {
   name: "NavBar",
-  components: {NoticeCard},
+  components: {NavTitle, NoticeCard},
   data() {
     return {
     }

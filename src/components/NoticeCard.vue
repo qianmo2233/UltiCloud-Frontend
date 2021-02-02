@@ -1,5 +1,5 @@
 <template>
-  <v-card color="red" dark>
+  <v-card color="red" dark class="rounded-0">
     <v-card-title class="headline">
       获取最后的永久会员!
     </v-card-title>

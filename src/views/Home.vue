@@ -30,43 +30,20 @@
       </v-card>
     </v-col>
     <v-col cols="6">
-      <v-card class="mx-auto">
-        <v-card-text>
-          <div>UltiKits Unlimited</div>
-          <p class="display-1 text--primary">
-            立即加入UltiKits会员!
-          </p>
-          <p>享受无限制的高级功能</p>
-          <div class="text--primary">
-            <v-overlay :absolute="absolute" :value="overlay" :opacity="0.8">
-              <p class="display-1 text--primary">
-                请先登录
-              </p>
-            </v-overlay>
-            <v-chip class="ma-2" color="primary">会员: </v-chip>
-            <v-chip class="ma-2" color="primary">到期: </v-chip>
-          </div>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn text color="deep-purple accent-4">
-            续费/购买会员
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+      <ProCard/>
     </v-col>
   </v-row>
 </template>
 
 <script>
 
+import ProCard from "@/components/ProCard";
 export default {
   name: 'Home',
-  components: {},
+  components: {ProCard},
   data() {
     return {
       reveal: false,
-      absolute: true,
-      overlay: true,
     }
   },
 }
