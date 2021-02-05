@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="elevation-6">
     <v-card-text>
       <div>UltiKits Unlimited</div>
       <p class="display-1 text--primary">
@@ -12,7 +12,7 @@
             {{ $i18n.t('Please login first') }}
           </p>
         </v-overlay>
-        <v-chip class="ma-2" color="primary">{{ $i18n.t('Level') }}: {{ $GetPro.is() }}</v-chip>
+        <v-chip class="ma-2" color="primary">{{ $i18n.t('Level') }}: {{ $i18n.t($GetPro.is()) }}</v-chip>
         <v-chip class="ma-2" color="primary">{{ $i18n.t('Expire') }}: {{ $GetPro.exptime() }}</v-chip>
       </div>
     </v-card-text>

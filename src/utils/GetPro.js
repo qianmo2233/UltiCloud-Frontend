@@ -3,9 +3,9 @@ import store from '../store'
 function is () {
     if (store.state.user.status) {
         if (store.state.user.pro !== "false") {
-            return 'Pro会员'
+            return 'Pro member'
         } else {
-            return '普通会员'
+            return 'Normal member'
         }
     } else {
         return ''
@@ -17,7 +17,7 @@ function exptime() {
         if (store.state.user.pro !== "false") {
             return store.state.user.proExpiryDate
         } else {
-            return '无'
+            return '-'
         }
     } else {
         return ''

@@ -1,27 +1,33 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import i18n from "@/i18n";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    list: [],
+    auth: [],
     style: {
-      select: {text: i18n.t('Dark'), mode: true},
+      select: {text: 'Dark', mode: true},
       style: [
-        {text: i18n.t('Dark'), mode: true},
-        {text: i18n.t('Light'), mode: false},
-        {text: i18n.t('Follow system settings'), mode: 'auto'}
+        {text: 'Dark', mode: true},
+        {text: 'Light', mode: false},
+        {text: 'Follow system settings', mode: 'auto'}
       ],
     },
     lang: {
-      select: {text: "中文(简体)", lang: "zh_CN"},
+      select: {text: "中文(简体)", locale: "zh_CN"},
       lang: [
-        {text: "中文(简体)", lang: "zh_CN"},
-        {text: "English(US)", lang: "en_US"}
+        {text: "中文(简体)", locale: "zh_CN"},
+        {text: "English(US)", locale: "en_US"}
       ],
     },
-
+    LoginMsg: {
+      LoginSuccess:'Login success',
+      LoginError:'Wrong user name or password',
+      ConnErr:'Login failed',
+      Invalid: 'Login status is invalid, please login again',
+    },
     SnackBar: {
       timeout: 3000,
       text: '',
@@ -40,6 +46,7 @@ export default new Vuex.Store({
       joinDate: '',
       pro: false,
       proExpiryDate: '',
+      maxServer: 0
     },
     NavBar: {
       drawer: true,
@@ -55,19 +62,19 @@ export default new Vuex.Store({
       email: '',
     },
     NavItems: {
-      title1: i18n.t('Manage'),
-      title2: i18n.t('UltiKits series'),
-      title3: i18n.t('About'),
-      title4: i18n.t('Plugins'),
-      title5: i18n.t('FAQ & Fix'),
+      title1: 'Manage',
+      title2: 'UltiKits series',
+      title3: 'About',
+      title4: 'Plugins',
+      title5: 'FAQ & Fix',
       items1: [
-        {text: i18n.t('Home'), icon: 'mdi-home', url: '/'},
-        {text: i18n.t('Member'), icon: 'mdi-chess-king', url: '/vip'},
-        {text: i18n.t('Help'), icon: 'mdi-help-box', url: '/help'}
+        {text: 'Home', icon: 'mdi-home', url: '/'},
+        {text: 'Member', icon: 'mdi-chess-king', url: '/vip'},
+        {text: 'Help', icon: 'mdi-help-box', url: '/help'}
       ],
       items2: [
-        {text: i18n.t('Servers'), icon: 'mdi-server', url: '/server'},
-        {text: i18n.t('Authorization'), icon: 'mdi-key', url: '/auth'},
+        {text: 'Servers', icon: 'mdi-server', url: '/server'},
+        {text: 'Authorization', icon: 'mdi-key', url: '/auth'},
       ],
       items3: [
         {text: 'UltiTools', icon: 'mdi-tools', ver: '4.3.0', url: '/tools'},
@@ -76,22 +83,45 @@ export default new Vuex.Store({
         {text: 'UltiLevel', icon: 'mdi-anvil', ver: '2.1.2', url: '/level'},
       ],
       items4: [
-        {text:i18n.t('Self Repair & Troubleshooting'), icon:'mdi-auto-fix', url: '/fix'},
-        {text:i18n.t('Configuration File'), icon:'mdi-file-cog', url: '/config'},
-        {text:i18n.t('YAML Grammar Getting Started'), icon:'mdi-file-code', url: '/yaml'},
+        {text: 'Self Repair & Troubleshooting', icon:'mdi-auto-fix', url: '/fix'},
+        {text: 'Configuration File', icon:'mdi-file-cog', url: '/config'},
+        {text: 'YAML Grammar Getting Started', icon:'mdi-file-code', url: '/yaml'},
       ],
       items5: [
-        {text: i18n.t('Production Staff'), icon: 'mdi-account-multiple', url: '/maker'},
-        {text: i18n.t('Update Record'), icon:'mdi-update', url: '/update'},
-        {text: i18n.t('Official QQ Group'), icon: 'mdi-qqchat', url: '/qq'},
-        {text: i18n.t('BUG Feedback'), icon: 'mdi-alert-decagram-outline', url: '/issue'},
+        {text: 'Production Staff', icon: 'mdi-account-multiple', url: '/maker'},
+        {text: 'Update Record', icon:'mdi-update', url: '/update'},
+        {text: 'Official QQ Group', icon: 'mdi-qqchat', url: '/qq'},
+        {text: 'BUG Feedback', icon: 'mdi-alert-decagram-outline', url: '/issue'},
       ]
     }
   },
   mutations: {
+    setAccessToken(state, value) {
+      state.user.token.access = value
+    },
+    setRefreshToken(state, value) {
+      state.user.token.refresh = value
+    },
+    setUserId(state, value) {
+      state.user.id = value
+    },
+    setUserName(state, value) {
+      state.user.name = value
+    },
+    setServerList(state, value) {
+      state.list = value
+    },
+    setMaxServer(state, value) {
+      state.user.maxServer = value
+    }
   },
   actions: {
+    setMaxServer(context, value) {
+      context.commit('setMaxServer', value)
+    }
   },
   modules: {
+  },
+  getters: {
   }
 })

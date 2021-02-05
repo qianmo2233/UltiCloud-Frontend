@@ -17,7 +17,7 @@
             <v-toolbar-title>
               我的会员
               <v-chip class="ma-2" color="primary">
-                {{ $GetPro.is() }}
+                {{ $i18n.t($GetPro.is()) }}
               </v-chip>
               <v-chip class="ma-2" color="primary">
                 {{ $GetPro.exptime() }}
@@ -45,13 +45,10 @@
                   </v-row>
                   <v-row>
                     <v-col cols="12">
-                      <p>优惠&抵扣</p>
+                      <p>优惠</p>
                     </v-col>
-                    <v-col cols="6">
+                    <v-col cols="12">
                       <v-text-field label="在这里输入您的优惠码" filled></v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                      <v-switch v-model="balance" label="使用余额抵扣" inset></v-switch>
                     </v-col>
                   </v-row>
                   <v-row>
@@ -118,7 +115,6 @@ export default {
     return {
       time: null,
       payment: null,
-      balance: true,
       total: NaN,
       discount: 0.00,
       buy: "购买",

@@ -6,24 +6,36 @@ import vuescroll from 'vuescroll'
 import i18n from './i18n'
 import store from './store'
 import VueResource from 'vue-resource'
-import VueI18n from "vue-i18n";
 
 import SnackBar from "@/utils/SnackBar";
 import Login from "@/utils/Login";
 import GetUser from "@/utils/GetUser";
 import GetPro from "@/utils/GetPro";
 import StorageUsage from "@/utils/StorageUsage";
-
-Vue.config.productionTip = false
+import Init from "@/utils/Init";
+import Key from "@/utils/Key";
+import GetServer from "@/utils/GetServer";
+import AddServer from "@/utils/AddServer";
+import DeleteServer from "@/utils/DeleteServer";
+import EditServer from "@/utils/EditServer";
+import ActiveServer from "@/utils/ActiveServer";
 
 Vue.prototype.$snackbar = SnackBar
 Vue.prototype.$Login = Login
 Vue.prototype.$GetUser = GetUser
 Vue.prototype.$GetPro = GetPro
 Vue.prototype.$StorageUsage = StorageUsage
+Vue.prototype.$Init = Init
+Vue.prototype.$Key = Key
+Vue.prototype.$GetServer = GetServer
+Vue.prototype.$AddServer = AddServer
+Vue.prototype.$DeleteServer = DeleteServer
+Vue.prototype.$EditServer = EditServer
+Vue.prototype.$ActiveServer = ActiveServer
+
+Vue.config.productionTip = false
 
 Vue.use(VueResource)
-Vue.use(VueI18n)
 Vue.use(vuescroll, {
   ops: {
     vuescroll: {

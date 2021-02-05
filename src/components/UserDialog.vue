@@ -19,8 +19,6 @@
         <v-tabs fixed-tabs>
           <v-tab><v-icon left>mdi-view-dashboard</v-icon>
             {{ $i18n.t('Personal Profile') }}</v-tab>
-          <v-tab><v-icon left>mdi-cog</v-icon>
-            {{ $i18n.t('Site Settings') }}</v-tab>
           <v-tab><v-icon left>mdi-account-cog</v-icon>
             {{ $i18n.t('Personal Settings') }}</v-tab>
           <v-tab-item>
@@ -49,7 +47,7 @@
                             <v-icon>mdi-chess-king</v-icon>
                           </v-list-item-icon>
                           <v-list-item-title>
-                            {{ $GetPro.is() }}
+                            {{ $i18n.t($GetPro.is()) }}
                           </v-list-item-title>
                           <v-list-item-subtitle>
                             {{ $i18n.t('Expire') }}： {{ $GetPro.exptime() }}
@@ -73,9 +71,6 @@
               </v-card>
               <v-btn color="red" block @click="Logout">{{ $i18n.t('Logout') }}</v-btn>
             </v-container>
-          </v-tab-item>
-          <v-tab-item>
-            <SiteSetting/>
           </v-tab-item>
           <v-tab-item>
             <v-container>
@@ -102,10 +97,9 @@
 </template>
 
 <script>
-import SiteSetting from "@/components/SiteSetting";
 export default {
 name: "UserDialog",
-  components: {SiteSetting},
+  components: {},
   data() {
   return {
     dialog: false,

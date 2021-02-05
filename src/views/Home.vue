@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="6">
-      <v-card class="mx-auto">
+      <v-card class="mx-auto elevation-6">
         <v-card-text>
           <div>欢迎</div>
           <p class="display-1 text--primary">欢迎来到全新的UltiCloud云平台!</p>
