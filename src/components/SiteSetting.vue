@@ -38,7 +38,7 @@
                   {{ $i18n.t('After clearing the data, the login status and website settings will be reset') }}
                 </v-col>
                 <v-col cols="6">
-                  <v-btn color="red" block><v-icon left>mdi-delete</v-icon>
+                  <v-btn color="red" block @click="clear"><v-icon left>mdi-delete</v-icon>
                     {{ $i18n.t('Clear data') }}</v-btn>
                 </v-col>
               </v-row>
@@ -83,6 +83,10 @@ name: "SiteSetting",
     lang: function (lang) {
     this.$i18n.locale = lang
       localStorage.setItem('locale', lang)
+    },
+    clear: function () {
+      localStorage.clear()
+      location.reload()
     }
   }
 }

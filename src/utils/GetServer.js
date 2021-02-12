@@ -1,6 +1,6 @@
 import store from '../store'
 
-const url = 'http://panel.ultikits.com:8082/user/'
+const url = 'https://panel.ultikits.com:4433/user/'
 
 function getall(that) {
     that.TableLoading = true

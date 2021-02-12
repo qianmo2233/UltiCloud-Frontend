@@ -77,14 +77,13 @@
               <v-card flat>
                 <v-card-text>
                   <v-subheader>{{ $i18n.t('Info') }}</v-subheader>
-                  <v-text-field :label="$i18n.t('Username') + '(' + $i18n.t('Not Modifiable') + ')'" filled disabled></v-text-field>
-                  <v-text-field :label="$i18n.t('Email')" filled></v-text-field>
-                  <v-btn color="blue" block><v-icon left>mdi-account-check</v-icon>
+                  <v-text-field :label="$i18n.t('Username') + '(' + $i18n.t('Not Modifiable') + ')'" filled disabled v-model="$store.state.user.name"></v-text-field>
+                  <v-text-field :label="$i18n.t('Email')" filled v-model="email"></v-text-field>
+                  <v-btn color="blue" block :disabled="!email || loading" :loading="loading" @click="Email"><v-icon left>mdi-account-check</v-icon>
                     {{ $i18n.t('Save and verify') }}</v-btn>
                   <v-subheader>{{ $i18n.t('Password') }}</v-subheader>
-                  <v-text-field :label="$i18n.t('Original')" filled type="password"></v-text-field>
-                  <v-text-field :label="$i18n.t('New')" filled type="password"></v-text-field>
-                  <v-btn color="blue" block><v-icon left>mdi-form-textbox-password</v-icon>
+                  <v-text-field :label="$i18n.t('New')" filled type="password" v-model="pwd"></v-text-field>
+                  <v-btn color="blue" block :disabled="!pwd || loading" @click="Password" :loading="loading"><v-icon left>mdi-form-textbox-password</v-icon>
                     {{ $i18n.t('Modify') }}</v-btn>
                 </v-card-text>
               </v-card>
@@ -103,6 +102,9 @@ name: "UserDialog",
   data() {
   return {
     dialog: false,
+    email: '',
+    pwd: '',
+    loading: false,
   }
   },
   methods: {
@@ -112,10 +114,15 @@ name: "UserDialog",
     localStorage.removeItem('id')
     location.reload()
   },
+    Password: function () {
+      this.$EditProfile.password(this, this.pwd)
+    },
+    Email: function () {
+      this.$EditProfile.email(this, this.email)
+    },
   },
   created() {
-
-  }
+  },
 }
 </script>
 

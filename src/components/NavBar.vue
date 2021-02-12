@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app v-model="$store.state.NavBar.drawer" width="280">
+  <v-navigation-drawer app v-model="$store.state.NavBar.drawer" width="280" id="nav">
     <vue-scroll>
       <NavTitle/>
       <NoticeCard/>
@@ -100,5 +100,7 @@ export default {
 </script>
 
 <style scoped>
-
+#nav {
+  overflow: hidden !important;
+}
 </style>

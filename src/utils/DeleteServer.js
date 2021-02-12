@@ -1,6 +1,6 @@
 import store from "@/store";
 
-const url = 'http://panel.ultikits.com:8082/server/delserver/'
+const url = 'https://panel.ultikits.com:4433/server/delserver/'
 
 function del(that, id) {
     that.loading = true

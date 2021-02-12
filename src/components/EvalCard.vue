@@ -9,7 +9,7 @@
       </v-col>
       <v-spacer></v-spacer>
       <v-col class="shrink">
-        <v-btn color="info" outlined :disabled="!$store.state.user.status">点击领取 (*3天会员)</v-btn>
+        <v-btn color="info" outlined disabled="disabled">活动未开始</v-btn>
       </v-col>
     </v-row>
   </v-alert>

@@ -1,8 +1,8 @@
 import store from '../store'
 
 function login(that, username, password) {
-    const url1 = 'http://panel.ultikits.com:8082/user/getToken'
-    const url2 = 'http://panel.ultikits.com:8082/user/'
+    const url1 = 'https://panel.ultikits.com:4433/user/getToken'
+    const url2 = 'https://panel.ultikits.com:4433/user/'
     let time = Date.now()
     that.$http.post(
         url1 + '?username=' + username + '&password=' + password,
@@ -40,20 +40,20 @@ function login(that, username, password) {
                     store.state.user.token.refresh = ''
                     store.state.user.id = ''
                     store.state.user.status = false
-                    that.$snackbar.Launch(that.$i18n.t(store.state.LoginMsg.ConnErr))
+                    that.$snackbar.Launch(that.$i18n.t(store.state.LoginMsg.ConnErr) + ':' + result.data.msg)
                     that.LoginForm.loading = false
                 }
             )
         }, (result) => {
-            that.$snackbar.Launch(result.code + ' ' + that.$i18n.t(store.state.LoginMsg.ConnErr))
+            that.$snackbar.Launch(that.$i18n.t(store.state.LoginMsg.ConnErr) + ':' + result.data.msg)
             that.LoginForm.loading = false
         }
     )
 }
 
 function auth(that) {
-    const url1 = 'http://panel.ultikits.com:8082/user/'
-    const url2 = 'http://panel.ultikits.com:8082/user/refreshToken'
+    const url1 = 'https://panel.ultikits.com:4433/user/'
+    const url2 = 'https://panel.ultikits.com:4433/user/refreshToken'
     if (localStorage.getItem('refresh_token') || localStorage.getItem('access_token') || localStorage.getItem('id')) {
         that.$http.post(url1 + localStorage.getItem('id'),
             {},

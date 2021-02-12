@@ -19,6 +19,11 @@ import AddServer from "@/utils/AddServer";
 import DeleteServer from "@/utils/DeleteServer";
 import EditServer from "@/utils/EditServer";
 import ActiveServer from "@/utils/ActiveServer";
+import Register from "@/utils/Register";
+import GetTime from "@/utils/GetTime";
+import GetPayment from "@/utils/GetPayment";
+import EditProfile from "@/utils/EditProfile";
+import Cdk from "@/utils/Cdk";
 
 Vue.prototype.$snackbar = SnackBar
 Vue.prototype.$Login = Login
@@ -32,6 +37,11 @@ Vue.prototype.$AddServer = AddServer
 Vue.prototype.$DeleteServer = DeleteServer
 Vue.prototype.$EditServer = EditServer
 Vue.prototype.$ActiveServer = ActiveServer
+Vue.prototype.$Register = Register
+Vue.prototype.$GetTime = GetTime
+Vue.prototype.$GetPayment = GetPayment
+Vue.prototype.$EditProfile = EditProfile
+Vue.prototype.$Cdk = Cdk
 
 Vue.config.productionTip = false
 

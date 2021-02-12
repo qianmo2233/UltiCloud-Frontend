@@ -6,7 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     list: [],
+    payment:[],
     auth: [],
+    page: '',
     style: {
       select: {text: 'Dark', mode: true},
       style: [
@@ -113,6 +115,9 @@ export default new Vuex.Store({
     },
     setMaxServer(state, value) {
       state.user.maxServer = value
+    },
+    setPaymentList(state, value) {
+      state.payment = value
     }
   },
   actions: {

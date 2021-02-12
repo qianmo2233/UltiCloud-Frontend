@@ -1,6 +1,6 @@
 import store from "@/store";
 
-const url = 'http://panel.ultikits.com:8082/server/addserver'
+const url = 'https://panel.ultikits.com:4433/server/addserver'
 
 function add(that, name, ip, domain) {
     if (!(name && ip)) {

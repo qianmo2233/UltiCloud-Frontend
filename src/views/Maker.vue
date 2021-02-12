@@ -6,7 +6,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="6">
+      <v-col xs="12" lg="6" sm="6">
         <v-card color="teal" dark>
           <v-card-title class="headline">
             qianmo千沫
@@ -19,7 +19,7 @@
           </v-card-actions>
         </v-card>
       </v-col>
-      <v-col cols="6">
+      <v-col xs="12" lg="6" sm="6">
         <v-card color="pink" dark>
           <v-card-title class="headline">
             wisdomme

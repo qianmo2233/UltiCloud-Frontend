@@ -1,6 +1,6 @@
 import store from "@/store";
 
-const url = 'http://panel.ultikits.com:8082/server/updateserver/'
+const url = 'https://panel.ultikits.com:4433/server/updateserver/'
 
 function edit(that, name, ip, domain, id) {
     if (!(name && ip)) {
