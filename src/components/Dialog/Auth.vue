@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn color="dark" rounded large dark @click="$store.dispatch('setDialog', true)">
+    <v-btn color="dark" rounded large dark @click="$store.dispatch('auth/setDialog', true)">
       <v-icon left>
         mdi-account-circle
       </v-icon>

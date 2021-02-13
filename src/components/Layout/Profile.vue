@@ -10,15 +10,16 @@
       <v-card-text>
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
-            <v-chip color="blue" dark class="mr-1 elevation-6" v-ripple v-on="on" v-bind="attrs">普通会员</v-chip>
+            <v-chip color="blue" dark class="mb-1 elevation-6" v-ripple v-on="on" v-bind="attrs">级别: 普通会员</v-chip>
           </template>
           <span>这是您的会员等级</span>
         </v-tooltip>
+        <br/>
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
-            <v-chip color="blue" dark class="mr-1 elevation-6" v-ripple v-on="on" v-bind="attrs">2021-12-22 到期</v-chip>
+            <v-chip color="blue" dark class="mt-1 elevation-6" v-ripple v-on="on" v-bind="attrs">到期时间: 2022-12-23 12:32:43</v-chip>
           </template>
-          <span>这是您的会员到期时间<br>如果为"-"则为永久Pro会员或普通会员</span>
+          <span>这是您的会员到期时间<br/>如果为"-"则为普通会员</span>
         </v-tooltip>
       </v-card-text>
     </v-card>
