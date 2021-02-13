@@ -33,7 +33,11 @@ name: "Login",
   watch: {
   loading() {
     if (this.loading === true) {
-      this.$getToken.get(this, this.username, this.password)
+      let token = this.$getToken.get(this, this.username, this.password)
+      this.$store.dispatch('user/setAccessToken', token.access_token)
+      this.$store.dispatch('user/setRefreshToken', token.refresh_token)
+      this.$store.dispatch('user/setId', token.id)
+      localStorage.setItem('access_token', this.$store.state.user.auth.token.access)
       this.$getProfile.get(this, this.$store.state.user.auth.token.access, this.$store.state.user.profile.id)
       this.loading = false
     }
