@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-alert border="left" colored-border type="info" elevation="6">
-          0.2.3Beta更新: 添加了兑换码功能;修复了一些BUG
+          0.2.4Beta更新: 添加了兑换码功能;修复了一些BUG;修改了登录界面的那一句有误导性的提示
         </v-alert>
       </v-col>
     </v-row>

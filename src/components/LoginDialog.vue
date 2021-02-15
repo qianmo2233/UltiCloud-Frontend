@@ -26,7 +26,7 @@
             <v-card flat>
               <v-card-text>
                 <v-alert border="left" colored-border type="info" elevation="6">
-                  如果您曾经购买了Pro,那么请使用用户名+激活码(密钥)登录
+                  如果您曾经购买了Pro,那么请新注册一个账号,用户名为您当初购买时注册的用户名,也就是配置文件中的用户名
                 </v-alert>
                 <v-text-field :label="$i18n.t('Username')" filled v-model="LoginForm.username" :disabled="LoginForm.loading"></v-text-field>
                 <v-text-field :label="$i18n.t('Password')" filled type="password" v-model="LoginForm.password" :disabled="LoginForm.loading"></v-text-field>
