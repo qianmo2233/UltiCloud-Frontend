@@ -4,8 +4,8 @@
       如果您曾经购买了Pro,那么请新注册一个账号,用户名为您当初购买时注册的用户名,也就是配置文件中的用户名
     </v-alert>
     <v-col cols="12">
-      <v-text-field label="用户名" filled v-model="username" :disabled="loading"></v-text-field>
-      <v-text-field label="密码" filled v-model="password" :type="show ? 'text' : 'password'" :disabled="loading" :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" @click:append="show = !show"></v-text-field>
+      <v-text-field label="用户名" outlined v-model="username" :disabled="loading" :rules="$store.state.auth.rules.username"></v-text-field>
+      <v-text-field label="密码" outlined v-model="password" :disabled="loading" :rules="$store.state.auth.rules.password" :type="show ? 'text' : 'password'" :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" @click:append="show = !show"></v-text-field>
     </v-col>
     <v-card-actions>
       <v-row>
@@ -19,29 +19,39 @@
 
 <script>
 export default {
-name: "Login",
+  name: 'Login',
   data() {
-  return {
-    username: '',
-    password: '',
-    loading: false,
-    show: false,
-  }
-  },
-  methods: {
+    return {
+      username: '',
+      password: '',
+      loading: false,
+      show: false,
+    }
   },
   watch: {
-  loading() {
-    if (this.loading === true) {
-      let token = this.$getToken.get(this, this.username, this.password)
-      this.$store.dispatch('user/setAccessToken', token.access_token)
-      this.$store.dispatch('user/setRefreshToken', token.refresh_token)
-      this.$store.dispatch('user/setId', token.id)
-      localStorage.setItem('access_token', this.$store.state.user.auth.token.access)
-      this.$getProfile.get(this, this.$store.state.user.auth.token.access, this.$store.state.user.profile.id)
+    loading() {
+      this.loading = true
+      this.Login()
       this.loading = false
+    },
+  },
+  methods: {
+    Login () {
+      if (this.username || this.password) {
+        if (this.loading) {
+          let TokenObject = this.$getToken.get(this, this.username, this.password)
+          if (TokenObject) {
+            let UserObject = this.$getProfile.get(this, TokenObject.access_token, TokenObject.id)
+            this.$AuthStatus.save(this, UserObject, TokenObject.access_token, TokenObject.refresh_token)
+            this.$SneckBar.Launch(this, '登录成功')
+          } else {
+            this.$SneckBar.Launch(this, '用户名或密码错误')
+          }
+        }
+      } else {
+        this.$SneckBar.Launch(this, '请将信息填写完整')
+      }
     }
-  }
   }
 }
 </script>

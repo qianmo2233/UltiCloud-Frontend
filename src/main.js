@@ -13,15 +13,19 @@ import Sign from "@/utils/common/Sign";
 import Basic from "@/utils/common/Basic";
 import Oauth from "@/utils/token/Oauth";
 import getToken from "@/utils/token/getToken";
-import getProfile from "@/utils/user/getProfile";
+import getProfile from "@/utils/user/GetProfile";
+import SnackBar from "@/utils/common/SnackBar";
+import AuthStatus from "@/utils/user/AuthStatus";
 
 Vue.config.productionTip = false
 
-Vue.prototype.$Sign = Sign
 Vue.prototype.$Basic = Basic
+Vue.prototype.$Sign = Sign
 Vue.prototype.$Oauth = Oauth
 Vue.prototype.$getToken = getToken
 Vue.prototype.$getProfile = getProfile
+Vue.prototype.$SneckBar = SnackBar
+Vue.prototype.$AuthStatus = AuthStatus
 
 Vue.use(vuescroll)
 Vue.use(VueResource)

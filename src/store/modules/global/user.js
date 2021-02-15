@@ -52,7 +52,7 @@ export default {
             state.member.pro = value
         },
         setExp(state, value) {
-            state.member.exp(value)
+            state.member.exp = value
         },
         setMax(state, value) {
             state.member.max = value
