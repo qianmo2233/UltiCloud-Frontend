@@ -4,9 +4,9 @@ function get(that, token, id) {
         {},
         {headers: {Authorization: token}}
     ).then(function (result) {
-        return result
+        return result.data
     }, function (result) {
-        return result
+        return result.data
     })
 }
 
