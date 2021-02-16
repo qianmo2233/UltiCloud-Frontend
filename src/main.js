@@ -24,6 +24,7 @@ import GetTime from "@/utils/GetTime";
 import GetPayment from "@/utils/GetPayment";
 import EditProfile from "@/utils/EditProfile";
 import Cdk from "@/utils/Cdk";
+import Email from "@/utils/Email";
 
 Vue.prototype.$snackbar = SnackBar
 Vue.prototype.$Login = Login
@@ -42,6 +43,7 @@ Vue.prototype.$GetTime = GetTime
 Vue.prototype.$GetPayment = GetPayment
 Vue.prototype.$EditProfile = EditProfile
 Vue.prototype.$Cdk = Cdk
+Vue.prototype.$Email = Email
 
 Vue.config.productionTip = false
 

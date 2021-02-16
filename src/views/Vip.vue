@@ -250,7 +250,9 @@ export default {
     }
   },
   created() {
-    this.$GetPayment.all(this)
+    if (this.$store.state.user.status) {
+      this.$GetPayment.all(this)
+    }
   },
   methods: {
     create: function () {

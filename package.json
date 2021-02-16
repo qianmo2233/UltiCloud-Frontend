@@ -9,6 +9,7 @@
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
+    "@auspicious/vue-vercode": "^1.0.3",
     "basic-authorization-header": "^0.2.7",
     "core-js": "^3.8.3",
     "md5": "^2.3.0",
