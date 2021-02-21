@@ -10,8 +10,11 @@ function send(that) {
         {headers: {Authorization: 'Bearer ' + localStorage.getItem('access_token')}}
     ).then(function () {
         that.$snackbar.Launch('邮件发送成功')
-    }, function () {
-        that.$snackbar.Launch('邮件发送失败')
+        that.loading = false
+        that.countDown(60);
+    }, function (result) {
+        that.$snackbar.Launch('邮件发送失败: ' + result.data.msg)
+        that.loading = false
     })
 }
 
@@ -23,8 +26,11 @@ function verify(that, code) {
         {headers: {Authorization: 'Bearer ' + localStorage.getItem('access_token')}}
     ).then(function () {
         that.$snackbar.Launch('邮箱验证成功')
-    }, function () {
-        that.$snackbar.Launch('邮箱验证失败')
+        that.loading = false
+        that.dialog = false
+    }, function (result) {
+        that.$snackbar.Launch('邮箱验证失败: ' + result.data.msg)
+        that.loading = false
     })
 }
 

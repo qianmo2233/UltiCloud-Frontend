@@ -13,6 +13,7 @@
     "basic-authorization-header": "^0.2.7",
     "core-js": "^3.8.3",
     "md5": "^2.3.0",
+    "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
     "vue-i18n": "^8.17.3",
     "vue-qr": "^2.3.0",
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.11",
     "@vue/cli-plugin-eslint": "^4.5.11",
+    "@vue/cli-plugin-pwa": "^4.5.11",
     "@vue/cli-plugin-router": "^4.5.11",
     "@vue/cli-plugin-vuex": "^4.5.11",
     "@vue/cli-service": "^4.5.11",
@@ -53,12 +55,12 @@
     },
     "rules": {}
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/qianmo2233"
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/qianmo2233"
+  }
 }

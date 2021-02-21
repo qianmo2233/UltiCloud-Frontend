@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-alert border="left" colored-border type="info" elevation="6">
-          0.2.5Beta更新: 添加了邮箱验证功能,修复了一些BUG
+          0.2.6Beta更新: 修复并完善了邮箱验证(主要是后端的锅)
         </v-alert>
       </v-col>
     </v-row>
@@ -30,7 +30,7 @@
           <v-expand-transition>
             <v-card v-if="reveal" class="transition-fast-in-fast-out v-card--reveal" style="height: 100%;">
               <v-card-text class="pb-0">
-                <p class="display-1 text--primary">0.2.5Beta</p>
+                <p class="display-1 text--primary">0.2.6Beta</p>
                 <p>1.添加服务器<br>2.管理/购买授权<br>3.开发中<br>4.开发中<br>5.开发中</p>
               </v-card-text>
               <v-card-actions class="pt-0">

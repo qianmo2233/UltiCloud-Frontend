@@ -1,6 +1,7 @@
 module.exports = {
   publicPath: './',
   productionSourceMap: false,
+
   "transpileDependencies": [
     "vuetify"
   ],
@@ -13,4 +14,13 @@ module.exports = {
       enableInSFC: false
     }
   },
+
+  pwa: {
+    manifestOptions: {
+      background_color: '#01608B'
+    },
+    name: 'UltiCloud',
+    themeColor: '#01608B',
+    msTileColor: '#01608B'
+  }
 }

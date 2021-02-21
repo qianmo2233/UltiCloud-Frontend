@@ -25,6 +25,7 @@ import GetPayment from "@/utils/GetPayment";
 import EditProfile from "@/utils/EditProfile";
 import Cdk from "@/utils/Cdk";
 import Email from "@/utils/Email";
+import './registerServiceWorker'
 
 Vue.prototype.$snackbar = SnackBar
 Vue.prototype.$Login = Login
