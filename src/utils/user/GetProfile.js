@@ -1,12 +1,12 @@
-function get(that, token, id) {
+function get(that, token, id, success, error) {
     return that.$http.post(
         that.$store.state.api.root.app + that.$store.state.api.path.user.profile + id,
         {},
-        {headers: {Authorization: token}}
+        {headers: {Authorization: 'Bearer ' + token}}
     ).then(function (result) {
-        return result.data
+        success(that, result.data)
     }, function (result) {
-        return result.data
+        error(that, result)
     })
 }
 

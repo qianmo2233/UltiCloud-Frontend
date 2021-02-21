@@ -1,19 +1,26 @@
 <template>
   <v-app-bar color="indigo" app dark>
-    <v-app-bar-nav-icon @click="$store.dispatch('layout/setNav', !$store.state.layout.nav)"></v-app-bar-nav-icon>
-    <v-toolbar-title>UltiCloud</v-toolbar-title>
-    <v-spacer></v-spacer>
-    <Auth/>
+    <v-toolbar color="indigo" flat>
+      <v-app-bar-nav-icon @click="$store.dispatch('layout/setNav', !$store.state.layout.nav)"></v-app-bar-nav-icon>
+      <v-toolbar-title>UltiCloud</v-toolbar-title>
+      <v-toolbar class="d-flex justify-center ml-10" color="indigo" elevation="0" v-if="$vuetify.breakpoint.lgAndUp">
+        <GlobalSearch/>
+      </v-toolbar>
+      <v-spacer/>
+      <Refresh/>
+      <User/>
+    </v-toolbar>
   </v-app-bar>
 </template>
 
 <script>
-import Auth from "@/components/Dialog/Auth";
+import User from "@/components/Layout/User";
+import GlobalSearch from "@/components/Form/GlobalSearch";
+import Refresh from "@/components/Layout/Refresh";
+
 export default {
   name: "Bar",
-  components: {Auth},
-  methods: {
-  }
+  components: {Refresh, GlobalSearch, User},
 }
 </script>
 

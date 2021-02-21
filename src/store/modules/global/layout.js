@@ -6,6 +6,7 @@ export default {
         title: '',
         locale: '',
         style: '',
+        refresh: false,
         snackbar: {
             status: false,
             text: '',
@@ -36,7 +37,10 @@ export default {
         },
         setSnackbarStatus(state, value) {
             state.snackbar.status = value
-        }
+        },
+        setRefresh(state, value) {
+            state.refresh = value
+        },
     },
     actions: {
         setNav({commit}, data) {
@@ -62,6 +66,9 @@ export default {
         },
         setSnackbarStatus({commit}, data) {
             commit('setSnackbarStatus', data)
-        }
+        },
+        setRefresh({commit}, data) {
+            commit('setRefresh', data)
+        },
     },
 }

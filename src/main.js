@@ -16,6 +16,8 @@ import getToken from "@/utils/token/getToken";
 import getProfile from "@/utils/user/GetProfile";
 import SnackBar from "@/utils/common/SnackBar";
 import AuthStatus from "@/utils/user/AuthStatus";
+import Init from "@/utils/common/Init";
+import GetServer from "@/utils/server/GetServer";
 
 Vue.config.productionTip = false
 
@@ -24,8 +26,10 @@ Vue.prototype.$Sign = Sign
 Vue.prototype.$Oauth = Oauth
 Vue.prototype.$getToken = getToken
 Vue.prototype.$getProfile = getProfile
-Vue.prototype.$SneckBar = SnackBar
+Vue.prototype.$SnackBar = SnackBar
 Vue.prototype.$AuthStatus = AuthStatus
+Vue.prototype.$Init = Init
+Vue.prototype.$GetServer = GetServer
 
 Vue.use(vuescroll)
 Vue.use(VueResource)
