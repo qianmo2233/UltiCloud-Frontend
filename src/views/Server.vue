@@ -1,63 +1,138 @@
 <template>
   <div>
-    <v-data-table :headers="$store.state.server.headers" :items="$store.state.server.list" class="elevation-6" :loading="$store.state.server.loading">
-      <template v-slot:top>
-        <v-toolbar flat>
-          <v-toolbar-title>服务器管理</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-dialog v-model="dialog" max-width="500px">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">添加服务器</v-btn>
-            </template>
-            <v-card>
-              <v-card-title>
-                <span class="headline">{{ formTitle }}</span>
-              </v-card-title>
-              <v-card-text>
-                <v-container>
+    <v-container>
+      <v-row>
+        <v-col cols="12">
+          <v-banner elevation="10">
+            <v-col cols="12">
+              <h1>服务器管理</h1>
+            </v-col>
+          </v-banner>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <v-window v-model="window">
+            <v-window-item :value="1">
+              <v-data-iterator :items="$store.state.server.list" :search="search" :sort-by="sortBy" :sort-desc="sortDesc" hide-default-footer disable-pagination>
+                <template v-slot:header>
+                  <v-toolbar dark color="blue darken-3" class="mb-1">
+                    <v-text-field v-model="search" clearable flat solo-inverted hide-details prepend-inner-icon="mdi-magnify" :label="$t('Search')"></v-text-field>
+                    <template v-if="$vuetify.breakpoint.mdAndUp">
+                      <v-spacer></v-spacer>
+                      <v-select v-model="sortBy" flat solo-inverted hide-details :items="keys" prepend-inner-icon="mdi-sort" label="Sort by"></v-select>
+                      <v-spacer></v-spacer>
+                      <v-btn-toggle v-model="sortDesc" mandatory>
+                        <v-btn large depressed color="blue" :value="false">
+                          <v-icon>mdi-arrow-up</v-icon>
+                        </v-btn>
+                        <v-btn large depressed color="blue" :value="true">
+                          <v-icon>mdi-arrow-down</v-icon>
+                        </v-btn>
+                      </v-btn-toggle>
+                    </template>
+                  </v-toolbar>
+                </template>
+                <template v-slot:default="props">
                   <v-row>
-                    <v-col cols="12">
-                      <v-text-field v-model="editedItem.serverName" label="服务器名称" required :rules="textRules"></v-text-field>
-                    </v-col>
-                    <v-col cols="12">
-                      <v-text-field v-model="editedItem.serverIp" label="IP地址" required :rules="textRules"></v-text-field></v-col>
-                    <v-col cols="12">
-                      <v-text-field v-model="editedItem.serverDomain" label="域名(可选)"></v-text-field>
+                    <v-col v-for="item in props.items" :key="item.serverName" cols="12" sm="6" md="4" lg="3">
+                      <v-card>
+                        <v-card-title class="subheading font-weight-bold">
+                          {{ item.serverName }}
+                        </v-card-title>
+                        <v-divider></v-divider>
+                        <v-list dense>
+                          <v-list-item v-for="(key, index) in filteredKeys" :key="index">
+                            <v-list-item-content :class="{ 'blue--text': sortBy === key }">
+                              {{ $t(key) }}:
+                            </v-list-item-content>
+                            <v-list-item-content class="align-end" :class="{ 'blue--text': sortBy === key }">
+                              {{ item[key] }}
+                            </v-list-item-content>
+                          </v-list-item>
+                        </v-list>
+                      </v-card>
                     </v-col>
                   </v-row>
-                </v-container>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">取消</v-btn>
-                <v-btn color="blue darken-1" text @click="save" :loading="$store.state.server.loading" :disabled="$store.state.server.loading">保存</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-          <v-bottom-sheet inset v-model="dialogDelete" persistent>
-            <v-sheet class="text-center" height="200px">
-              <v-btn class="mt-6" text color="error" @click="deleteItemConfirm"><v-icon left>mdi-delete</v-icon>确定删除</v-btn>
-              <v-btn class="mt-6" text color="info" @click="closeDelete"><v-icon left>mdi-close</v-icon>取消</v-btn>
-              <div class="my-3">
-                你确定要删除这个服务器吗
-              </div>
-            </v-sheet>
-          </v-bottom-sheet>
-        </v-toolbar>
-      </template>
-      <template v-slot:item.actions="{ item }">
-        <v-btn @click="editItem(item)" icon>
-          <v-icon>
-            mdi-pencil
-          </v-icon>
-        </v-btn>
-        <v-btn @click="deleteItem(item)" icon>
-          <v-icon>
-            mdi-delete
-          </v-icon>
-        </v-btn>
-      </template>
-    </v-data-table>
+                </template>
+              </v-data-iterator>
+            </v-window-item>
+            <v-window-item :value="2">
+              <v-row class="mt-2">
+                <v-col cols="12">
+                  <h1>
+                    <v-icon x-large left class="mb-1">mdi-server</v-icon>
+                    Ulti测试服务器
+                  </h1>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12">
+                  <v-tabs>
+                    <v-tab><v-icon left>mdi-information</v-icon>概览</v-tab>
+                    <v-tab><v-icon left>mdi-chart-box-outline</v-icon>统计</v-tab>
+                    <v-tab><v-icon left>mdi-code-greater-than</v-icon>控制台</v-tab>
+                    <v-tab><v-icon left>mdi-account-supervisor</v-icon>玩家</v-tab>
+                    <v-tab><v-icon left>mdi-file-cog</v-icon>配置文件</v-tab>
+                    <v-tab><v-icon left>mdi-cog</v-icon>设置</v-tab>
+                  </v-tabs>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12" sm="12" lg="6">
+                  <v-card class="mx-auto text-center" color="indigo" dark>
+                    <v-card-text>
+                      <v-sheet color="rgba(0, 0, 0, .12)">
+                        <v-sparkline :value="value" color="white" height="100" padding="24" stroke-linecap="round" smooth :labels="times"/>
+                      </v-sheet>
+                    </v-card-text>
+                    <v-card-text>
+                      近24小时玩家统计(单位: H)
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+                <v-col sm="12" lg="6">
+                  <v-card class="mx-auto text-center" color="indigo" dark>
+                    <v-card-text>
+                      <v-sheet color="rgba(0, 0, 0, .12)">
+                        <v-sparkline :value="value" color="white" height="100" padding="24" stroke-linecap="round" smooth :labels="times"/>
+                      </v-sheet>
+                    </v-card-text>
+                    <v-card-text>
+                      近24小时服务器TPS(单位: H)
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+                <v-col sm="12" lg="6">
+                  <v-card class="mx-auto text-center" color="indigo" dark>
+                    <v-card-text>
+                      <v-sheet color="rgba(0, 0, 0, .12)">
+                        <v-sparkline :value="value" color="white" height="100" padding="24" stroke-linecap="round" smooth :labels="times"/>
+                      </v-sheet>
+                    </v-card-text>
+                    <v-card-text>
+                      近24小时服务器内存使用率(单位: H)
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+                <v-col sm="12" lg="6">
+                  <v-card class="mx-auto text-center" color="indigo" dark>
+                    <v-card-text>
+                      <v-sheet color="rgba(0, 0, 0, .12)">
+                        <v-sparkline :value="value" color="white" height="100" padding="24" stroke-linecap="round" smooth :labels="times"/>
+                      </v-sheet>
+                    </v-card-text>
+                    <v-card-text>
+                      近24小时服务器PCU使用率(单位: H)
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-window-item>
+          </v-window>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -66,8 +141,21 @@ export default {
   name: "Server",
   data() {
     return {
+      search: '',
+      filter: {},
+      sortDesc: false,
+      sortBy: 'serverName',
       item: null,
       text: '',
+      window: 2,
+      keys: [
+        'serverId',
+        'serverName',
+        'serverIp',
+        'serverDomain'
+      ],
+      value: [423, 446, 675, 510, 760, 590, 590, 610, 760, 590, 610, 446, 675, 590, 590, 590, 610, 423, 446, 590, 610, 446, 610, 760],
+      times: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
       textRules: [v => !!v || '此为必填项',],
       dialog: false,
       dialogDelete: false,
@@ -87,6 +175,9 @@ export default {
   computed: {
     formTitle () {
       return this.editedIndex === -1 ? '添加服务器' : '修改服务器'
+    },
+    filteredKeys () {
+      return this.keys.filter(key => key !== 'serverName')
     },
   },
   watch: {

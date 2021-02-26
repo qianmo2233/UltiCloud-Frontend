@@ -1,8 +1,12 @@
 {
+  "Auth": "",
   "Home": "",
+  "Search": "",
   "Serv-ss": "",
   "Server": "",
+  "ServerIp": "",
   "Title-Server": "",
   "isActive": "",
+  "serverDomain": "",
   "serverName": ""
 }
