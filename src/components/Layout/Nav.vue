@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app v-model="$store.state.layout.nav">
+  <v-navigation-drawer app v-model="$vuetify.breakpoint.lgAndUp">
     <Profile/>
     <Menu/>
   </v-navigation-drawer>

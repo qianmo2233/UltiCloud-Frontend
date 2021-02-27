@@ -63,69 +63,132 @@
                   <h1>
                     <v-icon x-large left class="mb-1">mdi-server</v-icon>
                     Ulti测试服务器
+                    <v-chip color="green" label dark v-ripple class="ml-2"><v-icon left>mdi-play</v-icon>运行中</v-chip>
                   </h1>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <v-tabs>
+                  <v-tabs center-active>
                     <v-tab><v-icon left>mdi-information</v-icon>概览</v-tab>
                     <v-tab><v-icon left>mdi-chart-box-outline</v-icon>统计</v-tab>
-                    <v-tab><v-icon left>mdi-code-greater-than</v-icon>控制台</v-tab>
+                    <v-tab><v-icon left>mdi-console</v-icon>控制台</v-tab>
                     <v-tab><v-icon left>mdi-account-supervisor</v-icon>玩家</v-tab>
                     <v-tab><v-icon left>mdi-file-cog</v-icon>配置文件</v-tab>
                     <v-tab><v-icon left>mdi-cog</v-icon>设置</v-tab>
+                    <v-tab-item>
+                      <v-row>
+                        <v-col cols="12">
+                          <v-card>
+                            <v-card-text>
+                              <v-subheader>基本信息<v-divider inset/></v-subheader>
+                              <v-row>
+                                <v-col cols="12">
+                                  <v-text-field label="服务器名称" outlined prepend-icon="mdi-rename-box"/>
+                                  <v-text-field label="IP地址" outlined prepend-icon="mdi-server-network"/>
+                                  <v-text-field label="域名(可选)" outlined prepend-icon="mdi-earth"/>
+                                </v-col>
+                              </v-row>
+                              <v-subheader>服务器信息<v-divider inset/></v-subheader>
+                              <v-row>
+                                <v-col cols="12">
+                                  <v-list>
+                                    <v-list-item>
+                                      <v-list-item-title>服务器版本</v-list-item-title>
+                                      <v-list-item-subtitle>unknown</v-list-item-subtitle>
+                                    </v-list-item>
+                                    <v-list-item>
+                                      <v-list-item-title>最大玩家数</v-list-item-title>
+                                      <v-list-item-subtitle>unknown</v-list-item-subtitle>
+                                    </v-list-item>
+                                    <v-list-item>
+                                      <v-list-item-title>服务器MOTD</v-list-item-title>
+                                      <v-list-item-subtitle>unknown</v-list-item-subtitle>
+                                    </v-list-item>
+                                  </v-list>
+                                </v-col>
+                              </v-row>
+                            </v-card-text>
+                          </v-card>
+                        </v-col>
+                      </v-row>
+                    </v-tab-item>
+                    <v-tab-item>
+                      <v-card>
+                        <v-card-text>
+                          <v-row>
+                            <v-col cols="12" sm="12" lg="6">
+                              <v-card class="mx-auto text-center" color="indigo" dark>
+                                <v-card-text>
+                                  <v-sheet color="rgba(0, 0, 0, .12)">
+                                    <v-sparkline :value="value" color="white" height="100" padding="24" stroke-linecap="round" smooth :labels="times"/>
+                                  </v-sheet>
+                                </v-card-text>
+                                <v-card-text>
+                                  近24小时玩家统计(单位: H)
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+                            <v-col cols="12" sm="12" lg="6">
+                              <v-card class="mx-auto text-center" color="indigo" dark>
+                                <v-card-text>
+                                  <v-sheet color="rgba(0, 0, 0, .12)">
+                                    <v-sparkline :value="value" color="white" height="100" padding="24" stroke-linecap="round" smooth :labels="times"/>
+                                  </v-sheet>
+                                </v-card-text>
+                                <v-card-text>
+                                  近24小时服务器TPS(单位: H)
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+                            <v-col cols="12" sm="12" lg="6">
+                              <v-card class="mx-auto text-center" color="indigo" dark>
+                                <v-card-text>
+                                  <v-sheet color="rgba(0, 0, 0, .12)">
+                                    <v-sparkline :value="value" color="white" height="100" padding="24" stroke-linecap="round" smooth :labels="times"/>
+                                  </v-sheet>
+                                </v-card-text>
+                                <v-card-text>
+                                  近24小时服务器内存使用率(单位: H)
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+                            <v-col cols="12" sm="12" lg="6">
+                              <v-card class="mx-auto text-center" color="indigo" dark>
+                                <v-card-text>
+                                  <v-sheet color="rgba(0, 0, 0, .12)">
+                                    <v-sparkline :value="value" color="white" height="100" padding="24" stroke-linecap="round" smooth :labels="times"/>
+                                  </v-sheet>
+                                </v-card-text>
+                                <v-card-text>
+                                  近24小时服务器CPU使用率(单位: H)
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+                          </v-row>
+                        </v-card-text>
+                      </v-card>
+                    </v-tab-item>
+                    <v-tab-item>
+                      <v-card>
+                        <v-card-text>
+                          <v-row>
+                            <v-col cols="12">
+                              <v-sheet height="500" width="auto" dark style="overflow-y: auto; user-select: text; -webkit-user-select: text;">
+                                <code v-for="(logs, log) in logs" :key="log" style="word-wrap:break-word; word-break:break-all; ">{{logs}}<br/></code>
+                              </v-sheet>
+                            </v-col>
+                          </v-row>
+                          <v-row>
+                            <v-col cols="12">
+                              <v-subheader>发送指令<v-divider inset/></v-subheader>
+                              <v-text-field filled prefix="/" append-outer-icon="mdi-send" background-color="grey lighten-2"/>
+                            </v-col>
+                          </v-row>
+                        </v-card-text>
+                      </v-card>
+                    </v-tab-item>
                   </v-tabs>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col cols="12" sm="12" lg="6">
-                  <v-card class="mx-auto text-center" color="indigo" dark>
-                    <v-card-text>
-                      <v-sheet color="rgba(0, 0, 0, .12)">
-                        <v-sparkline :value="value" color="white" height="100" padding="24" stroke-linecap="round" smooth :labels="times"/>
-                      </v-sheet>
-                    </v-card-text>
-                    <v-card-text>
-                      近24小时玩家统计(单位: H)
-                    </v-card-text>
-                  </v-card>
-                </v-col>
-                <v-col sm="12" lg="6">
-                  <v-card class="mx-auto text-center" color="indigo" dark>
-                    <v-card-text>
-                      <v-sheet color="rgba(0, 0, 0, .12)">
-                        <v-sparkline :value="value" color="white" height="100" padding="24" stroke-linecap="round" smooth :labels="times"/>
-                      </v-sheet>
-                    </v-card-text>
-                    <v-card-text>
-                      近24小时服务器TPS(单位: H)
-                    </v-card-text>
-                  </v-card>
-                </v-col>
-                <v-col sm="12" lg="6">
-                  <v-card class="mx-auto text-center" color="indigo" dark>
-                    <v-card-text>
-                      <v-sheet color="rgba(0, 0, 0, .12)">
-                        <v-sparkline :value="value" color="white" height="100" padding="24" stroke-linecap="round" smooth :labels="times"/>
-                      </v-sheet>
-                    </v-card-text>
-                    <v-card-text>
-                      近24小时服务器内存使用率(单位: H)
-                    </v-card-text>
-                  </v-card>
-                </v-col>
-                <v-col sm="12" lg="6">
-                  <v-card class="mx-auto text-center" color="indigo" dark>
-                    <v-card-text>
-                      <v-sheet color="rgba(0, 0, 0, .12)">
-                        <v-sparkline :value="value" color="white" height="100" padding="24" stroke-linecap="round" smooth :labels="times"/>
-                      </v-sheet>
-                    </v-card-text>
-                    <v-card-text>
-                      近24小时服务器PCU使用率(单位: H)
-                    </v-card-text>
-                  </v-card>
                 </v-col>
               </v-row>
             </v-window-item>
@@ -148,6 +211,88 @@ export default {
       item: null,
       text: '',
       window: 2,
+      logs: [
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.ChunkMapDistance.markAreaHighPriority(ChunkMapDistance.java:235)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.ChunkProviderServer.markAreaHighPriority(ChunkProviderServer.java:455)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.PlayerList.a(PlayerList.java:177)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.LoginListener.c(LoginListener.java:174)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.LoginListener.tick(LoginListener.java:65)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.NetworkManager.a(NetworkManager.java:380)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.ServerConnection.c(ServerConnection.java:142)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.MinecraftServer.b(MinecraftServer.java:1354)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.DedicatedServer.b(DedicatedServer.java:431)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.Miner.v1_15_R1.ChunkProviderServer.tickDistanceManager(ChunkProviderServer.java:639)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.ChunkMapDistance.markAreaHighPriority(ChunkMapDistance.java:235)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.ChunkProviderServer.markAreaHighPriority(ChunkProviderServer.java:455)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.PlayerList.a(PlayerList.java:177)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.LoginListener.c(LoginListener.java:174)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.LoginListener.tick(LoginListener.java:65)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.NetworkManager.a(NetworkManager.java:380)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.ServerConnection.c(ServerConnection.java:142)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.MinecraftServer.b(MinecraftServer.java:1354)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.DedicatedServer.b(DedicatedServer.java:431)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.Miner.v1_15_R1.ChunkProviderServer.tickDistanceManager(ChunkProviderServer.java:639)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.ChunkMapDistance.markAreaHighPriority(ChunkMapDistance.java:235)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.ChunkProviderServer.markAreaHighPriority(ChunkProviderServer.java:455)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.PlayerList.a(PlayerList.java:177)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.LoginListener.c(LoginListener.java:174)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.LoginListener.tick(LoginListener.java:65)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.NetworkManager.a(NetworkManager.java:380)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.ServerConnection.c(ServerConnection.java:142)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.MinecraftServer.b(MinecraftServer.java:1354)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.DedicatedServer.b(DedicatedServer.java:431)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.Miner.v1_15_R1.ChunkProviderServer.tickDistanceManager(ChunkProviderServer.java:639)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.ChunkMapDistance.markAreaHighPriority(ChunkMapDistance.java:235)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.ChunkProviderServer.markAreaHighPriority(ChunkProviderServer.java:455)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.PlayerList.a(PlayerList.java:177)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.LoginListener.c(LoginListener.java:174)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.LoginListener.tick(LoginListener.java:65)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.NetworkManager.a(NetworkManager.java:380)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.ServerConnection.c(ServerConnection.java:142)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.MinecraftServer.b(MinecraftServer.java:1354)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.DedicatedServer.b(DedicatedServer.java:431)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.MinecraftServer.a(MinecraftServer.java:1182)',
+          '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.MinecraftServer.run(MinecraftServer.java:971)',
+          '[15:14:30 ERROR]:  java.lang.Thread.run(Unknown Source)',
+          '[15:14:30 ERROR]: ------------------------------',
+          '[15:14:30 ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH ---',
+          '[15:14:30 ERROR]: ------------------------------',
+          '[15:14:38 ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH  - git-Paper-391 (MC: 1.15.2) ---',
+          '[15:14:38 ERROR]: The server has not responded for 22 seconds! Creating thread dump',
+          '[15:14:38 ERROR]: ------------------------------',
+          '[15:14:38 ERROR]: Server thread dump (Look for plugins here before reporting to Paper!):',
+          '[15:14:38 ERROR]: ------------------------------',
+          '[15:14:38 ERROR]: Current Thread: Server thread',
+          '[15:14:38 ERROR]:  PID: 17 | Suspended: false | Native: false | State: RUNNABLE',
+          '[15:14:38 ERROR]:  Stack:',
+          '[15:14:38 ERROR]:  java.util.concurrent.ConcurrentHashMap$Traverser.advance(Unknown Source)',
+          '[15:14:38 ERROR]:  java.util.concurrent.ConcurrentHashMap.forEach(Unknown Source)',
+          '[15:14:38 ERROR]:  net.minecraft.server.v1_15_R1.PlayerChunk.a(PlayerChunk.java:736)',
+          '[15:14:38 ERROR]:  net.minecraft.server.v1_15_R1.ChunkMapDistance.a(ChunkMapDistance.java:117)',
+          '[15:14:38 ERROR]:  net.minecraft.server.v1_15_R1.ChunkProviderServer.tickDistanceManager(ChunkProviderServer.java:639)',
+          '[15:14:38 ERROR]:  net.minecraft.server.v1_15_R1.ChunkMapDistance.markAreaHighPriority(ChunkMapDistance.java:235)',
+          '[15:14:38 ERROR]:  net.minecraft.server.v1_15_R1.ChunkProviderServer.markAreaHighPriority(ChunkProviderServer.java:455)',
+          '[15:14:38 ERROR]:  net.minecraft.server.v1_15_R1.PlayerList.a(PlayerList.java:177)',
+          '[15:14:38 ERROR]:  net.minecraft.server.v1_15_R1.LoginListener.c(LoginListener.java:174)',
+          '[15:14:38 ERROR]:  net.minecraft.server.v1_15_R1.LoginListener.tick(LoginListener.java:65)',
+          '[15:14:38 ERROR]:  net.minecraft.server.v1_15_R1.NetworkManager.a(NetworkManager.java:380)',
+          '[15:14:38 ERROR]:  net.minecraft.server.v1_15_R1.ServerConnection.c(ServerConnection.java:142)',
+          '[15:14:38 ERROR]:  net.minecraft.server.v1_15_R1.MinecraftServer.b(MinecraftServer.java:1354)',
+          '[15:14:38 ERROR]:  net.minecraft.server.v1_15_R1.DedicatedServer.b(DedicatedServer.java:431)',
+          '[15:14:38 ERROR]:  net.minecraft.server.v1_15_R1.MinecraftServer.a(MinecraftServer.java:1182)',
+          '[15:14:38 ERROR]:  net.minecraft.server.v1_15_R1.MinecraftServer.run(MinecraftServer.java:971)',
+          '[15:14:38 ERROR]:  java.lang.Thread.run(Unknown Source)',
+          '[15:14:38 ERROR]: ------------------------------',
+          '[15:14:38 ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH ---',
+          '[15:14:38 ERROR]: ------------------------------',
+          '[15:14:44 ERROR]: --- DO NOT REPORT THIS TO PAPER - THIS IS NOT A BUG OR A CRASH  - git-Paper-391 (MC: 1.15.2) ---',
+          '[15:14:44 ERROR]: The server has not responded for 28 seconds! Creating thread dump',
+          '[15:14:44 ERROR]: ------------------------------',
+          '[15:14:44 ERROR]: Server thread dump (Look for plugins here before reporting to Paper!):',
+          '[15:14:44 ERROR]: ------------------------------',
+          '[15:14:44 ERROR]: Current Thread: Server thread',
+          '[15:14:44 ERROR]:  PID: 17 | Suspended: false | Native: false | State: RUNNABLE',
+      ],
       keys: [
         'serverId',
         'serverName',
