@@ -7,6 +7,7 @@ import api from './modules/global/api'
 import auth from './modules/dialog/auth'
 import lang from './modules/global/locale'
 import server from './modules/List/server'
+import window from './modules/window/server'
 
 Vue.use(Vuex)
 
@@ -15,5 +16,5 @@ export default new Vuex.Store({
   mutations: {},
   actions: {},
   getters: {},
-  modules: {layout, user, auth, api, lang, server}
+  modules: {layout, user, auth, api, lang, server, window}
 })
