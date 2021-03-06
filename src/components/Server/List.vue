@@ -2,7 +2,7 @@
   <v-data-iterator :items="$store.state.server.list" :search="search" :sort-by="sortBy" :sort-desc="sortDesc" hide-default-footer disable-pagination>
     <template v-slot:header>
       <v-fab-transition>
-        <v-btn fab color="blue" dark :loading="$store.state.server.loading" v-show="$store.state.window.window === 1" bottom right fixed>
+        <v-btn fab color="blue" dark :loading="$store.state.server.loading" v-show="$store.state.window.window === 1" @click="dialog" bottom right fixed>
           <v-icon>mdi-server-plus</v-icon>
         </v-btn>
       </v-fab-transition>
@@ -74,7 +74,10 @@ export default {
     open(window, server) {
       this.$store.dispatch('window/setServer', server)
       this.$store.dispatch('window/setWindow', window)
-    }
+    },
+    dialog() {
+      this.$store.dispatch('addserver/setDialog', true)
+    },
   },
 }
 </script>

@@ -1,6 +1,7 @@
 <template>
   <div>
-    <v-container>
+    <AddServer/>
+    <v-container fluid>
       <v-row>
         <v-col cols="12">
           <v-sheet width="auto" height="auto" elevation="10" rounded>
@@ -15,7 +16,7 @@
       </v-row>
       <v-row>
         <v-col cols="12">
-          <v-window v-model="$store.state.window.window">
+          <v-window v-model="$store.state.window.window" translate="no">
             <v-window-item :value="1">
               <List/>
             </v-window-item>
@@ -73,9 +74,10 @@ import Stats from "@/components/Server/Stats";
 import Console from "@/components/Server/Console";
 import List from "@/components/Server/List";
 import Setting from "@/components/Server/Setting";
+import AddServer from "@/components/Dialog/AddServer";
 export default {
   name: "Server",
-  components: {Setting, List, Console, Stats, Info},
+  components: {AddServer, Setting, List, Console, Stats, Info},
   data() {
     return {
       item: null,
@@ -123,8 +125,7 @@ export default {
       }
     },
 
-    closeDelete () {
-      this.dialogDelete = false
+    reset() {
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this)
         this.editedIndex = -1
@@ -137,14 +138,12 @@ export default {
         that.getList()
         that.$SnackBar.Launch(that,'删除成功')
         that.$store.state.server.loading = false
-        that.closeDelete()
       }, function (that) {
         that.$Init.boot(that, function (that) {
           that.$GetServer.Delete(that, this.item.serverId, function (that) {
             that.getList()
             that.$SnackBar.Launch(that,'删除成功')
             that.$store.state.server.loading = false
-            that.closeDelete()
           }, function (that) {
             that.$store.state.server.loading = false
             that.$SnackBar.Launch(that, '删除失败')

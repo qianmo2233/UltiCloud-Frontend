@@ -8,7 +8,7 @@
             <v-col cols="12">
               <v-hover v-slot="{ hover }">
                 <v-alert border="left" colored-border type="warning" :elevation="hover ? 12 : 6" :class="{ 'on-hover': hover }">
-                  请确认以下信息,若填写错误UltiCloud将无法与服务器通讯!
+                  请确认以下信息是否正确,若填写错误UltiCloud将无法与服务器通讯!
                 </v-alert>
               </v-hover>
               <v-hover v-slot="{ hover }">
@@ -20,8 +20,8 @@
           </v-row>
           <v-row>
             <v-col cols="12">
-              <v-text-field label="服务器名称" outlined prepend-icon="mdi-rename-box" v-model="server.name"/>
-              <v-text-field label="IP地址" outlined prepend-icon="mdi-server-network" v-model="server.ip"/>
+              <v-text-field label="服务器名称" outlined prepend-icon="mdi-rename-box" v-model="server.name" :rules="textRules"/>
+              <v-text-field label="IP地址" outlined prepend-icon="mdi-server-network" v-model="server.ip" :rules="textRules"/>
               <v-text-field label="域名(可选)" outlined prepend-icon="mdi-earth" v-model="server.domain"/>
             </v-col>
           </v-row>
@@ -65,6 +65,7 @@ export default {
         ip: this.$store.state.window.server.serverIp,
         domain: this.$store.state.window.server.serverDomain,
       },
+      textRules: [v => !!v || '此为必填项',],
     }
   },
   watch: {

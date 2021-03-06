@@ -34,10 +34,16 @@ Vue.prototype.$GetServer = GetServer
 Vue.use(vuescroll)
 Vue.use(VueResource)
 
-new Vue({
-  router,
-  store,
-  i18n,
-  vuetify,
-  render: h => h(App)
-}).$mount('#app')
+setTimeout(function () {
+  window.onload = function () {
+    new Vue({
+      router,
+      store,
+      i18n,
+      vuetify,
+      render: h => h(App)
+    }).$mount('#app')
+    document.body.style.backgroundColor = '#ffffff'
+  }
+}, 0)
+

@@ -10,7 +10,7 @@
       <v-card-text>
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
-            <v-chip label color="blue" dark class="mb-1 elevation-6" v-ripple v-on="on" v-bind="attrs">级别: Pro会员</v-chip>
+            <v-chip label color="blue" dark class="mb-1 elevation-6" v-ripple v-on="on" v-bind="attrs">级别: {{ $t(pro) }}</v-chip>
           </template>
           <span>这是您的会员等级</span>
         </v-tooltip>
@@ -29,7 +29,12 @@
 
 <script>
 export default {
-name: "Profile"
+  name: "Profile",
+  computed: {
+    pro() {
+      return this.$store.state.user.member.pro === 'true' ? 'Pro Member' : 'Normal Member'
+    }
+  }
 }
 </script>
 
