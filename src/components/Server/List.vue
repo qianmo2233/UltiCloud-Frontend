@@ -2,7 +2,7 @@
   <v-data-iterator :items="$store.state.server.list" :search="search" :sort-by="sortBy" :sort-desc="sortDesc" hide-default-footer disable-pagination>
     <template v-slot:header>
       <v-fab-transition>
-        <v-btn fab color="blue" dark :loading="$store.state.server.loading" v-show="$store.state.window.window === 1" @click="dialog" bottom right fixed>
+        <v-btn fab color="blue" dark :loading="$store.state.server.loading" v-show="$store.state.serverinfo.window !== 1" @click="dialog" bottom right fixed>
           <v-icon>mdi-server-plus</v-icon>
         </v-btn>
       </v-fab-transition>
@@ -26,7 +26,7 @@
     <template v-slot:default="props">
       <v-row>
         <v-col v-for="item in props.items" :key="item.serverName" cols="12" sm="6" md="4" lg="3">
-          <v-card v-ripple @click="open(2, item)">
+          <v-card v-ripple @click="open(item.serverId)">
             <v-card-title class="subheading font-weight-bold">
               {{ item.serverName }}
             </v-card-title>
@@ -71,9 +71,8 @@ export default {
     },
   },
   methods: {
-    open(window, server) {
-      this.$store.dispatch('window/setServer', server)
-      this.$store.dispatch('window/setWindow', window)
+    open(window) {
+      this.$store.dispatch('serverinfo/setWindow', window)
     },
     dialog() {
       this.$store.dispatch('addserver/setDialog', true)

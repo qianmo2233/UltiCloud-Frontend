@@ -8,15 +8,27 @@
       </v-hover>
       <v-row>
         <v-col cols="12">
-          <v-sheet height="500" width="auto" dark style="overflow-y: auto; user-select: text; -webkit-user-select: text;">
-            <code v-for="(logs, log) in logs" :key="log" style="word-wrap:break-word; word-break:break-all; ">{{ logs }}<br/></code>
+          <v-toolbar dense dark>
+            <v-toolbar-items>
+              <v-btn text @click="clean"><v-icon :left="$vuetify.breakpoint.smAndUp">mdi-delete</v-icon>{{ $vuetify.breakpoint.smAndUp ? '清空日志' : '' }}</v-btn>
+            </v-toolbar-items>
+            <v-toolbar-items>
+              <v-btn text @click="scrollToBottom"><v-icon :left="$vuetify.breakpoint.smAndUp">mdi-format-vertical-align-bottom</v-icon>{{ $vuetify.breakpoint.smAndUp ? '移至底部' : '' }}</v-btn>
+            </v-toolbar-items>
+            <v-toolbar-items>
+              <v-btn text><v-icon :left="$vuetify.breakpoint.smAndUp">mdi-code-tags</v-icon>{{ $vuetify.breakpoint.smAndUp ? '快捷指令' : '' }}</v-btn>
+            </v-toolbar-items>
+          </v-toolbar>
+          <v-sheet height="500" width="auto" dark class="console" id="sheet">
+            <code v-for="(logs, log) in logs" :key="log" class="logs">{{ logs }}<br/></code>
           </v-sheet>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12">
-          <v-subheader>发送指令<v-divider inset/></v-subheader>
-          <v-text-field filled prefix="/" append-outer-icon="mdi-send" background-color="grey lighten-2"/>
+          <v-toolbar dark>
+            <v-text-field single-line prefix="/" label="在这里输入您的指令" hide-details v-model="cmd">
+              <v-btn text slot="append-outer" @click="send">
+                <v-icon>mdi-send</v-icon>
+              </v-btn>
+            </v-text-field>
+          </v-toolbar>
         </v-col>
       </v-row>
     </v-card-text>
@@ -28,6 +40,7 @@ export default {
   name: "Console",
   data() {
     return {
+      cmd: '',
       logs: [
         '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.ChunkMapDistance.markAreaHighPriority(ChunkMapDistance.java:235)',
         '[15:14:30 ERROR]:  net.minecraft.server.v1_15_R1.ChunkProviderServer.markAreaHighPriority(ChunkProviderServer.java:455)',
@@ -111,10 +124,43 @@ export default {
         '[15:14:44 ERROR]:  PID: 17 | Suspended: false | Native: false | State: RUNNABLE',
       ],
     }
+  },
+  methods: {
+    clean() {
+      this.logs = []
+    },
+    send() {
+      if (this.cmd) {
+        const date = require('moment')
+        let time = new Date();
+        this.logs.push('[' + date(time).format('HH:mm:ss') + ' ' + '控制台' + ']: ' + this.cmd)
+        this.cmd = ''
+        this.scrollToBottom()
+      }
+    },
+    scrollToBottom() {
+      this.$nextTick(() => {
+        let sheet = document.getElementById('sheet')
+        sheet.scrollTop = sheet.scrollHeight
+      })
+    }
+  },
+  created() {
+    this.scrollToBottom()
   }
 }
 </script>
 
 <style scoped>
-
+.console {
+  overflow-y: auto;
+  user-select: text;
+  -webkit-user-select: text;
+  display: flex;
+  flex-direction: column
+}
+.logs {
+  word-wrap:break-word;
+  word-break:break-all;
+}
 </style>

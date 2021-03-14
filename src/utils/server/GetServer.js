@@ -77,4 +77,25 @@ function Add(that, name, ip, domain, success, error) {
     })
 }
 
-export default {getList, Edit, Delete, Add}
+function Active(that, id, active, success, error) {
+    let time = Date.now()
+    that.$http.post(
+        that.$store.state.api.root.app
+        + that.$store.state.api.path.server.update
+        + id
+        + '?ownerId=' + that.$store.state.user.profile.id
+        + '&isActive=' + active,
+        {
+            username: that.$store.state.user.profile.username,
+            time: time,
+            key: that.$Sign.get(that, that.$store.state.user.profile.username, time)
+        },
+        {headers: {Authorization: 'Bearer ' + that.$store.state.user.auth.token.access}},
+    ).then(function () {
+        success(that)
+    }, function () {
+        error(that)
+    })
+}
+
+export default {getList, Edit, Delete, Add, Active}

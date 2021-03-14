@@ -20,13 +20,13 @@
             <v-window-item :value="1">
               <List/>
             </v-window-item>
-            <v-window-item :value="2">
+            <v-window-item :value="item.serverId" v-for="item in $store.state.server.list" :key="item.serverId">
               <v-row class="mt-2">
                 <v-col cols="12">
                   <h1>
                     <v-icon x-large left class="mb-1">mdi-server</v-icon>
-                    {{ $store.state.window.server.serverName }}
-                    <v-chip color="green" label dark v-ripple class="ml-2"><v-icon left>mdi-play</v-icon>运行中</v-chip>
+                    {{ item.serverName }}
+                    <v-chip color="error" label dark v-ripple class="ml-2"><v-icon left>mdi-cloud-alert</v-icon>无法连接至服务器</v-chip>
                   </h1>
                 </v-col>
               </v-row>
@@ -82,7 +82,6 @@ export default {
     return {
       item: null,
       text: '',
-      window: 2,
     }
   },
   computed: {
@@ -129,26 +128,6 @@ export default {
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this)
         this.editedIndex = -1
-      })
-    },
-
-    deleteItemConfirm () {
-      this.$store.state.server.loading = true
-      this.$GetServer.Delete(this, this.item.serverId, function (that) {
-        that.getList()
-        that.$SnackBar.Launch(that,'删除成功')
-        that.$store.state.server.loading = false
-      }, function (that) {
-        that.$Init.boot(that, function (that) {
-          that.$GetServer.Delete(that, this.item.serverId, function (that) {
-            that.getList()
-            that.$SnackBar.Launch(that,'删除成功')
-            that.$store.state.server.loading = false
-          }, function (that) {
-            that.$store.state.server.loading = false
-            that.$SnackBar.Launch(that, '删除失败')
-          })
-        })
       })
     },
 
