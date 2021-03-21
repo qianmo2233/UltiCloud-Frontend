@@ -12,7 +12,7 @@
       <v-subheader>Ulti配置<v-divider inset/></v-subheader>
       <v-row>
         <v-col cols="12" sm="3">
-          <v-switch :loading="$store.state.server.loading" :disabled="$store.state.server.loading" v-model="active">
+          <v-switch :loading="$store.state.server.loading" :disabled="$store.state.server.loading || $store.state.user.member.pro === 'false'" v-model="active">
             <template v-slot:label>
               授权Pro版本
               <v-chip label class="ml-2" color="info">Pro</v-chip>
@@ -80,7 +80,7 @@ export default {
   data() {
     return {
       del_sheet: false,
-      active: this.$store.state.window.server.isActive === 'true'
+      active: this.$store.state.serverinfo.server.isActive === 'true'
     }
   },
   methods: {
@@ -105,32 +105,47 @@ export default {
     },
     del() {
       this.$store.dispatch('server/setLoading', true)
-      this.$GetServer.Delete(this, this.$store.state.window.server.serverId, function (that) {
+      this.$GetServer.Delete(this, this.$store.state.serverinfo.window, function (that) {
         that.getList()
         that.$SnackBar.Launch(that,'删除成功')
         that.$store.dispatch('server/setLoading', false)
         that.del_sheet = false
-        that.$store.dispatch('window/setWindow', 1)
+        that.$store.dispatch('serverinfo/setWindow', 0)
         that.$store.dispatch('server/setLoading', false)
       }, function (that) {
-        that.$SnackBar.Launch(that,'删除失败')
-        that.$store.dispatch('server/setLoading', false)
-        that.del_sheet = false
-        that.$store.dispatch('server/setLoading', false)
+        that.$Init.boot(that, function (that) {
+          that.$GetServer.Delete(that, that.$store.state.serverinfo.window, function (that) {
+            that.getList()
+            that.$SnackBar.Launch(that,'删除成功')
+            that.$store.dispatch('server/setLoading', false)
+            that.del_sheet = false
+            that.$store.dispatch('serverinfo/setWindow', 0)
+            that.$store.dispatch('server/setLoading', false)
+          }, function (that) {
+            that.$SnackBar.Launch(that,'删除失败')
+            that.$store.dispatch('server/setLoading', false)
+            that.del_sheet = false
+            that.$store.dispatch('server/setLoading', false)
+          })
+        })
       })
     },
   },
   watch: {
     active() {
       this.$store.dispatch('server/setLoading', true)
-      this.$GetServer.Active(this, this.$store.state.serverinfo.window, this.active !== 'true', function (that) {
+      this.$GetServer.Active(this, this.$store.state.serverinfo.window, this.active, function (that) {
         that.$store.dispatch('server/setLoading', false)
       }, function (that) {
-        that.$store.dispatch('server/setLoading', false)
+        that.$Init.boot(that, function () {
+          that.$GetServer.Active(that, that.$store.state.serverinfo.window, that.active, function () {
+            that.$store.dispatch('server/setLoading', false)
+          }, function () {
+            that.active = !that.active
+            that.$store.dispatch('server/setLoading', false)
+          })
+        })
       })
-    },
-    '$store.state.serverinfo.window' : function () {
-      this.active = this.$store.state.window.server.isActive === 'true'
     },
   }
 }

@@ -43,7 +43,7 @@
                 </v-list-item>
               </v-list>
               <v-fab-transition>
-                <v-btn fab color="green" dark :loading="$store.state.server.loading" @click="save" v-show="server.name && server.ip && $store.state.window.window === 2" bottom right fixed>
+                <v-btn fab color="green" dark :loading="$store.state.server.loading" @click="save" v-show="server.name && server.ip && $store.state.serverinfo.window !== 0" bottom right fixed>
                   <v-icon>mdi-content-save</v-icon>
                 </v-btn>
               </v-fab-transition>
@@ -61,31 +61,33 @@ export default {
   data() {
     return {
       server: {
-        name: this.$store.state.window.server.serverName,
-        ip: this.$store.state.window.server.serverIp,
-        domain: this.$store.state.window.server.serverDomain,
+        name: this.$store.state.serverinfo.server.serverName,
+        ip: this.$store.state.serverinfo.server.serverIp,
+        domain: this.$store.state.serverinfo.server.serverDomain,
       },
       textRules: [v => !!v || '此为必填项',],
     }
   },
   watch: {
-    '$store.state.window.server': function () {
-      this.server.name = this.$store.state.window.server.serverName
-      this.server.ip = this.$store.state.window.server.serverIp
-      this.server.domain = this.$store.state.window.server.serverDomain
+    '$store.state.serverinfo.window': function () {
+      if (this.$store.state.serverinfo.window !== 0) {
+        this.server.name = this.$store.state.serverinfo.server.serverId
+        this.server.ip = this.$store.state.serverinfo.server.serverIp
+        this.server.domain = this.$store.state.serverinfo.server.serverDomain
+      }
     }
   },
   methods: {
     save() {
       this.$store.state.server.loading = true
-      this.$GetServer.Edit(this, this.server.name, this.server.ip, this.server.domain, this.$store.state.window.server.serverId,
+      this.$GetServer.Edit(this, this.server.name, this.server.ip, this.server.domain, this.$store.state.serverinfo.window,
           function (that) {
         that.getList()
         that.$SnackBar.Launch(that,'修改成功')
         that.$store.state.server.loading = false
       }, function (that) {
         that.$Init.boot(that, function (that) {
-          that.$GetServer.Edit(that, that.server.name, that.server.ip, that.server.domain, that.$store.state.window.server.serverId,
+          that.$GetServer.Edit(that, that.server.name, that.server.ip, that.server.domain, that.$store.state.serverinfo.window,
               function () {
             that.getList()
             that.$SnackBar.Launch(that,'修改成功')
@@ -116,7 +118,7 @@ export default {
         })
       }
     },
-  }
+  },
 }
 </script>
 

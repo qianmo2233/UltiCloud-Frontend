@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 import Home from "@/views/Home";
 import Server from "@/views/Server";
-import Auth from "@/views/Auth";
+import Store from "@/views/Store";
 
 Vue.use(VueRouter)
 
@@ -27,13 +27,13 @@ const routes = [
     },
   },
   {
-    path: '/auth',
-    name: 'Auth',
-    component: Auth,
+    path: '/store',
+    name: 'Store',
+    component: Store,
     meta: {
-      title: 'Title_Auth',
-      icon: 'mdi-key',
-    },
+      title: 'Title_Store',
+      icon: 'mdi-storefront',
+    }
   },
 ]
 

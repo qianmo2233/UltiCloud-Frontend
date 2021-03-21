@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app v-model="$vuetify.breakpoint.lgAndUp">
+  <v-navigation-drawer app v-model="$store.state.layout.nav">
     <Profile/>
     <Menu/>
   </v-navigation-drawer>
@@ -10,7 +10,10 @@ import Profile from "@/components/Layout/Profile";
 import Menu from "@/components/Layout/Menu";
 export default {
 name: "Nav",
-  components: {Menu, Profile}
+  components: {Menu, Profile},
+  created() {
+  this.$store.dispatch("layout/setNav", this.$vuetify.breakpoint.lgAndUp)
+  }
 }
 </script>
 

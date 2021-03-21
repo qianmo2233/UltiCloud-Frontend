@@ -1,7 +1,7 @@
 <template>
   <v-app-bar color="indigo" app dark>
     <v-toolbar color="indigo" flat>
-      <v-app-bar-nav-icon @click="$store.dispatch('layout/setNav', !$store.state.layout.nav)"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="toggle"></v-app-bar-nav-icon>
       <v-toolbar-title>UltiCloud</v-toolbar-title>
       <v-toolbar class="d-flex justify-center ml-10" color="indigo" elevation="0" v-if="$vuetify.breakpoint.lgAndUp">
         <GlobalSearch/>
@@ -21,6 +21,11 @@ import Refresh from "@/components/Layout/Refresh";
 export default {
   name: "Bar",
   components: {Refresh, GlobalSearch, User},
+  methods: {
+    toggle() {
+      this.$store.dispatch('layout/setNav', !this.$store.state.layout.nav)
+    }
+  }
 }
 </script>
 

@@ -4,20 +4,16 @@
     <v-container fluid>
       <v-row>
         <v-col cols="12">
-          <v-sheet width="auto" height="auto" elevation="10" rounded>
-            <v-col cols="12">
-              <transition name="scroll-x-reverse-transition" mode="out-in">
-                <h1 v-if="$store.state.window.window === 1" class="mt-1">服务器列表</h1>
-                <v-btn v-if="$store.state.window.window === 2" outlined @click="open(1)" x-large><v-icon left>mdi-chevron-left</v-icon>服务器列表</v-btn>
-              </transition>
-            </v-col>
-          </v-sheet>
+          <transition name="scroll-x-reverse-transition" mode="out-in">
+            <h1 v-if="$store.state.serverinfo.window === 0" class="mt-1">服务器列表</h1>
+            <v-btn v-if="$store.state.serverinfo.window !== 0" outlined @click="open(0)" x-large><v-icon left>mdi-chevron-left</v-icon>服务器列表</v-btn>
+          </transition>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12">
-          <v-window v-model="$store.state.window.window" translate="no">
-            <v-window-item :value="1">
+          <v-window v-model="$store.state.serverinfo.window" translate="no">
+            <v-window-item :value="0">
               <List/>
             </v-window-item>
             <v-window-item :value="item.serverId" v-for="item in $store.state.server.list" :key="item.serverId">
@@ -102,7 +98,7 @@ export default {
   },
   methods: {
     open(window) {
-      this.$store.dispatch('window/setWindow', window)
+      this.$store.dispatch('serverinfo/setWindow', window)
     },
     getList () {
       if (this.$store.state.user.auth.status) {

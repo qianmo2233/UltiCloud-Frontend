@@ -17,7 +17,7 @@
         <br/>
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
-            <v-chip label color="blue" dark class="mt-1 elevation-6" v-ripple v-on="on" v-bind="attrs">到期时间: {{ $store.state.user.member.exp }}</v-chip>
+            <v-chip label color="blue" dark class="mt-1 elevation-6" v-ripple v-on="on" v-bind="attrs">到期时间: {{ $store.state.user.member.exp ? $store.state.user.member.exp : '-' }}</v-chip>
           </template>
           <span>这是您的会员到期时间<br/>如果为"-"则为普通会员</span>
         </v-tooltip>
