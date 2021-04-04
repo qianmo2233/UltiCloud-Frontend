@@ -90,10 +90,10 @@
     <v-stepper-content step="2">
       <v-card color="grey lighten-1" class="mb-12" height="200px"></v-card>
       <v-btn color="primary" @click="e6 = 3">
-        Continue
+        继续
       </v-btn>
-      <v-btn text>
-        Cancel
+      <v-btn text class="mt-2">
+        取消
       </v-btn>
     </v-stepper-content>
 

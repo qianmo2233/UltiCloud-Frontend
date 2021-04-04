@@ -34,6 +34,7 @@
                     <v-tab><v-icon left>mdi-console</v-icon>控制台</v-tab>
                     <v-tab><v-icon left>mdi-account-supervisor</v-icon>玩家</v-tab>
                     <v-tab><v-icon left>mdi-file-cog</v-icon>配置文件</v-tab>
+                    <v-tab><v-icon left>mdi-folder-network</v-icon>文件管理</v-tab>
                     <v-tab><v-icon left>mdi-cog</v-icon>设置</v-tab>
                     <v-tab-item><Info/></v-tab-item>
                     <v-tab-item><Stats/></v-tab-item>
@@ -52,6 +53,7 @@
                         </v-alert>
                       </v-hover>
                     </v-tab-item>
+                    <v-tab-item><Files/></v-tab-item>
                     <v-tab-item><Setting/></v-tab-item>
                   </v-tabs>
                 </v-col>
@@ -71,9 +73,10 @@ import Console from "@/components/Server/Console";
 import List from "@/components/Server/List";
 import Setting from "@/components/Server/Setting";
 import AddServer from "@/components/Dialog/AddServer";
+import Files from "@/components/Server/Files";
 export default {
   name: "Server",
-  components: {AddServer, Setting, List, Console, Stats, Info},
+  components: {Files, AddServer, Setting, List, Console, Stats, Info},
   data() {
     return {
       item: null,

@@ -4,12 +4,12 @@
       <v-container>
         <v-row>
           <v-col cols="12">
-            <v-text-field label="用户名" outlined v-model="username" :disabled="$store.state.auth.loading" :rules="$store.state.auth.rules.username"></v-text-field>
-            <v-text-field label="密码" outlined v-model="password" :disabled="$store.state.auth.loading" :rules="$store.state.auth.rules.password" :type="show ? 'text' : 'password'" :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" @click:append="show = !show"></v-text-field>
+            <v-text-field label="用户名" prepend-icon="mdi-account" outlined v-model="username" :disabled="$store.state.auth.loading" :rules="$store.state.auth.rules.username"></v-text-field>
+            <v-text-field label="密码" prepend-icon="mdi-form-textbox-password" outlined v-model="password" :disabled="$store.state.auth.loading" :rules="$store.state.auth.rules.password" :type="show ? 'text' : 'password'" :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" @click:append="show = !show"></v-text-field>
           </v-col>
           <v-row>
             <v-col cols="12">
-              <v-btn block :loading="$store.state.auth.loading" rounded dark large color="teal" @click="Login"><v-icon left>mdi-key</v-icon>登录</v-btn>
+              <v-btn block :loading="$store.state.auth.loading" rounded dark large color="blue" @click="Login"><v-icon left>mdi-key</v-icon>登录</v-btn>
             </v-col>
           </v-row>
         </v-row>

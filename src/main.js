@@ -43,7 +43,6 @@ setTimeout(function () {
       vuetify,
       render: h => h(App)
     }).$mount('#app')
-    document.body.style.backgroundColor = '#ffffff'
   }
 }, 0)
 

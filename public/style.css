@@ -1,0 +1,167 @@
+#app,body,html{
+    height:100%;
+    margin:0;
+    padding:0;
+}
+.gradient{
+    position:fixed;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+    z-index:-1;
+    transition:opacity 2s cubic-bezier(.25,1,.5,1),background-image 1s cubic-bezier(.25,1,.5,1);
+    background-image:url("http://pic1.win4000.com/wallpaper/7/5992b6273c3bb.jpg");
+    -webkit-filter:blur(10px);
+    -ms-filter:blur(10px);
+    filter:blur(5px);
+}
+.overlay{
+    font-family:
+            Roboto,
+            -apple-system,
+            Noto Sans SC,
+            BlinkMacSystemFont,
+            Segoe UI,
+            Microsoft YaHei UI,
+            Microsoft Yahei,
+            微软雅黑,
+            Helvetica,
+            Arial,
+            sans-serif;
+    position:fixed;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+    z-index:99999999;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    transition:opacity .3s cubic-bezier(.25,1,.5,1);
+    display:flex;opacity:0;
+    pointer-events:none;
+    background:rgba(0,0,0,.8);
+    color:#efefef;
+    backdrop-filter:saturate(.5) blur(5px);animation:peL-ob 2s ease-in-out infinite alternate
+}
+.overlay h1{
+    margin-bottom:0;
+    text-shadow:0 0 5px hsla(0,0%,100%,.5)
+}
+.overlay h3{
+    color:#aaa
+}
+.w{
+    height:100%;
+    width:100%;
+    overflow:auto;
+    position:relative;
+    user-select:none;
+    cursor:progress;
+    text-align:center;
+    color:#eee;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,0)
+}
+.w *{
+    font-family:
+            Roboto,
+            -apple-system,
+            Noto Sans SC,
+            BlinkMacSystemFont,
+            Segoe UI,
+            Microsoft YaHei UI,
+            Microsoft Yahei,
+            微软雅黑,
+            Helvetica,
+            Arial,
+            sans-serif
+}
+.w .logo{
+    height:6rem;
+    width:6rem;
+    margin-bottom:2rem;
+    filter:drop-shadow(0 0 10px rgba(255,255,255,.1))
+}
+.w  text{
+    font-size:1rem;
+    line-height:1.5rem;
+    letter-spacing:.02em
+}
+.w .title{
+    position:relative;
+    z-index:1;
+    min-height:2rem;
+    text-shadow:0 0 10px hsla(0,0%,100%,.5);
+    margin-bottom:.25rem;
+    width:95%;
+    opacity:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    transition:all .5s cubic-bezier(.25,1,.5,1)
+}
+.w .modal{
+    height:0;
+    overflow:hidden;
+    transition:all .3s cubic-bezier(.25,1,.5,1);
+    max-width:450px;box-shadow:0 5px 20px rgba(0,0,0,.1);
+    border-radius:8px;
+    background:hsla(0,0%,100%,.1);text-align:left
+}
+.w .subtitle{
+    font-size:.9rem;color:hsla(0,0%,100%,.5)
+}
+.w .loInd{
+    width:100%;
+    position:relative;
+    overflow:hidden;
+    transition:all .3s cubic-bezier(.25,1,.5,1);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center
+}
+.w .loader{
+    width:12rem;
+    overflow:hidden;
+    position:relative;
+    background:rgba(92,107,192,.1);
+    height:4px;
+    min-height:4px;
+    border-radius:2px;
+    margin-bottom:1.5rem;
+    filter:drop-shadow(0 0 5px #5C6BC0)
+}
+.footer{
+    font-family:
+            Roboto,
+            -apple-system,
+            Noto Sans SC,
+            BlinkMacSystemFont,
+            Segoe UI,
+            Microsoft YaHei UI,
+            Microsoft Yahei,
+            微软雅黑,
+            Helvetica,
+            Arial,
+            sans-serif;
+    position:absolute;
+    bottom:0;
+    height:3rem;
+    line-height:.9rem;
+    width:100%;
+    font-size:.9rem;
+    color:hsla(0,0%,100%,.35);
+    letter-spacing:.015rem;
+    pointer-events:none;
+    display:flex;justify-content:center
+}
+.footer .footer-d{
+    margin:0 .35rem
+}
