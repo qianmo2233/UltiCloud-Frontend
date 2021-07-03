@@ -8,7 +8,7 @@
     <v-row>
       <v-col cols="12">
         <v-card>
-          <v-overlay :absolute="true" :value="!$store.state.user.status" :opacity="0.8">
+          <v-overlay :absolute="true" :value="!$store.state.user.status" :opacity="0.6" :color="$vuetify.theme.dark ? 'black' : 'white'">
             <p class="display-1 text--primary">
               请先登录
             </p>

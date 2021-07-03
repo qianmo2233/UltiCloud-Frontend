@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog width="500px" v-model="dialog" v-if="($store.state.user.emailValidated !== 'true' && $store.state.user.status)">
+    <v-dialog width="500px" v-model="dialog">
       <v-card>
         <v-card-title/>
         <v-card-text>

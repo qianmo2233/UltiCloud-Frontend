@@ -1,18 +1,14 @@
 <template>
   <v-dialog v-model="dialog" v-if="$store.state.user.status" width="500">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn rounded color="dark" dark light large v-bind="attrs" v-on="on">
-        <div>
-          {{ $store.state.user.name }}
-          <br>
-          <div class="text-caption">
-            {{ $i18n.t('Logged') }}
-          </div>
-        </div>
-        <v-icon dark right>
-          mdi-account-circle
-        </v-icon>
-      </v-btn>
+      <v-list>
+        <v-list-item v-bind="attrs" v-on="on" link>
+          <v-list-item-icon>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>{{ $store.state.user.name }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
     </template>
     <v-card>
       <v-card-text>

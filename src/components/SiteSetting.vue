@@ -1,8 +1,8 @@
 <template>
   <v-dialog v-model="dialog" width="500">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn outlined v-bind="attrs" v-on="on" block>
-        {{ $i18n.t('Site Settings') }}
+      <v-btn v-bind="attrs" v-on="on" icon>
+        <v-icon>mdi-cog</v-icon>
       </v-btn>
     </template>
     <v-card>

@@ -7,7 +7,7 @@
       </p>
       <p>{{ $i18n.t('Enjoy unlimited advanced features') }}</p>
       <div class="text--primary">
-        <v-overlay :absolute="true" :value="!$store.state.user.status" :opacity="0.8">
+        <v-overlay :absolute="true" :value="!$store.state.user.status" :opacity="0.6" :color="$vuetify.theme.dark ? 'black' : 'white'">
           <p class="display-1 text--primary">
             {{ $i18n.t('Please login first') }}
           </p>

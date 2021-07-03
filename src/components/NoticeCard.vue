@@ -1,5 +1,6 @@
 <template>
-  <v-card color="red" dark class="rounded-0">
+  <div></div>
+  <!-- v-card color="red" dark class="rounded-0">
     <v-card-title class="headline">
       新春快乐!
     </v-card-title>
@@ -9,7 +10,7 @@
         暂时没有可用的活动
       </v-btn>
     </v-card-actions>
-  </v-card>
+  </v-card !-->
 </template>
 
 <script>

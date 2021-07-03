@@ -1,18 +1,15 @@
 <template>
   <v-dialog v-model="LoginForm.dialog" width="600" persistent v-if="!$store.state.user.status">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn rounded color="dark" dark light large v-bind="attrs" v-on="on">
-        <div>
-          {{ $i18n.t('Not logged') }}
-          <br>
-          <div class="text-caption">
-            {{ $i18n.t('Click login') }}
-          </div>
-        </div>
-        <v-icon dark right>
-          mdi-account-circle
-        </v-icon>
-      </v-btn>
+      <v-list>
+        <v-list-item v-bind="attrs" v-on="on" link>
+          <v-list-item-icon>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>{{ $i18n.t('Not logged') }}</v-list-item-title>
+          <v-list-item-subtitle>{{ $i18n.t('Click login') }}</v-list-item-subtitle>
+        </v-list-item>
+      </v-list>
     </template>
     <v-card>
       <v-card-text>

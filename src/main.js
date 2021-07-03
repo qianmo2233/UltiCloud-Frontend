@@ -25,7 +25,6 @@ import GetPayment from "@/utils/GetPayment";
 import EditProfile from "@/utils/EditProfile";
 import Cdk from "@/utils/Cdk";
 import Email from "@/utils/Email";
-import './registerServiceWorker'
 
 Vue.prototype.$snackbar = SnackBar
 Vue.prototype.$Login = Login
@@ -58,13 +57,15 @@ Vue.use(vuescroll, {
     scrollPanel: {
       scrollingX: false,
       easing: 'easeOutQuad',
+      padding: true,
     },
     rail: {
-      gutterOfSide: '0px',
+      gutterOfSide: '1px',
     },
     bar: {
       background: '#ffffff',
       opacity: 0.5,
+      size: '5px',
     }
   },
 })

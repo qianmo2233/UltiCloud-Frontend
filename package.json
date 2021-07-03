@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@auspicious/vue-vercode": "^1.0.3",
+    "animejs": "^3.2.1",
     "basic-authorization-header": "^0.2.7",
+    "clipboard": "^2.0.8",
     "core-js": "^3.8.3",
     "md5": "^2.3.0",
     "register-service-worker": "^1.7.1",
