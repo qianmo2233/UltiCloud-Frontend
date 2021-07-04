@@ -82,7 +82,7 @@
                           永久会员请在下方输入激活码
                         </v-alert>
                         <v-alert border="left" colored-border type="info" elevation="6">
-                          如果您无法在线支付，那么您可以找管理员购买兑换码进行兑换
+                          如果您无法在线支付，那么您可以找管理员购买激活码进行激活
                         </v-alert>
                       </v-col>
                       <v-col cols="12">

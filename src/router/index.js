@@ -6,6 +6,7 @@ import Vip from "@/views/Vip";
 import Auth from "@/views/Auth";
 import Maker from "@/views/Maker";
 import Server from "@/views/Server";
+import Activity from "../views/Activity";
 
 Vue.use(VueRouter)
 
@@ -44,6 +45,15 @@ const routes = [
     meta: {
       title: 'UltiCloud|制作人员',
       page: '制作人员'
+    }
+  },
+  {
+    path: '/activity',
+    name: 'Activity',
+    component: Activity,
+    meta: {
+      title: 'UltiCloud|活动',
+      page: '活动'
     }
   },
   {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-alert text color="info">
+    <v-alert text color="info" v-if="isPro">
       <h3 class="headline">免费体验UltiKits会员!</h3>
       <div>每一个新用户都可以免费领取7天的UltiKits的Pro会员!<br>不试试,如何知道好不好?</div>
       <v-divider class="my-4 info" style="opacity: 0.22"></v-divider>
@@ -10,7 +10,7 @@
         </v-col>
         <v-spacer></v-spacer>
         <v-col class="shrink">
-          <v-btn color="info" outlined :disabled="loading || !$store.state.user.status || $store.state.user.emailValidated !== 'true'">
+          <v-btn color="info" @click="getCode" outlined :disabled="loading || !$store.state.user.status || $store.state.user.emailValidated !== 'true'" :loading="loading">
             {{ getBtnText }}</v-btn>
         </v-col>
       </v-row>
@@ -25,15 +25,10 @@
           <v-alert border="left" colored-border type="warning" elevation="6" color="red">
             此代码仅显示一次，请自行妥善保管
           </v-alert>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <code class="font-weight-thin text-h5" v-on="on" v-bind="attrs" id="code" data-clipboard-target="#code">ca83b2023aa8ff636c757a2e5db82cdb</code>
-            </template>
-            <span>点击复制</span>
-          </v-tooltip>
+          <code class="font-weight-thin text-h5" style="user-select: text">{{ code }}</code>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="blue" text><v-icon left>mdi-close</v-icon>关闭</v-btn>
+          <v-btn color="blue" text @click="dialog = false"><v-icon left>mdi-close</v-icon>关闭</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -41,13 +36,13 @@
 </template>
 
 <script>
-import Clipboard from 'clipboard';
 export default {
   name: "EvalCard",
   data() {
     return {
       loading: false,
-      dialog: true,
+      dialog: false,
+      code: '',
     }
   },
   computed: {
@@ -59,13 +54,16 @@ export default {
       } else {
         return '免费体验'
       }
+    },
+    isPro: function () {
+      return this.$store.state.user.pro === "false"
     }
   },
   methods: {
+    getCode: function () {
+      this.$Cdk.get(this, 1)
+    }
   },
-  mounted() {
-    new Clipboard('code');
-  }
 }
 </script>
 

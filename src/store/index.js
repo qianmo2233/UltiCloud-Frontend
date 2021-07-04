@@ -72,29 +72,12 @@ export default new Vuex.Store({
       items1: [
         {text: 'Home', icon: 'mdi-home', url: '/'},
         {text: 'Member', icon: 'mdi-chess-king', url: '/vip'},
-        {text: 'Help', icon: 'mdi-help-box', url: '/help'}
+        {text: 'Activity', icon: 'mdi-flag-checkered', url: '/activity'}
       ],
       items2: [
         {text: 'Servers', icon: 'mdi-server', url: '/server'},
         {text: 'Authorization', icon: 'mdi-key', url: '/auth'},
       ],
-      items3: [
-        {text: 'UltiTools', icon: 'mdi-tools', ver: '4.3.0', url: '/tools'},
-        {text: 'UltiCore', icon: 'mdi-codepen', ver: '1.1.3', url: '/core'},
-        {text: 'UltiEconomy', icon: 'mdi-cash-usd', ver: '2.6.4', url: '/economy'},
-        {text: 'UltiLevel', icon: 'mdi-anvil', ver: '2.1.2', url: '/level'},
-      ],
-      items4: [
-        {text: 'Self Repair & Troubleshooting', icon:'mdi-auto-fix', url: '/fix'},
-        {text: 'Configuration File', icon:'mdi-file-cog', url: '/config'},
-        {text: 'YAML Grammar Getting Started', icon:'mdi-file-code', url: '/yaml'},
-      ],
-      items5: [
-        {text: 'Production Staff', icon: 'mdi-account-multiple', url: '/maker'},
-        {text: 'Update Record', icon:'mdi-update', url: '/update'},
-        {text: 'Official QQ Group', icon: 'mdi-qqchat', url: '/qq'},
-        {text: 'BUG Feedback', icon: 'mdi-alert-decagram-outline', url: '/issue'},
-      ]
     }
   },
   mutations: {
