@@ -65,7 +65,7 @@
                   </v-row>
                 </v-card-text>
               </v-card>
-              <v-btn color="red" block @click="Logout">{{ $i18n.t('Logout') }}</v-btn>
+              <v-btn color="red" dark block @click="Logout">{{ $i18n.t('Logout') }}</v-btn>
             </v-container>
           </v-tab-item>
           <v-tab-item>

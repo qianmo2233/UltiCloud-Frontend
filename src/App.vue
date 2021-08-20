@@ -3,6 +3,7 @@
     <SnackBar/>
     <NavBar/>
     <AppBar/>
+    <GlobalLoading/>
     <v-main>
     <v-container fluid>
       <transition name="slide-fade" mode="out-in">
@@ -17,10 +18,12 @@
 import NavBar from "@/components/NavBar";
 import AppBar from "@/components/AppBar";
 import SnackBar from "@/components/SnackBar";
+import GlobalLoading from "@/components/GlobalLoading";
 
 export default {
   name: 'App',
   components: {
+    GlobalLoading,
     SnackBar,
     AppBar,
     NavBar,
@@ -30,7 +33,7 @@ export default {
   }),
 
   created() {
-    console.log('欢迎来到UltiCloud!\n版本:0.2.8[BETA]')
+    console.log('欢迎来到UltiCloud!\n版本:0.2.9[BETA]')
     console.log('前端作者:千沫qianmo\n后端作者: wisdomme')
     this.$Login.auth(this)
     this.$Init.init(this)

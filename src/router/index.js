@@ -6,7 +6,10 @@ import Vip from "@/views/Vip";
 import Auth from "@/views/Auth";
 import Maker from "@/views/Maker";
 import Server from "@/views/Server";
-import Activity from "../views/Activity";
+import Activity from "@/views/Activity";
+import Tools from "@/views/Tools";
+import ConfigCreator from "@/views/ConfigCreator";
+import ChangeLog from "@/views/ChangeLog";
 
 Vue.use(VueRouter)
 
@@ -64,10 +67,41 @@ const routes = [
       title: 'UltiCloud|服务器',
       page: '服务器'
     }
+  },
+  {
+    path: '/tools',
+    name: 'Tools',
+    component: Tools,
+    redirect: '/tools/config',
+    meta: {
+      title: 'UltiCloud|实用工具',
+      page: '实用工具'
+    },
+    children: [
+      {
+        path: 'config',
+        name: 'ConfigCreator',
+        component: ConfigCreator,
+        meta: {
+          title: 'UltiCloud|配置文件生成器',
+          page: '配置文件生成器'
+        }
+      }
+    ]
+  },
+  {
+    path: '/changelog',
+    name: 'ChangeLog',
+    component: ChangeLog,
+    meta: {
+      title: 'UltiCloud|更新记录',
+      page: '更新记录'
+    }
   }
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 

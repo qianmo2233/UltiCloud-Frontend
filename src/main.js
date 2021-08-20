@@ -78,3 +78,17 @@ new Vue({
   VueResource,
   render: h => h(App),
 }).$mount('#app')
+
+router.beforeEach(
+    (to, from, next)=> {
+      store.state.loading = true;
+      next();
+    });
+
+router.afterEach(
+    ()=> {
+      setTimeout(()=> {
+        store.state.loading = false;
+      }, 500)
+    }
+)

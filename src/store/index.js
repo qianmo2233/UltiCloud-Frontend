@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    loading: false,
     list: [],
     payment:[],
     auth: [],
@@ -77,6 +78,8 @@ export default new Vuex.Store({
       items2: [
         {text: 'Servers', icon: 'mdi-server', url: '/server'},
         {text: 'Authorization', icon: 'mdi-key', url: '/auth'},
+        {text: 'Tools', icon: 'mdi-tools', url: '/tools'},
+        {text: 'ChangeLog', icon: 'mdi-timeline', url: '/changelog'},
       ],
     }
   },

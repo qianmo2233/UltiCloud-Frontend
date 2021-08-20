@@ -5,7 +5,7 @@
         <v-toolbar flat color="rgba(0,0,0,0)">
           <v-toolbar-title>活动专区</v-toolbar-title>
           <v-spacer/>
-          <v-btn text @click="dialog = true"><v-icon left>mdi-swap-horizontal</v-icon>使用兑换码</v-btn>
+          <v-btn text @click="dialog = true" v-if="$store.state.user.status"><v-icon left>mdi-swap-horizontal</v-icon>使用兑换码</v-btn>
         </v-toolbar>
       </v-col>
     </v-row>

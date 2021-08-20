@@ -1,6 +1,6 @@
 <template>
-  <v-app-bar app absolute color="lime darken-4" dark light>
-    <v-toolbar color="lime darken-4" dark light flat>
+  <v-app-bar app color="blue" dark light>
+    <v-toolbar color="blue" dark light flat>
       <v-app-bar-nav-icon @click.stop="$store.state.NavBar.drawer = !$store.state.NavBar.drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>{{ $route.meta.page }}</v-toolbar-title>
       <v-spacer/>
