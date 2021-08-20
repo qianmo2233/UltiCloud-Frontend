@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     redeem: function () {
-      this.$Cdk.redeem(this, 1, this.code)
+      this.$Cdk.redeem(this, localStorage.getItem('id'), this.code)
     }
   },
   mounted () {

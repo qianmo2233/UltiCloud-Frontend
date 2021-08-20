@@ -109,6 +109,9 @@ export default new Vuex.Store({
   actions: {
     setMaxServer(context, value) {
       context.commit('setMaxServer', value)
+    },
+    setUserId(context, value) {
+      context.commit('setUserId', value)
     }
   },
   modules: {

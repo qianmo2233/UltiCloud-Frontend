@@ -16,7 +16,7 @@ function login(that, username, password) {
             let data = JSON.parse(JSON.stringify(result.data))
             store.state.user.token.access = data.access_token
             store.state.user.token.refresh = data.refresh_token
-            store.state.user.id = data.id
+            that.$store.dispatch('setUserId', data.id)
             that.$store.dispatch('setMaxServer', data.maxServer)
             localStorage.setItem('access_token', data.access_token)
             localStorage.setItem('refresh_token', data.refresh_token)
