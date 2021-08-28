@@ -11,6 +11,53 @@
           <v-timeline-item icon="mdi-check">
             <v-expansion-panels :value="0">
               <v-expansion-panel>
+                <v-expansion-panel-header>8.28 版本5.1.3</v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <v-row>
+                    <v-col cols="12" lg="4" md="6" sm="12">
+                      <div class="mt-3">
+                        <h3 class="text--primary"><v-icon left>mdi-tools</v-icon>功能更新</h3>
+                        <ul class="mt-1 text--primary">
+                          <li>增加了自定义MOTD功能</li>
+                          <li>交易功能添加了点击消息来同意/拒绝</li>
+                          <li>增加了菜单绑定物品lore</li>
+                        </ul>
+                      </div>
+                    </v-col>
+                    <v-col cols="12" lg="4" md="6" sm="12">
+                      <div class="mt-3">
+                        <h3 class="text--primary"><v-icon left>mdi-code-tags-check</v-icon>性能与代码优化</h3>
+                        <ul class="mt-1 text--primary">
+                          <li>重写了at玩家功能</li>
+                          <li>更改了at功能提示文字的颜色</li>
+                          <li>优化并完善了交易功能代码</li>
+                          <li>升级了UltiCoreAPI依赖版本</li>
+                        </ul>
+                      </div>
+                    </v-col>
+                    <v-col cols="12" lg="4" md="6" sm="12">
+                      <div class="mt-3">
+                        <h3 class="text--primary"><v-icon left>mdi-bug-check</v-icon>BUG修复</h3>
+                        <ul class="mt-1 text--primary">
+                          <li>修复了交易结算时经验没有变化的问题</li>
+                          <li>修复了锁箱子功能在监听漏斗拿取箱子物品时的报错</li>
+                          <li>修复了死亡惩罚执行命令时报错</li>
+                          <li>修复了 <code>/bag open</code> 指令的问题</li>
+                          <li>修复了 <code>/trade</code> 指令错误</li>
+                          <li>修复了玩家拒绝交易时报错</li>
+                          <li>修复了 <code>/lock</code> 指令错误</li>
+                          <li>修复了无法关闭侧边栏的问题</li>
+                        </ul>
+                      </div>
+                    </v-col>
+                  </v-row>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+          </v-timeline-item>
+          <v-timeline-item icon="mdi-clock" color="orange">
+            <v-expansion-panels>
+              <v-expansion-panel>
                 <v-expansion-panel-header>8.14 版本5.1.2</v-expansion-panel-header>
                 <v-expansion-panel-content>
                   <v-row>

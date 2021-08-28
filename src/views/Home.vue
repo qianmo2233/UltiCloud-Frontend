@@ -56,13 +56,13 @@
             <v-row>
               <v-col cols="12" lg="6" sm="12">
                 <div>UltiTools最新版本</div>
-                <p class="display-1 text--primary">8.14 版本5.1.2</p>
+                <p class="display-1 text--primary">8.14 版本5.1.3</p>
               </v-col>
               <v-col cols="12" lg="6" sm="12">
                 <a href="https://www.spigotmc.org/resources/ultikits-ultitools.85214/" target="_blank">
                   <v-btn text color="blue" class="float-lg-right mb-2">
                     <v-icon left>mdi-download</v-icon>
-                    下载最新本版插件 v5.1.2
+                    下载最新本版插件 v5.1.3
                   </v-btn>
                 </a>
               </v-col>
@@ -73,11 +73,9 @@
                 <div class="mt-3">
                   <h3 class="text--primary"><v-icon left>mdi-tools</v-icon>功能更新</h3>
                   <ul class="mt-1 text--primary">
-                    <li>新增了玩家GUI界面交易功能</li>
-                    <li>增加了公告系统</li>
-                    <li>新增 <code>/setlobby</code> 和 <code>/lobby</code> 指令</li>
-                    <li>新增 <code>/invsee</code> 和 <code>/endersee</code> 指令</li>
-                    <li>更新了@音效和顶部提醒</li>
+                    <li>增加了自定义MOTD功能</li>
+                    <li>交易功能添加了点击消息来同意/拒绝</li>
+                    <li>增加了菜单绑定物品lore</li>
                   </ul>
                 </div>
               </v-col>
@@ -85,14 +83,10 @@
                 <div class="mt-3">
                   <h3 class="text--primary"><v-icon left>mdi-code-tags-check</v-icon>性能与代码优化</h3>
                   <ul class="mt-1 text--primary">
-                    <li>增加了邮件系统的API</li>
-                    <li>增加了侧边栏系统的API</li>
-                    <li>极大的优化了侧边栏系统的效能</li>
-                    <li>重构了邮件系统的代码</li>
-                    <li>重构了侧边栏系统的代码</li>
-                    <li>重构了锁箱子</li>
-                    <li>调整 <code>playerlist.yml</code> 存储的数据</li>
-                    <li>添加了启动大字</li>
+                    <li>重写了at玩家功能</li>
+                    <li>更改了at功能提示文字的颜色</li>
+                    <li>优化并完善了交易功能代码</li>
+                    <li>升级了UltiCoreAPI依赖版本</li>
                   </ul>
                 </div>
               </v-col>
@@ -100,7 +94,14 @@
                 <div class="mt-3">
                   <h3 class="text--primary"><v-icon left>mdi-bug-check</v-icon>BUG修复</h3>
                   <ul class="mt-1 text--primary">
-                    <li>无</li>
+                    <li>修复了交易结算时经验没有变化的问题</li>
+                    <li>修复了锁箱子功能在监听漏斗拿取箱子物品时的报错</li>
+                    <li>修复了死亡惩罚执行命令时报错</li>
+                    <li>修复了 <code>/bag open</code> 指令的问题</li>
+                    <li>修复了 <code>/trade</code> 指令错误</li>
+                    <li>修复了玩家拒绝交易时报错</li>
+                    <li>修复了 <code>/lock</code> 指令错误</li>
+                    <li>修复了无法关闭侧边栏的问题</li>
                   </ul>
                 </div>
               </v-col>
