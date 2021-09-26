@@ -1,28 +1,26 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <app-bar/>
+    <navbar-main v-if="$store.state.user.auth.status"/>
+    <snack-bar/>
+    <logout/>
+    <v-main>
+      <router-view/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
+import SnackBar from "@/components/Layout/SnackBar";
+import Logout from "@/components/Layout/Logout";
+import AppBar from "@/components/Layout/AppBar";
+import NavbarMain from "@/components/Layout/NavBar/NavbarMain";
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  components: {NavbarMain, AppBar, Logout, SnackBar},
+  data: () => ({
+    //
+  }),
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

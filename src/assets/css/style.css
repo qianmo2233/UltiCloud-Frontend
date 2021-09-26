@@ -1,0 +1,48 @@
+/*
+ * UltiCloud全局样式
+ * @author qianmo
+ */
+
+/*
+ * 滚动栏样式
+ */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #c2c2c2;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track-piece {
+    background: 0 0;
+}
+
+/*
+ * 页面主体内容样式
+ */
+.v-main__wrap {
+    height: calc(100vh - 64px) !important;
+    overflow-y: scroll !important;
+}
+
+html {
+    overflow: hidden !important;
+    height: 100vh !important;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.login-box {
+    margin-top: calc(25%);
+}
+
+.global-loading {
+    margin-top: calc(90%);
+}
