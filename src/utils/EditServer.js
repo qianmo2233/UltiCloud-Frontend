@@ -2,14 +2,14 @@ import store from "@/store";
 
 const url = 'https://panel.ultikits.com:4433/server/updateserver/'
 
-function edit(that, name, ip, domain, id) {
-    if (!(name && ip)) {
+function edit(that, name, ip, serverUUID, id) {
+    if (!(name && serverUUID)) {
         that.$snackbar.Launch('请将信息填写完整')
         return
     }
     that.loading = true
     let time = Date.now()
-    let param = '?ownerId=' + localStorage.getItem('id') + '&serverName=' + name + '&serverIp=' + ip + '&severDomain=' + domain
+    let param = '?ownerId=' + localStorage.getItem('id') + '&serverName=' + name + '&serverIp=' + ip + '&severDomain=' + serverUUID
     that.$http.post(
         url + id + param,
         {username: store.state.user.name, time: time, key: that.$Key.Get(store.state.user.name, time)},

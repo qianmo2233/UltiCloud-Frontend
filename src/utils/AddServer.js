@@ -2,14 +2,14 @@ import store from "@/store";
 
 const url = 'https://panel.ultikits.com:4433/server/addserver'
 
-function add(that, name, ip, domain) {
-    if (!(name && ip)) {
+function add(that, name, ip, serverUUID) {
+    if (!(name && serverUUID)) {
         that.$snackbar.Launch('请将信息填写完整')
         return
     }
     that.loading = true
     let time = Date.now()
-    let param = '?serverName=' + name + '&ownerId=' + localStorage.getItem('id') + '&serverIp=' + ip + '&serverDomain=' + domain
+    let param = '?serverName=' + name + '&ownerId=' + localStorage.getItem('id') + '&serverIp=' + ip + '&serverDomain=' + serverUUID
     that.$http.post(
         url + param,
         {username: store.state.user.name, time: time, key: that.$Key.Get(store.state.user.name, time)},

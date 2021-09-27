@@ -23,9 +23,9 @@
                       <v-text-field v-model="editedItem.serverName" label="服务器名称" required :rules="textRules"></v-text-field>
                     </v-col>
                     <v-col cols="12">
-                      <v-text-field v-model="editedItem.serverIp" label="IP地址" required :rules="textRules"></v-text-field></v-col>
+                      <v-text-field v-model="editedItem.serverIp" label="IP地址"></v-text-field></v-col>
                     <v-col cols="12">
-                      <v-text-field v-model="editedItem.serverDomain" label="域名(可选)"></v-text-field>
+                      <v-text-field v-model="editedItem.serverDomain" label="服务器UUID" required :rules="textRules"></v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -83,7 +83,7 @@ export default {
       {text: 'ID', value: 'serverId', align: 'start'},
       {text: '服务器名称', value: 'serverName',},
       {text: 'IP地址', value: 'serverIp' },
-      {text: '域名', value: 'serverDomain' },
+      {text: '服务器UUID', value: 'serverDomain' },
       {text: '操作', value: 'actions', sortable: false },
     ],
     editedIndex: -1,
