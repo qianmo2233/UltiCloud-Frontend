@@ -7,6 +7,7 @@ import DashboardMain from "@/views/Dashboard/DashboardMain";
 import Home from "@/views/Dashboard/Home";
 import NotFound from "@/views/NotFound";
 import ServerMain from "@/views/Server/ServerMain";
+import ProMain from "@/views/Pro/ProMain";
 
 Vue.use(VueRouter)
 
@@ -31,6 +32,14 @@ const routes = [
         component: ServerMain,
         meta: {
           icon: 'mdi-server'
+        }
+      },
+      {
+        path: 'pro',
+        name: 'Pro',
+        component: ProMain,
+        meta: {
+          icon: 'mdi-chess-king'
         }
       },
     ],

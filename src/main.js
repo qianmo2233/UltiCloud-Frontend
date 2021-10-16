@@ -11,6 +11,7 @@ import Snackbar from '@/assets/js/SnackBar'
 import User from "@/assets/js/User"
 import Init from "@/assets/js/Init"
 import Server from "@/assets/js/Server"
+import Pro from "@/assets/js/Pro"
 
 import './assets/css/style.css'
 
@@ -22,6 +23,7 @@ Vue.prototype.snackbar = Snackbar
 Vue.prototype.user = User
 Vue.prototype.init = Init
 Vue.prototype.server = Server
+Vue.prototype.pro = Pro
 
 Vue.use(VueResource)
 

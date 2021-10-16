@@ -25,9 +25,19 @@
 /*
  * 页面主体内容样式
  */
-.v-main__wrap {
-    height: calc(100vh - 64px) !important;
-    overflow-y: scroll !important;
+
+@media screen and (min-width:1264px){
+    .v-main__wrap {
+        height: calc(100vh - 64px);
+        overflow-y: scroll !important;
+    }
+}
+
+@media screen and (max-width:1263px){
+    .v-main__wrap {
+        height: calc(100vh - 110px);
+        overflow-y: scroll !important;
+    }
 }
 
 html {
@@ -45,4 +55,15 @@ html {
 
 .global-loading {
     margin-top: calc(90%);
+}
+
+.slide-fade-enter-active {
+    transition: all .175s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.slide-fade-leave-active {
+    transition: all .075s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to {
+    transform: translateY(1.5vh);
+    opacity: 0;
 }

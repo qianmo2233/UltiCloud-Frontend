@@ -1,12 +1,15 @@
 <template>
   <v-app>
     <app-bar/>
-    <navbar-main v-if="$store.state.user.auth.status"/>
+    <navbar-main/>
     <snack-bar/>
     <logout/>
     <v-main>
-      <router-view/>
+      <transition name="slide-fade" mode="out-in">
+        <router-view/>
+      </transition>
     </v-main>
+    <bottom-nav/>
   </v-app>
 </template>
 
@@ -16,9 +19,10 @@ import SnackBar from "@/components/Layout/SnackBar";
 import Logout from "@/components/Layout/Logout";
 import AppBar from "@/components/Layout/AppBar";
 import NavbarMain from "@/components/Layout/NavBar/NavbarMain";
+import BottomNav from "@/components/Layout/BottomNav";
 export default {
   name: 'App',
-  components: {NavbarMain, AppBar, Logout, SnackBar},
+  components: {BottomNav, NavbarMain, AppBar, Logout, SnackBar},
   data: () => ({
     //
   }),

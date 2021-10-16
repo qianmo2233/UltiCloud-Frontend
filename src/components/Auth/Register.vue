@@ -11,16 +11,16 @@
           <v-row>
             <v-divider inset class="mb-6"/>
             <v-col cols="12">
-              <v-text-field outlined dense label="邮箱"/>
-              <v-text-field outlined dense label="用户名"/>
-              <v-text-field outlined dense label="密码" type="password"/>
-              <v-text-field outlined dense label="重复密码" type="password"/>
+              <v-text-field outlined dense :disabled="loading" :rules="rules" label="邮箱" v-model="email"/>
+              <v-text-field outlined dense :disabled="loading" :rules="rules" label="用户名" v-model="username"/>
+              <v-text-field outlined dense :disabled="loading" :rules="rules" label="密码" type="password" v-model="password"/>
+              <v-text-field outlined dense :disabled="loading" :rules="rules" label="重复密码" type="password" v-model="passwd"/>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12">
-              <v-btn color="primary" block depressed>
-                <v-icon left>mdi-login</v-icon>
+              <v-btn color="primary" block depressed :loading="loading" :disabled="isAvailable" @click="register">
+                <v-icon left>mdi-plus</v-icon>
                 注册
               </v-btn>
             </v-col>
@@ -46,7 +46,50 @@
 
 <script>
 export default {
-  name: "Register"
+  name: "Register",
+  data: ()=> {
+    return {
+      loading: false,
+      email: '',
+      password: '',
+      username: '',
+      passwd: '',
+      rules: [
+        v => !!v || '此为必填项',
+      ],
+    }
+  },
+  methods: {
+    register: function () {
+      this.loading = true;
+      if (this.password !== this.passwd) {
+        this.loading = false
+        this.password = ''
+        this.passwd = ''
+        this.snackbar.Launch(this, "两次密码不一致")
+        return
+      }
+      this.user.addUserInfo(this, this.email, this.username, this.password, function (that) {
+        that.loading = false
+        that.snackbar.Launch(that, "注册成功，请登录")
+        that.email = ''
+        that.username = ''
+        that.password = ''
+        that.passwd = ''
+        that.$router.push({path: "/auth/login"})
+      }, function (that, data) {
+        that.loading = false
+        that.snackbar.Launch(that, "注册失败：" + data.msg)
+      })
+    }
+  },
+  computed: {
+    isAvailable() {
+      return (
+          this.username === "" || this.email === "" || this.password === "" || this.passwd === ""
+      )
+    }
+  },
 }
 </script>
 

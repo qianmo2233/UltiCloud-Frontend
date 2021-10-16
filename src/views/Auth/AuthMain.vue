@@ -1,6 +1,8 @@
 <template>
   <v-container>
-    <router-view/>
+    <transition name="slide-fade" mode="out-in">
+      <router-view/>
+    </transition>
   </v-container>
 </template>
 

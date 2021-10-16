@@ -1,6 +1,8 @@
 <template>
   <div>
-    <router-view v-if="$store.state.user.auth.status"/>
+    <transition name="slide-fade" mode="out-in">
+      <router-view v-if="$store.state.user.auth.status"/>
+    </transition>
     <v-container v-if="!$store.state.user.auth.status">
       <v-row class="d-flex justify-center">
         <v-col cols="12" lg="3" md="8" sm="12">

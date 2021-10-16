@@ -1,4 +1,5 @@
 const getUserInfoUrl = "https://panel.ultikits.com:4433/user/"
+const addUserInfoUrl = "https://panel.ultikits.com:4433/user/adduser"
 
 function getUserInfo(token, id, that, success, failure) {
     that.$http.post(
@@ -9,6 +10,19 @@ function getUserInfo(token, id, that, success, failure) {
         success(that, result.data)
     }, function (result) {
         failure(that, result.data)
+    })
+}
+
+function addUserInfo(that, email, username, password, success, error) {
+    let time = Date.now()
+    that.$http.post(
+        addUserInfoUrl + '?username=' + username + '&password=' + password + '&email=' + email,
+        {username: username, time: time, key: that.sign.getSignString(username, time)},
+        {}
+    ).then(function () {
+        success(that)
+    }, function (result) {
+        error(that, result.data)
     })
 }
 
@@ -24,4 +38,4 @@ function saveUserInfo(that, UserData) {
     that.$store.dispatch('setStatus', true).then()
 }
 
-export default {getUserInfo, saveUserInfo}
+export default {getUserInfo, saveUserInfo, addUserInfo}
