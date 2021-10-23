@@ -12,6 +12,7 @@ import User from "@/assets/js/User"
 import Init from "@/assets/js/Init"
 import Server from "@/assets/js/Server"
 import Pro from "@/assets/js/Pro"
+import Payment from "@/assets/js/Payment"
 
 import './assets/css/style.css'
 
@@ -24,6 +25,7 @@ Vue.prototype.user = User
 Vue.prototype.init = Init
 Vue.prototype.server = Server
 Vue.prototype.pro = Pro
+Vue.prototype.payment = Payment
 
 Vue.use(VueResource)
 
