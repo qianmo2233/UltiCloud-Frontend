@@ -29,7 +29,7 @@
         外部链接
         <v-divider inset/>
       </v-subheader>
-      <v-list-item link>
+      <v-list-item link @click="MainSite">
         <v-list-item-icon>
           <v-icon>mdi-home</v-icon>
         </v-list-item-icon>
@@ -42,7 +42,7 @@
         <v-list-item-title>管理面板</v-list-item-title>
       </v-list-item>
       <v-list-item link>
-        <v-list-item-icon>
+        <v-list-item-icon @click="Doc">
           <v-icon>mdi-file-document</v-icon>
         </v-list-item-icon>
         <v-list-item-title>使用文档</v-list-item-title>
@@ -55,6 +55,14 @@
 export default {
   name: "ListNav",
   created() {
+  },
+  methods: {
+    MainSite: function () {
+      window.open('https://ultikits.com/', '_blank', '')
+    },
+    Doc: function () {
+      window.open('https://doc.ultitools.ultikits.com/', '_blank', '')
+    }
   }
 }
 </script>

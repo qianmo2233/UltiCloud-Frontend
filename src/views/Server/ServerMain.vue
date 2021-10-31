@@ -53,11 +53,25 @@
             </v-lazy>
           </template>
           <template v-slot:loading>
-            <v-row>
-              <v-col cols="12">
-                <v-skeleton-loader type="list-item-two-line"/>
-                <v-skeleton-loader type="list-item-two-line"/>
-                <v-skeleton-loader type="list-item-two-line"/>
+          <v-row>
+            <v-col cols="12">
+              <v-skeleton-loader type="list-item-two-line"/>
+              <v-skeleton-loader type="list-item-two-line"/>
+              <v-skeleton-loader type="list-item-two-line"/>
+            </v-col>
+          </v-row>
+        </template>
+          <template v-slot:no-data>
+            <v-row class="fill-height mt-10" align-content="center" justify="center">
+              <v-col class="subtitle-1 text-center" cols="12">
+                没有数据
+              </v-col>
+            </v-row>
+          </template>
+          <template v-slot:no-results>
+            <v-row class="fill-height mt-10" align-content="center" justify="center">
+              <v-col class="subtitle-1 text-center" cols="12">
+                没有结果
               </v-col>
             </v-row>
           </template>

@@ -8,8 +8,8 @@
           <router-link to="register">立即注册</router-link>
         </v-card-subtitle>
         <v-card-text class="text-center">
+          <v-divider inset class="mb-6"/>
           <v-row>
-            <v-divider inset class="mb-6"/>
             <v-col cols="12">
               <v-text-field v-model="username" outlined label="用户名" :disabled="loading"/>
               <v-text-field v-model="password" outlined label="密码" type="password" :disabled="loading"/>

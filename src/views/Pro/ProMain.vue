@@ -20,8 +20,8 @@
               </v-card-title>
               <v-card-subtitle>不试试，如何知道好不好？</v-card-subtitle>
               <v-card-actions>
-                <v-btn text>
-                  开始试用
+                <v-btn text @click="evaluate" :loading="eval.loading" :disabled="$store.state.user.email.validated !== 'true' || $store.state.user.member.pro === 'true'">
+                  {{ getBtnText }}
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -93,14 +93,14 @@
                         </v-row>
                       </template>
                       <template v-slot:default="props">
-                        <v-list-item-group mandatory color="indigo" v-model="choose" v-if="!priceLoading">
+                        <v-list-item-group mandatory color="indigo" v-model="choose">
                           <v-list-item v-for="item in props.items" :key="item.id">
                             <v-list-item-title>{{ item.name.split("_")[1] + ' 天' }}</v-list-item-title>
                             <v-list-item-subtitle>
                               <v-icon left>mdi-tag</v-icon>
                               折扣: - 0%
                             </v-list-item-subtitle>
-                            <v-list-item-action-text>{{ item.price }} CNY</v-list-item-action-text>
+                            <v-list-item-action-text>{{ item !== null? item.price : '0' }} CNY</v-list-item-action-text>
                           </v-list-item>
                         </v-list-item-group>
                       </template>
@@ -148,6 +148,72 @@
               </v-card-text>
             </v-card>
           </v-tab-item>
+          <v-tab-item>
+            <v-card flat>
+              <v-card-text>
+                <v-row>
+                  <v-col cols="12">
+                    <v-subheader>使用CD-Key激活<v-divider inset/></v-subheader>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="12">
+                    <v-alert type="info">如果您是使用其他支付方式购得一串代码，请在下方输入</v-alert>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="12">
+                    <v-text-field label="在这里输入你的CD-Key" filled :loading="cdk.loading" v-model="cdk.code">
+                      <template v-slot:append-outer>
+                        <v-btn icon :loading="cdk.loading" @click="active">
+                          <v-icon>mdi-check</v-icon>
+                        </v-btn>
+                      </template>
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="12">
+                    <v-subheader>使用活动礼品码兑换<v-divider inset/></v-subheader>
+                  </v-col>
+                </v-row>
+                <v-alert type="info">如果您是通过活动获得一串代码，请在下方输入</v-alert>
+                <v-row>
+                  <v-col cols="12">
+                    <v-text-field label="在这里输入你的活动礼品码" filled :loading="gift.loading" v-model="gift.code">
+                      <template v-slot:append-outer>
+                        <v-btn icon :loading="gift.loading" @click="redeem">
+                          <v-icon>mdi-check</v-icon>
+                        </v-btn>
+                      </template>
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item>
+            <v-card flat>
+              <v-card-text>
+                <v-row>
+                  <v-col cols="12">
+                    <v-alert type="warning">该功能仍在开发中</v-alert>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item>
+            <v-card flat>
+              <v-card-text>
+                <v-row>
+                  <v-col cols="12">
+                    <v-data-table :headers="history.headers" :items="history.items" :items-per-page="10" class="elevation-0"></v-data-table>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
         </v-tabs>
       </v-col>
     </v-row>
@@ -158,7 +224,7 @@
             <v-card-text class="text-center">
               <v-row>
                 <v-col cols="12">
-                  <v-alert type="info">支付后系统将自动开通Pro会员, 请勿刷新页面, 点击下方</v-alert>
+                  <v-alert type="info">支付后系统将自动开通Pro会员, 请勿刷新页面, 点击下方按钮来关闭订单</v-alert>
                 </v-col>
               </v-row>
               <v-row>
@@ -175,7 +241,7 @@
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <v-btn text color="primary" block>
+                  <v-btn text color="primary" block @click="window.open(pay.url,'_blank','');">
                     <v-icon left>mdi-open-in-new</v-icon>
                     转跳至手机支付宝
                   </v-btn>
@@ -194,6 +260,23 @@
         </v-container>
       </v-sheet>
     </v-bottom-sheet>
+    <v-dialog v-model="eval.dialog" persistent max-width="500">
+      <v-card max-width="500px">
+        <v-card-title class="text-h5">您的试用代码</v-card-title>
+        <v-card-text class="text-center">
+          <v-alert border="left" colored-border type="info" elevation="6" color="blue">
+            该代码在七天内有效，请尽快兑换
+          </v-alert>
+          <v-alert border="left" colored-border type="warning" elevation="6" color="red">
+            此代码仅显示一次，请自行妥善保管
+          </v-alert>
+          <code class="font-weight-thin text-h5" style="user-select: text">{{ eval.code }}</code>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="blue" text @click="eval.dialog = false"><v-icon left>mdi-close</v-icon>关闭</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -213,19 +296,46 @@ export default {
         loading: false,
       },
       choose: 0,
-      prices: [
-        {
-          name: "pro_0",
-          price: 0
-        }
-      ],
-      priceLoading: false
+      prices: [],
+      priceLoading: false,
+      cdk: {
+        code: '',
+        loading: false
+      },
+      gift: {
+        code: '',
+        loading: false
+      },
+      eval: {
+        dialog: false,
+        code: '',
+        loading: false
+      },
+      history: {
+        items: [],
+        headers: [
+          {text: '订单号', value: 'tradeId', align: 'start' },
+          { text: '创建时间', value: 'createDate' },
+          { text: '描述', value: 'description' },
+          { text: '金额', value: 'amount' },
+          { text: '状态', value: 'tradeStatus' },
+        ],
+      }
     }
   },
   computed: {
     getPrice: function () {
-      return this.prices[this.choose].price
-    }
+      return this.priceLoading ? '' : this.prices[this.choose].price
+    },
+    getBtnText: function() {
+      if(this.$store.state.user.email.validated !== 'true') {
+        return '请先通过邮箱验证'
+      } else if(this.$store.state.user.member.pro === 'true') {
+        return '已是Pro会员'
+      } else {
+        return '免费体验'
+      }
+    },
   },
 
   created() {
@@ -236,6 +346,17 @@ export default {
     }, function (that, data) {
       that.snackbar.Launch(that, "价格获取失败:" + data.msg)
       that.priceLoading = false
+    })
+    this.payment.GetHistory(this, function (that, data) {
+      that.history.items = data
+    }, function (that) {
+      that.init.check(that, function () {
+        that.payment.GetHistory(that, function (that, data) {
+          that.history.items = data
+        }, function (that, data) {
+          that.snackbar.Launch(that, "历史订单获取失败: " + data.msg)
+        })
+      })
     })
   },
 
@@ -307,6 +428,73 @@ export default {
               that.pay.loading = false
               that.snackbar.Launch(that, "订单取消失败: " + data.msg)
             })
+          })
+        })
+      })
+    },
+    active: function () {
+      this.cdk.loading = true
+      this.code.activeKey(this, this.cdk.code, function (that) {
+        that.init.check(that, function () {
+          that.snackbar.Launch(that, 'Pro激活成功')
+          that.cdk.loading = false
+        })
+      }, function (that) {
+        that.init.check(that, function () {
+          that.code.activeKey(that, that.cdk.code, function (that) {
+            that.init.check(that, function () {
+              that.snackbar.Launch(that, 'Pro激活成功')
+              that.cdk.loading = false
+            })
+          }, function (that, data) {
+            that.init.check(that, function () {
+              that.snackbar.Launch(that, 'Pro激活失败: ' + data.msg)
+              that.cdk.loading = false
+            })
+          })
+        })
+      })
+    },
+    redeem: function () {
+      this.gift.loading = true
+      this.code.redeem(this, this.gift.code, function (that) {
+        that.init.check(that, function () {
+          that.snackbar.Launch(that, 'Pro兑换成功')
+          that.gift.loading = false
+        })
+      }, function (that) {
+        that.init.check(that, function () {
+          that.code.redeem(that, that.gift.code, function (that) {
+            that.init.check(that, function () {
+              that.snackbar.Launch(that, 'Pro兑换成功')
+              that.gift.loading = false
+            })
+          }, function (that, data) {
+            that.init.check(that, function () {
+              that.snackbar.Launch(that, 'Pro兑换失败: ' + data.msg)
+              that.gift.loading = false
+            })
+          })
+        })
+      })
+    },
+    evaluate: function () {
+      this.eval.loading = true
+      this.code.getCode(this, 1, function (that, code) {
+        that.eval.loading = false
+        that.eval.code = code
+        that.eval.dialog = true
+        that.snackbar.Launch(that, "领取成功")
+      }, function (that) {
+        that.init.check(that, function () {
+          that.code.getCode(that, 1, function (that, code) {
+            that.eval.loading = false
+            that.eval.code = code
+            that.eval.dialog = true
+            that.snackbar.Launch(that, "领取成功")
+          }, function (that, data) {
+            that.eval.loading = false
+            that.snackbar.Launch(that, "领取失败" + data.msg)
           })
         })
       })

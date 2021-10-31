@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@auspicious/vue-vercode@^1.0.3":
+  "integrity" "sha512-xxf8aoxTj9Hr1h4L3K/oV0Bq7zc1m5fzwPpvzTcEhs7J2R9SkDs9TYzj6VMEfkh6idg9OBxRcBtNYgNX4EGicg=="
+  "resolved" "https://registry.npmjs.org/@auspicious/vue-vercode/-/vue-vercode-1.0.3.tgz"
+  "version" "1.0.3"
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.12.11":
   "integrity" "sha512-Zt1yodBx1UcyiePMSkWnU4hPqhwq7hGi2nFL1LeA3EUl+q2LQx16MISgJ0+z7dnmgvP9QtIleuETGOiOH1RcIw=="
   "version" "7.12.11"

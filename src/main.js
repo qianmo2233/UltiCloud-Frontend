@@ -13,6 +13,8 @@ import Init from "@/assets/js/Init"
 import Server from "@/assets/js/Server"
 import Pro from "@/assets/js/Pro"
 import Payment from "@/assets/js/Payment"
+import Code from "@/assets/js/Code"
+import Email from "@/assets/js/Email"
 
 import './assets/css/style.css'
 
@@ -26,6 +28,8 @@ Vue.prototype.init = Init
 Vue.prototype.server = Server
 Vue.prototype.pro = Pro
 Vue.prototype.payment = Payment
+Vue.prototype.code = Code
+Vue.prototype.email = Email
 
 Vue.use(VueResource)
 
