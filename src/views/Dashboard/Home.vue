@@ -38,10 +38,10 @@
           </v-row>
           <v-row>
             <v-col lg="6" sm="12">
-              <v-btn color="success" block @click="verify" :loading="loading" :disabled="loading"><v-icon left>mdi-check</v-icon>验证</v-btn>
+              <v-btn color="success" block @click="verify" :loading="load" :disabled="load"><v-icon left>mdi-check</v-icon>验证</v-btn>
             </v-col>
             <v-col lg="6" sm="12">
-              <v-btn color="info" block @click="send" :disabled="loading || showtime"><v-icon left>mdi-send</v-icon>{{ showtime ? showtime : '发送' }}</v-btn>
+              <v-btn color="info" block @click="send" :disabled="load || showtime"><v-icon left>mdi-send</v-icon>{{ showtime ? showtime : '发送' }}</v-btn>
             </v-col>
           </v-row>
         </v-card-text>
@@ -74,7 +74,7 @@
                 </strong>
                 <br>
                 <strong>
-                  UltiTools5.1.3更新发布，修复了各种各样的问题并且添加了几个功能
+                  UltiTools{{ version }}更新发布，修复了各种各样的问题并且添加了几个功能
                 </strong>
               </v-card-text>
             </v-card>
@@ -117,17 +117,18 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-card elevation="12" v-if="!loading">
+        <v-card elevation="12">
           <v-card-text>
             <v-row>
               <v-col cols="12" lg="6" sm="12">
                 <div>UltiTools最新版本</div>
-                <p class="display-1 text--primary">8.14 版本5.1.3</p>
+                <v-skeleton-loader v-if="loading" type="text"></v-skeleton-loader>
+                <p class="display-1 text--primary" v-if="!loading">{{ ver }}</p>
               </v-col>
               <v-col cols="12" lg="6" sm="12">
-                <v-btn text color="blue" class="float-lg-right mb-2" @click="PluginHome">
+                <v-btn text color="blue" class="float-lg-right mb-2" @click="PluginHome" :loading="loading">
                   <v-icon left>mdi-download</v-icon>
-                  下载最新本版插件 v5.1.3
+                  下载最新本版插件 v{{ version }}
                 </v-btn>
               </v-col>
             </v-row>
@@ -172,9 +173,6 @@
             </v-row>
           </v-card-text>
         </v-card>
-        <v-card elevation="12" v-if="loading">
-          <v-skeleton-loader class="mx-auto" type="card"/>
-        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -191,13 +189,19 @@ export default {
       dialog: false,
       load: false,
       timeCounter: null,
-      showtime: null
+      showtime: null,
+      version: '',
+      ver: '',
     }
   },
   created() {
-    setTimeout(()=> {
-      this.loading = false;
-    }, 500)
+    this.github.getLatestVersion(this, function (that, data) {
+      that.version = data.tag_name
+      that.ver = data.name
+    }, function (that, data) {
+      that.snackbar.Launch(that, "插件版本获取失败: " + data.message)
+    })
+    this.loading = false
   },
   methods: {
     openDialog: function () {
@@ -232,6 +236,7 @@ export default {
     send: function () {
       this.load = true
       this.email.sendEmail(this, function (that) {
+        that.countDown(60)
         that.load = false;
         that.snackbar.Launch(that, "邮件发送成功")
       }, function (that) {
@@ -254,18 +259,18 @@ export default {
         that.snackbar.Launch(that, "邮箱验证成功")
         that.init.check(that, function (that) {
           that.dialog = false
-        }, function (that) {
-          that.init.check(that, function () {
-            that.email.verify(that, that.$refs.vercode.getCode(), function (that) {
-              that.load = false;
-              that.snackbar.Launch(that, "邮箱验证成功")
-              that.init.check(that, function (that) {
-                that.dialog = false
-              }, function (that, data) {
-                that.load = false;
-                that.snackbar.Launch(that, "邮箱验证失败:" + data.msg)
-              })
+        })
+      }, function (that) {
+        that.init.check(that, function () {
+          that.email.verify(that, that.$refs.vercode.getCode(), function (that) {
+            that.load = false;
+            that.snackbar.Launch(that, "邮箱验证成功")
+            that.init.check(that, function (that) {
+              that.dialog = false
             })
+          }, function (that, data) {
+            that.load = false;
+            that.snackbar.Launch(that, "邮箱验证失败:" + data.msg)
           })
         })
       })

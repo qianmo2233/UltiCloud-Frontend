@@ -11,8 +11,8 @@
           <v-divider inset class="mb-6"/>
           <v-row>
             <v-col cols="12">
-              <v-text-field v-model="username" outlined label="用户名" :disabled="loading"/>
-              <v-text-field v-model="password" outlined label="密码" type="password" :disabled="loading"/>
+              <v-text-field v-model="username" outlined label="用户名" :disabled="loading" @keyup.enter.native="login"/>
+              <v-text-field v-model="password" outlined label="密码" type="password" :disabled="loading" @keydown.native="keydown($event)" @keyup.enter.native="login"/>
             </v-col>
           </v-row>
           <v-row>
@@ -87,6 +87,11 @@ export default {
             that.loading = false
           }
       )
+    },
+    keydown: function (event){
+      if(event.keyCode === 32){
+        event.returnValue = false
+      }
     }
   }
 }

@@ -4,7 +4,7 @@
     <navbar-main/>
     <snack-bar/>
     <logout/>
-    <v-main>
+    <v-main :style="$store.state.user.auth.status ? '' : 'height: calc(100vh - 64px) !important;' ">
       <transition name="slide-fade" mode="out-in">
         <router-view/>
       </transition>

@@ -370,7 +370,7 @@ export default {
     checkout: function () {
       let select = this.prices[this.choose];
       this.pay.loading = true
-      this.payment.CreatePayment(this, select.price, select.name, function (that, data) {
+      this.payment.CreatePayment(this, select.price, select.name.split("_")[1] + '-Pro会员', function (that, data) {
         that.pay.id = data.alipay_trade_precreate_response.out_trade_no
         that.pay.amount = select.price
         that.pay.url = data.alipay_trade_precreate_response.qr_code
@@ -379,7 +379,7 @@ export default {
         that.timer = setInterval(that.check,5000);
       }, function (that) {
         that.init.check(that, function () {
-          that.payment.CreatePayment(that, select.price, select.name, function (that, data) {
+          that.payment.CreatePayment(that, 0.01, select.name, function (that, data) {
             that.pay.id = data.alipay_trade_precreate_response.out_trade_no
             that.pay.amount = select.price
             that.pay.url = data.alipay_trade_precreate_response.qr_code

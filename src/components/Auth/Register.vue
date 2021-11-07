@@ -13,8 +13,8 @@
             <v-col cols="12">
               <v-text-field outlined dense :disabled="loading" :rules="rules" label="邮箱" v-model="email"/>
               <v-text-field outlined dense :disabled="loading" :rules="rules" label="用户名" v-model="username"/>
-              <v-text-field outlined dense :disabled="loading" :rules="rules" label="密码" type="password" v-model="password"/>
-              <v-text-field outlined dense :disabled="loading" :rules="rules" label="重复密码" type="password" v-model="passwd"/>
+              <v-text-field outlined dense :disabled="loading" :rules="rules" label="密码" type="password" v-model="password" @keydown.native="keydown($event)"/>
+              <v-text-field outlined dense :disabled="loading" :rules="rules" label="重复密码" type="password" v-model="passwd" @keydown.native="keydown($event)"/>
             </v-col>
           </v-row>
           <v-row>
@@ -81,6 +81,11 @@ export default {
         that.loading = false
         that.snackbar.Launch(that, "注册失败：" + data.msg)
       })
+    },
+    keydown: function (event){
+      if(event.keyCode === 32){
+        event.returnValue = false
+      }
     }
   },
   computed: {

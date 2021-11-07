@@ -7,8 +7,10 @@ import Register from "@/components/Auth/Register";
 import DashboardMain from "@/views/Dashboard/DashboardMain";
 import Home from "@/views/Dashboard/Home";
 import NotFound from "@/views/NotFound";
-import ServerMain from "@/views/Server/ServerMain";
-import ProMain from "@/views/Pro/ProMain";
+import ServerMain from "@/views/Dashboard/Server/ServerMain";
+import ProMain from "@/views/Dashboard/Pro/ProMain";
+import AccountMain from "@/views/Dashboard/Account/AccountMain";
+import Profile from "@/views/Dashboard/Account/Profile";
 
 Vue.use(VueRouter)
 
@@ -64,6 +66,22 @@ const routes = [
     ],
   },
   {
+    redirect: '/account/profile',
+    path: '/account',
+    name: 'Account',
+    component: AccountMain,
+    children: [
+      {
+        path: 'profile',
+        name: 'Profile',
+        component: Profile,
+      },
+    ],
+    meta: {
+      icon: 'mdi-account'
+    }
+  },
+  {
     path: '/404',
     name: 'NotFound',
     component: NotFound,
@@ -84,5 +102,15 @@ const router = new VueRouter({
   mode: 'history',
   routes
 })
+
+/*
+  修复路由转跳错误
+ */
+//获取原型对象上的push函数
+const originalPush = VueRouter.prototype.push
+//修改原型对象中的push方法
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 export default router

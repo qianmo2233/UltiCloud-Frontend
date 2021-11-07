@@ -5,6 +5,8 @@ import store from './store'
 import router from './router'
 import vuetify from './plugins/vuetify'
 
+import './assets/css/style.css'
+
 import Auth from '@/assets/js/Auth'
 import Sign from '@/assets/js/Sign'
 import Snackbar from '@/assets/js/SnackBar'
@@ -15,8 +17,8 @@ import Pro from "@/assets/js/Pro"
 import Payment from "@/assets/js/Payment"
 import Code from "@/assets/js/Code"
 import Email from "@/assets/js/Email"
-
-import './assets/css/style.css'
+import Profile from "@/assets/js/Profile"
+import GitHub from "@/assets/js/GitHub"
 
 Vue.config.productionTip = false
 
@@ -30,6 +32,8 @@ Vue.prototype.pro = Pro
 Vue.prototype.payment = Payment
 Vue.prototype.code = Code
 Vue.prototype.email = Email
+Vue.prototype.profile = Profile
+Vue.prototype.github = GitHub
 
 Vue.use(VueResource)
 
