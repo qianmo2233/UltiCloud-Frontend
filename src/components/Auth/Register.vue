@@ -11,10 +11,10 @@
           <v-row>
             <v-divider inset class="mb-6"/>
             <v-col cols="12">
-              <v-text-field outlined dense :disabled="loading" :rules="rules" label="邮箱" v-model="email"/>
-              <v-text-field outlined dense :disabled="loading" :rules="rules" label="用户名" v-model="username"/>
-              <v-text-field outlined dense :disabled="loading" :rules="rules" label="密码" type="password" v-model="password" @keydown.native="keydown($event)"/>
-              <v-text-field outlined dense :disabled="loading" :rules="rules" label="重复密码" type="password" v-model="passwd" @keydown.native="keydown($event)"/>
+              <v-text-field clearable solo-inverted dense :disabled="loading" :rules="rules" label="邮箱" prepend-inner-icon="mdi-email" v-model="email"/>
+              <v-text-field clearable solo-inverted dense :disabled="loading" :rules="rules" label="用户名" prepend-inner-icon="mdi-account" v-model="username"/>
+              <v-text-field clearable solo-inverted dense :disabled="loading" :rules="rules" label="密码" placeholder="密码" type="password" v-model="password" @keydown.native="keydown($event)"/>
+              <v-text-field clearable solo-inverted dense :disabled="loading" :rules="rules" label="重复密码" placeholder="重复密码" type="password" v-model="passwd" @keydown.native="keydown($event)"/>
             </v-col>
           </v-row>
           <v-row>

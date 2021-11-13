@@ -20,7 +20,7 @@
                     <v-icon>mdi-palette</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>界面设置</v-list-item-title>
+                    <v-list-item-title>界面设置 未完成</v-list-item-title>
                     <v-list-item-subtitle>View Settings</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
@@ -36,7 +36,7 @@
     <v-container v-if="!$store.state.user.auth.status">
       <v-row class="d-flex justify-center">
         <v-col cols="12" lg="3" md="8" sm="12">
-          <v-card class="global-loading" flat>
+          <v-card class="global-loading" flat color="rgba(0,0,0,0)">
             <v-card-text class="text-center">
               <v-progress-circular rounded indeterminate :size="50" :width="5" color="primary"/>
               <p class="mt-2">载入中</p>

@@ -1,9 +1,10 @@
 import Vue from 'vue'
-import VueResource from 'vue-resource'
 import App from './App.vue'
 import store from './store'
 import router from './router'
+import VueResource from 'vue-resource'
 import vuetify from './plugins/vuetify'
+import VuetifyAlgoliaPlaces from 'vuetify-algolia-places';
 
 import './assets/css/style.css'
 
@@ -36,6 +37,12 @@ Vue.prototype.profile = Profile
 Vue.prototype.github = GitHub
 
 Vue.use(VueResource)
+Vue.use(VuetifyAlgoliaPlaces, {
+  algolia: {
+    appId: '',
+    apiKey: '',
+  },
+});
 
 new Vue({
   store,

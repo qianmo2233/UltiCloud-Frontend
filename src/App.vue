@@ -26,5 +26,19 @@ export default {
   data: () => ({
     //
   }),
+
+  created() {
+    if (localStorage.getItem('theme') === null) localStorage.setItem('theme', '2')
+    switch (localStorage.getItem('theme')) {
+      case '0' :
+        this.$vuetify.theme.dark = false
+        break
+      case '1' :
+        this.$vuetify.theme.dark = true
+        break
+      case '2' :
+        this.$vuetify.theme.dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+    }
+  }
 };
 </script>

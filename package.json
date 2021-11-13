@@ -9,14 +9,17 @@
   },
   "dependencies": {
     "@auspicious/vue-vercode": "^1.0.3",
+    "algoliasearch": "^3.35.1",
     "core-js": "^3.6.5",
+    "marked": "^4.0.2",
     "md5": "^2.3.0",
-    "vue-qr": "^2.3.0",
+    "places.js": "^1.19.0",
     "vue": "^2.6.11",
+    "vue-qr": "^2.3.0",
     "vue-resource": "^1.5.3",
     "vue-router": "^3.2.0",
-    "vue-wechat-title": "^2.0.7",
     "vuetify": "^2.4.0",
+    "vuetify-algolia-places": "^1.0.1",
     "vuex": "^3.4.0"
   },
   "devDependencies": {

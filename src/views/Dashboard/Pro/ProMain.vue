@@ -241,7 +241,7 @@
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <v-btn text color="primary" block @click="window.open(pay.url,'_blank','');">
+                  <v-btn text color="primary" block @click="openAlipay">
                     <v-icon left>mdi-open-in-new</v-icon>
                     转跳至手机支付宝
                   </v-btn>
@@ -367,6 +367,9 @@ export default {
   },
 
   methods: {
+    openAlipay: function () {
+      window.open(this.pay.url,'_blank','')
+    },
     checkout: function () {
       let select = this.prices[this.choose];
       this.pay.loading = true

@@ -2,6 +2,7 @@
   <v-app-bar color="primary" dark app>
     <v-app-bar-nav-icon @click="$store.dispatch('setNav', !$store.state.layout.nav)" v-if="$vuetify.breakpoint.lgAndDown || $store.state.user.auth.status"/>
     <v-app-bar-title>UltiCloud</v-app-bar-title>
+    <global-search/>
     <v-spacer/>
     <v-btn text v-if="$vuetify.breakpoint.lgAndUp" disabled>
       <v-icon left>mdi-open-in-new</v-icon>
@@ -19,8 +20,10 @@
 </template>
 
 <script>
+import GlobalSearch from "@/components/Layout/GlobalSearch";
 export default {
   name: "AppBar",
+  components: {GlobalSearch},
   methods: {
     MainSite: function () {
       window.open('https://ultikits.com/', '_blank', '')

@@ -66,9 +66,12 @@
       <v-col cols="12" md="12" sm="12" lg="4">
         <v-row>
           <v-col cols="12">
-            <v-card elevation="12" v-if="!loading">
+            <v-card elevation="12">
               <v-card-title class="text-h5">公告</v-card-title>
-              <v-card-text class="text--primary">
+              <v-card-text v-if="loading">
+                <v-skeleton-loader type="list-item-two-line"/>
+              </v-card-text>
+              <v-card-text class="text--primary" v-if="!loading">
                 <strong>
                   UltiCloud面板1.0正式版已经发布，如何有任何问题请务必到GitHub提Issue或者在群里反馈
                 </strong>
@@ -77,9 +80,6 @@
                   UltiTools{{ version }}更新发布，修复了各种各样的问题并且添加了几个功能
                 </strong>
               </v-card-text>
-            </v-card>
-            <v-card elevation="12" v-if="loading">
-              <v-skeleton-loader class="mx-auto" type="card"/>
             </v-card>
           </v-col>
         </v-row>
@@ -94,7 +94,7 @@
                       <v-icon>mdi-server</v-icon>
                     </v-list-item-icon>
                     <v-list-item-title>
-                      在线服务器数: --/--
+                      在线服务器数: {{ servers }}
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item>
@@ -102,7 +102,7 @@
                       <v-icon>mdi-account</v-icon>
                     </v-list-item-icon>
                     <v-list-item-title>
-                      在线玩家数: --/--
+                      在线玩家数: {{ players }}
                     </v-list-item-title>
                   </v-list-item>
                 </v-list>
@@ -120,10 +120,12 @@
         <v-card elevation="12">
           <v-card-text>
             <v-row>
-              <v-col cols="12" lg="6" sm="12">
+              <v-col cols="12" lg="6" sm="12" v-if="!loading">
                 <div>UltiTools最新版本</div>
-                <v-skeleton-loader v-if="loading" type="text"></v-skeleton-loader>
-                <p class="display-1 text--primary" v-if="!loading">{{ ver }}</p>
+                <p class="display-1 text--primary">{{ ver }}</p>
+              </v-col>
+              <v-col cols="12" lg="4" sm="12" v-if="loading">
+                <v-skeleton-loader type="list-item-two-line"/>
               </v-col>
               <v-col cols="12" lg="6" sm="12">
                 <v-btn text color="blue" class="float-lg-right mb-2" @click="PluginHome" :loading="loading">
@@ -133,42 +135,17 @@
               </v-col>
             </v-row>
             <v-divider/>
-            <v-row>
-              <v-col cols="12" lg="4" md="6" sm="12">
-                <div class="mt-3">
-                  <h3 class="text--primary"><v-icon left>mdi-tools</v-icon>功能更新</h3>
-                  <ul class="mt-1 text--primary">
-                    <li>增加了自定义MOTD功能</li>
-                    <li>交易功能添加了点击消息来同意/拒绝</li>
-                    <li>增加了菜单绑定物品lore</li>
-                  </ul>
-                </div>
+            <v-row class="fill-height mt-10" align-content="center" justify="center" v-if="loading">
+              <v-col class="subtitle-1 text-center" cols="12">
+                正在获取更新日志
               </v-col>
-              <v-col cols="12" lg="4" md="6" sm="12">
-                <div class="mt-3">
-                  <h3 class="text--primary"><v-icon left>mdi-code-tags-check</v-icon>性能与代码优化</h3>
-                  <ul class="mt-1 text--primary">
-                    <li>重写了at玩家功能</li>
-                    <li>更改了at功能提示文字的颜色</li>
-                    <li>优化并完善了交易功能代码</li>
-                    <li>升级了UltiCoreAPI依赖版本</li>
-                  </ul>
-                </div>
+              <v-col cols="12" lg="3" md="4" sm="12">
+                <v-progress-linear indeterminate rounded height="6"></v-progress-linear>
               </v-col>
-              <v-col cols="12" lg="4" md="6" sm="12">
-                <div class="mt-3">
-                  <h3 class="text--primary"><v-icon left>mdi-bug-check</v-icon>BUG修复</h3>
-                  <ul class="mt-1 text--primary">
-                    <li>修复了交易结算时经验没有变化的问题</li>
-                    <li>修复了锁箱子功能在监听漏斗拿取箱子物品时的报错</li>
-                    <li>修复了死亡惩罚执行命令时报错</li>
-                    <li>修复了 <code>/bag open</code> 指令的问题</li>
-                    <li>修复了 <code>/trade</code> 指令错误</li>
-                    <li>修复了玩家拒绝交易时报错</li>
-                    <li>修复了 <code>/lock</code> 指令错误</li>
-                    <li>修复了无法关闭侧边栏的问题</li>
-                  </ul>
-                </div>
+            </v-row>
+            <v-row v-if="!loading">
+              <v-col cols="12" class="mt-4 text-center">
+                <article class="text--primary" v-html="compiledMarkdown"/>
               </v-col>
             </v-row>
           </v-card-text>
@@ -180,6 +157,8 @@
 
 <script>
 import VueVercode from "@auspicious/vue-vercode";
+import {marked} from 'marked'
+
 export default {
   components: {VueVercode},
   name: "Home",
@@ -192,16 +171,34 @@ export default {
       showtime: null,
       version: '',
       ver: '',
+      players: 0,
+      servers: 0,
+      changelog: '',
     }
   },
   created() {
     this.github.getLatestVersion(this, function (that, data) {
       that.version = data.tag_name
       that.ver = data.name
+      that.changelog = data.body
+      that.github.getPlayers(that, function (that, data) {
+        that.players = data[0][1]
+        that.github.getServers(that, function (that, data) {
+          that.servers = data[0][1]
+          that.loading = false
+        }, function (that, data) {
+          that.snackbar.Launch(that, "统计数据获取失败: " + data.message)
+          that.loading = false
+        })
+      })
     }, function (that, data) {
       that.snackbar.Launch(that, "插件版本获取失败: " + data.message)
     })
-    this.loading = false
+  },
+  computed:{
+    compiledMarkdown () {
+      return marked(this.changelog, { sanitize: true })
+    }
   },
   methods: {
     openDialog: function () {

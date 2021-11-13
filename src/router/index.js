@@ -11,6 +11,7 @@ import ServerMain from "@/views/Dashboard/Server/ServerMain";
 import ProMain from "@/views/Dashboard/Pro/ProMain";
 import AccountMain from "@/views/Dashboard/Account/AccountMain";
 import Profile from "@/views/Dashboard/Account/Profile";
+import Style from "@/views/Dashboard/Account/Style";
 
 Vue.use(VueRouter)
 
@@ -75,6 +76,11 @@ const routes = [
         path: 'profile',
         name: 'Profile',
         component: Profile,
+      },
+      {
+        path: 'style',
+        name: 'Style',
+        component: Style,
       },
     ],
     meta: {

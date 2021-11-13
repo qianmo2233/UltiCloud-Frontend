@@ -67,3 +67,7 @@ html {
     transform: translateY(1.5vh);
     opacity: 0;
 }
+
+li {
+    list-style-type: none;
+}

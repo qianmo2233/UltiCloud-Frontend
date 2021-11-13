@@ -29,13 +29,11 @@
                 </v-list-item-action-text>
               </v-list-item>
             </v-list>
-            <v-text-field filled label="在这里输入新的邮箱地址" hint="修改之后需要重新验证" :loading="el" v-model="email">
-              <template v-slot:append-outer>
-                <v-btn icon :loading="el" @click="em">
-                  <v-icon>mdi-check</v-icon>
-                </v-btn>
-              </template>
-            </v-text-field>
+            <v-text-field filled label="在这里输入新的邮箱地址" hint="修改之后需要重新验证" :loading="el" v-model="email"/>
+            <v-btn :loading="el" @click="em" color="primary" :disabled="!email">
+              <v-icon left>mdi-check</v-icon>
+              确认修改
+            </v-btn>
           </v-col>
         </v-row>
         <v-row>
@@ -54,10 +52,24 @@
             <v-text-field filled label="在这里重复新的密码" hint="修改之后需要重新登录" type="password" :loading="pl" v-model="re" @keydown.native="keydown($event)"/>
           </v-col>
           <v-col cols="12" lg="6" md="6" sm="12">
-            <v-btn color="primary" :loading="pl" @click="pa">
-              <v-icon left>mdi-check</v-icon>
-              确认修改
-            </v-btn>
+            <v-menu offset-x transition="scroll-x-transition">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn color="primary" :loading="pl" v-bind="attrs" v-on="on" :disabled="!passwd || !re">
+                  <v-icon left>mdi-check</v-icon>
+                  确认修改
+                </v-btn>
+              </template>
+              <v-card>
+                <v-card-title>你确定要修改密码吗</v-card-title>
+                <v-card-subtitle>修改之后需要重新登录</v-card-subtitle>
+                <v-card-actions>
+                  <v-btn color="primary" text @click="pa">
+                    <v-icon left>mdi-check</v-icon>
+                    确认修改
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-menu>
           </v-col>
         </v-row>
       </v-container>
