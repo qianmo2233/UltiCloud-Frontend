@@ -26,18 +26,9 @@
  * 页面主体内容样式
  */
 
-@media screen and (min-width:1264px){
-    .v-main__wrap {
-        height: calc(100vh - 64px);
-        overflow-y: scroll !important;
-    }
-}
-
-@media screen and (max-width:1263px){
-    .v-main__wrap {
-        height: calc(100vh - 110px);
-        overflow-y: scroll !important;
-    }
+.v-main__wrap {
+    height: calc(100vh - 64px);
+    overflow-y: scroll !important;
 }
 
 html {
@@ -70,4 +61,61 @@ html {
 
 li {
     list-style-type: none;
+}
+
+.color-spring {
+    background-color: rgba(170,170,170,0);
+    background: linear-gradient(87deg, #ff0034, #fd4a00)!important;
+}
+
+.a-spring {
+    background-color: rgba(170,170,170,0);
+    background: linear-gradient(87deg, #de650d, #c90027)!important;
+}
+
+.card-spring-1 {
+    background-color: rgba(170,170,170,0);
+    background: linear-gradient(87deg, #ff0034, #fd4a00)!important;
+}
+
+.card-spring-2 {
+    background-color: rgba(170,170,170,0);
+    background: linear-gradient(87deg, #ff0034, #fd4a00)!important;
+}
+
+.card-spring-3 {
+    background-color: rgba(170,170,170,0);
+    background: linear-gradient(87deg, #ff0034, #fd4a00)!important;
+}
+
+.card-spring-4 {
+    background-color: rgba(170,170,170,0);
+    background: linear-gradient(87deg, #ff0034, #fd4a00)!important;
+}
+
+.grecaptcha-badge {
+    visibility: hidden!important;
+}
+
+pre{
+    box-sizing:border-box;
+    /*以下样式是自动换行代码*/
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+    /*以上样式是自动换行代码，需要的加上，不需要的删除*/
+    overflow:auto;
+    font-family:Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-size:13px;
+    padding:10px;
+    margin-top:0;
+    margin-bottom:10px;
+    line-height:1.42857;
+    color: #ffffff;
+    word-break:break-all;
+    border:1px solid #494949;
+    border-radius:4px;
+    background-color: #464646;
+    user-select: text
 }

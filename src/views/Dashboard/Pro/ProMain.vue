@@ -73,6 +73,30 @@
                   </v-col>
                 </v-row>
                 <v-row>
+                  <transition name="scale-transition">
+                    <v-col cols="12" v-if="!priceLoading && this.promos.length !== 0">
+                      <v-banner color="color-spring" rounded elevation="6" dark><v-icon left>mdi-party-popper</v-icon>春节特惠<div class="ml-12" style="display: inline"/>
+                        {{ this.promos.length === 0 ? '活动已结束' : ''}}
+                      </v-banner>
+                    </v-col>
+                  </transition>
+                  <v-col cols="12" sm="=12" md="12" lg="3" v-for="item in promos" :key="item.id">
+                    <v-card color="card-spring-1" dark>
+                      <v-card-title>
+                        <h5>{{ item.name.split('_')[2] + ' 天' }}</h5>
+                        <v-chip class="ml-1" label outlined>-{{
+                            (parseInt(parseInt(item.name.split('_')[2] === '365' ? '360' : item.name.split('_')[2])/30*20)-parseInt(item.price))/parseInt(parseInt(item.name.split('_')[2] === '365' ? '360' : item.name.split('_')[2])/30*20)*100
+                          }}%折扣
+                        </v-chip>
+                      </v-card-title>
+                      <v-card-subtitle><del>原价 {{ parseInt(parseInt(item.name.split('_')[2])/30*20) }} CNY</del></v-card-subtitle>
+                      <v-card-actions>
+                        <v-btn text @click="choose = parseInt(item.id) - 5">{{ item.price }} CNY</v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-col>
+                </v-row>
+                <v-row>
                   <v-col cols="12">
                     <v-data-iterator :items="prices" hide-default-footer disable-pagination :loading="priceLoading">
                       <template v-slot:loading>
@@ -81,7 +105,7 @@
                             加载中
                           </v-col>
                           <v-col cols="6">
-                            <v-progress-linear indeterminate rounded height="6"></v-progress-linear>
+                            <v-progress-linear indeterminate rounded height="6" color="indigo"></v-progress-linear>
                           </v-col>
                         </v-row>
                       </template>
@@ -94,33 +118,31 @@
                       </template>
                       <template v-slot:default="props">
                         <v-list-item-group mandatory color="indigo" v-model="choose">
-                          <v-list-item v-for="item in props.items" :key="item.id">
-                            <v-list-item-title>{{ item.name.split("_")[1] + ' 天' }}</v-list-item-title>
-                            <v-list-item-subtitle>
-                              <v-icon left>mdi-tag</v-icon>
-                              折扣: - 0%
-                            </v-list-item-subtitle>
-                            <v-list-item-action-text>{{ item !== null? item.price : '0' }} CNY</v-list-item-action-text>
+                          <v-list-item v-for="item in props.items" :key="item.id" v-show="!item.name.includes('promo')">
+                            <v-list-item-title>{{ item.name.substring(item.name.length - 3).replace('_', '') + ' 天' }}</v-list-item-title>
+                            <v-list-item-subtitle>{{ item !== null? item.price : '0' }} CNY</v-list-item-subtitle>
                           </v-list-item>
                         </v-list-item-group>
                       </template>
                     </v-data-iterator>
                   </v-col>
                 </v-row>
-                <v-row>
-                  <v-col cols="12">
-                    <v-subheader>优惠<v-divider inset/></v-subheader>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="12">
-                    <v-text-field label="在这里输入你的优惠码" filled :loading="false">
-                      <template v-slot:append>
-                        <v-chip label color="primary">已优惠 0%</v-chip>
-                      </template>
-                    </v-text-field>
-                  </v-col>
-                </v-row>
+                <div v-if="false">
+                  <v-row>
+                    <v-col cols="12">
+                      <v-subheader>优惠<v-divider inset/></v-subheader>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="12">
+                      <v-text-field label="在这里输入你的优惠码" filled :loading="false">
+                        <template v-slot:append>
+                          <v-chip label color="primary">已优惠 0%</v-chip>
+                        </template>
+                      </v-text-field>
+                    </v-col>
+                  </v-row>
+                </div>
                 <v-row>
                   <v-col cols="12">
                     <v-subheader>结算<v-divider inset/></v-subheader>
@@ -151,6 +173,17 @@
           <v-tab-item>
             <v-card flat>
               <v-card-text>
+                <v-row v-if="false">
+                  <v-col cols="12">
+                    <v-card color="color-spring" dark>
+                      <v-card-title>春节限定兑换</v-card-title>
+                      <v-card-subtitle>活动期间任意消费均可凭订单号领取7天Pro会员</v-card-subtitle>
+                      <v-card-text>
+                        <v-text-field solo-inverted label="输入订单号再领7天 按回车键提交" placeholder="按回车键提交" v-model="promo.id" :disabled="promo.loading" :loading="promo.loading" @keyup.enter.native="NewYearPromo"/>
+                      </v-card-text>
+                    </v-card>
+                  </v-col>
+                </v-row>
                 <v-row>
                   <v-col cols="12">
                     <v-subheader>使用CD-Key激活<v-divider inset/></v-subheader>
@@ -158,7 +191,7 @@
                 </v-row>
                 <v-row>
                   <v-col cols="12">
-                    <v-alert type="info">如果您是使用其他支付方式购得一串代码，请在下方输入</v-alert>
+                    <v-alert type="info" color="indigo">如果您是使用其他支付方式购得一串代码，请在下方输入</v-alert>
                   </v-col>
                 </v-row>
                 <v-row>
@@ -177,7 +210,7 @@
                     <v-subheader>使用活动礼品码兑换<v-divider inset/></v-subheader>
                   </v-col>
                 </v-row>
-                <v-alert type="info">如果您是通过活动获得一串代码，请在下方输入</v-alert>
+                <v-alert type="info" color="indigo">如果您是通过活动获得一串代码，请在下方输入</v-alert>
                 <v-row>
                   <v-col cols="12">
                     <v-text-field label="在这里输入你的活动礼品码" filled :loading="gift.loading" v-model="gift.code">
@@ -207,7 +240,7 @@
             <v-card flat>
               <v-card-text>
                 <v-row>
-                  <v-col cols="12">
+                  <v-col cols="12" style="user-select: text">
                     <v-data-table :headers="history.headers" :items="history.items" :items-per-page="10" class="elevation-0"></v-data-table>
                   </v-col>
                 </v-row>
@@ -297,6 +330,11 @@ export default {
       },
       choose: 0,
       prices: [],
+      promo: {
+        loading: false,
+        id: "",
+      },
+      promos: [],
       priceLoading: false,
       cdk: {
         code: '',
@@ -341,11 +379,16 @@ export default {
   created() {
     this.priceLoading = true
     this.pro.getAllPrice(this, function (that, data) {
+      data.forEach(function (e) {
+        if (e.name.indexOf("promo") !== -1) {
+          that.promos.push(e)
+        }
+      })
       that.prices = data
       that.priceLoading = false
     }, function (that, data) {
-      that.snackbar.Launch(that, "价格获取失败:" + data.msg)
       that.priceLoading = false
+      that.snackbar.Launch(that, "价格获取失败:" + data.msg)
     })
     this.payment.GetHistory(this, function (that, data) {
       that.history.items = data
@@ -370,10 +413,15 @@ export default {
     openAlipay: function () {
       window.open(this.pay.url,'_blank','')
     },
+
+    joinGroup: function() {
+      window.open('https://jq.qq.com/?_wv=1027&k=fpSU3I0y','_blank','')
+    },
+
     checkout: function () {
       let select = this.prices[this.choose];
       this.pay.loading = true
-      this.payment.CreatePayment(this, select.price, select.name.split("_")[1] + '-Pro会员', function (that, data) {
+      this.payment.CreatePayment(this, select.price, select.name.split("_")[1] === "promo" ? select.name.split("_")[2] + '-Pro会员' : select.name.split("_")[1] + '-Pro会员', function (that, data) {
         that.pay.id = data.alipay_trade_precreate_response.out_trade_no
         that.pay.amount = select.price
         that.pay.url = data.alipay_trade_precreate_response.qr_code
@@ -396,6 +444,7 @@ export default {
         })
       })
     },
+
     check: function () {
       this.payment.CheckPayment(this, this.pay.id, function (that, data) {
         if (data.alipay_trade_query_response.trade_status === 'TRADE_SUCCESS') {
@@ -403,7 +452,6 @@ export default {
           that.snackbar.Launch(that, "订单支付成功")
           window.clearInterval(that.timer)
           that.init.check(that, function () {
-            //
           })
         }
       }, function (that) {
@@ -501,7 +549,30 @@ export default {
           })
         })
       })
-    }
+    },
+    NewYearPromo: function () {
+      this.promo.loading = true
+      this.code.promo(this, this.promo.id, function (that) {
+        that.init.check(that, function () {
+          that.snackbar.Launch(that, 'Pro兑换成功')
+          that.promo.loading = false
+        })
+      }, function (that) {
+        that.init.check(that, function () {
+          that.code.promo(that, that.promo.id, function (that) {
+            that.init.check(that, function () {
+              that.snackbar.Launch(that, 'Pro兑换成功')
+              that.promo.loading = false
+            })
+          }, function (that, data) {
+            that.init.check(that, function () {
+              that.snackbar.Launch(that, 'Pro兑换失败: ' + data.msg)
+              that.promo.loading = false
+            })
+          })
+        })
+      })
+    },
   }
 }
 </script>

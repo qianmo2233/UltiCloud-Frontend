@@ -7,7 +7,7 @@
           <v-col cols="12" lg="3" md="8" sm="12">
             <v-card class="global-loading" flat color="rgba(0,0,0,0)">
               <v-card-text class="text-center">
-                <v-progress-circular rounded indeterminate :size="50" :width="5" color="primary"/>
+                <v-progress-circular  rounded indeterminate :size="50" :width="5" color="indigo"/>
                 <p class="mt-2">载入中</p>
               </v-card-text>
             </v-card>

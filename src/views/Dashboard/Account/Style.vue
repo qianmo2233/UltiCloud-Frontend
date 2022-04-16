@@ -26,15 +26,15 @@
         <v-row>
           <v-col cols="12">
             <v-radio-group row v-model="theme" mandatory>
-              <v-radio label="浅色主题"/>
+              <v-radio label="浅色主题" :value="0"/>
               <v-col cols="12" lg="4" md="4" sm="12">
                 <v-skeleton-loader type="article, actions" light boilerplate elevation="6"/>
               </v-col>
-              <v-radio label="深色主题"/>
+              <v-radio label="深色主题" :value="1"/>
               <v-col cols="12" lg="4" md="4" sm="12">
                 <v-skeleton-loader type="article, actions" dark boilerplate elevation="6"/>
               </v-col>
-              <v-radio label="跟随系统设置"/>
+              <v-radio label="跟随系统设置" :value="2"/>
             </v-radio-group>
           </v-col>
         </v-row>
@@ -48,9 +48,12 @@ export default {
   name: "Style",
   data: () => {
     return {
-      theme: parseInt(localStorage.getItem('theme'))
-
+      theme: 2
     }
+  },
+
+  created() {
+    this.theme = parseInt(localStorage.getItem('theme'))
   },
   watch: {
     theme() {

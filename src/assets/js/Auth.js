@@ -1,5 +1,6 @@
 const GetTokenUrl = "https://panel.ultikits.com:4433/user/getToken"
 const RefreshTokenUrl = "https://panel.ultikits.com:4433/user/refreshToken"
+const VerifyUrl = "https://recaptcha.moe-loli.ml/recaptcha/verify.php"
 
 function getToken(username, password, that, success, failure) {
     that.$http.post(
@@ -41,4 +42,18 @@ function logout(that) {
     that.$router.go(0)
 }
 
-export default {getToken, refreshToken, saveToken, logout}
+function verify(that, success, error) {
+    that.$http.get(
+        VerifyUrl + "?token=" + that.$store.state.layout.captcha.token,
+        {},
+        {},
+    ).then(function (result) {
+        if (result.data.status === 'success') {
+            success(that)
+        } else {
+            error(that)
+        }
+    })
+}
+
+export default {getToken, refreshToken, saveToken, logout, verify}

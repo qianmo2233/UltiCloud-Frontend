@@ -31,11 +31,19 @@ export default new Vuex.Store({
     },
     //样式状态
     layout: {
+      loading: {
+        status: false,
+        progress: 0,
+      },
       nav: true,
       group: null,
       title: '',
       locale: '',
       style: '',
+      captcha: {
+        loaded: false,
+        token: '',
+      },
       refresh: false,
       snackbar: {
         status: false,
@@ -114,6 +122,18 @@ export default new Vuex.Store({
     },
     setServerList(state, value) {
       state.server.list = value
+    },
+    setLoadingStatus(state, value) {
+      state.layout.loading.status = value
+    },
+    setLoadingProgress(state, value) {
+      state.layout.loading.progress = value
+    },
+    setCaptchaLoaded(state, value) {
+      state.layout.captcha.loaded = value
+    },
+    setCaptchaToken(state, value) {
+      state.layout.captcha.token = value
     }
   },
   actions: {
@@ -182,6 +202,18 @@ export default new Vuex.Store({
     },
     setServerList({commit}, data) {
       commit('setServerList', data)
+    },
+    setLoadingStatus({commit}, data) {
+      commit('setLoadingStatus', data)
+    },
+    setLoadingProgress({commit}, data) {
+      commit('setLoadingProgress', data)
+    },
+    setCaptchaLoaded({commit}, data) {
+      commit('setCaptchaLoaded', data)
+    },
+    setCaptchaToken({commit}, data) {
+      commit('setCaptchaToken', data)
     }
   },
   modules: {

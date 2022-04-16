@@ -11,7 +11,7 @@ function check(that, callback) {
             that,
             function (that, data) {
                 that.user.saveUserInfo(that, data)
-                callback()
+                callback(that)
             },
             function (that, data) {
                 that.$router.push({path: "/auth"}).then()

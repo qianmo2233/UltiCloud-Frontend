@@ -19,7 +19,7 @@
           </v-row>
           <v-row>
             <v-col cols="12">
-              <v-btn color="primary" block depressed :loading="loading" :disabled="isAvailable" @click="register">
+              <v-btn color="primary" block depressed :loading="loading" :disabled="isAvailable" @click="verify">
                 <v-icon left>mdi-plus</v-icon>
                 注册
               </v-btn>
@@ -38,6 +38,14 @@
               </v-btn>
             </v-col>
           </v-row>
+          <v-row>
+            <v-col cols="12">
+              <v-divider/>
+            </v-col>
+            <v-col cols="12">
+              <small class="text-caption">本网站受 Google reCAPTCHA 保护, 注册即代表您接受Google的<br><a href="https://policies.google.com/privacy" target="_blank">隐私条款</a> 和 <a href="https://policies.google.com/" target="_blank">使用条款</a></small>
+            </v-col>
+          </v-row>
         </v-card-text>
       </v-card>
     </v-col>
@@ -54,12 +62,23 @@ export default {
       password: '',
       username: '',
       passwd: '',
+      validateCode: "",
+      isValidated: false,
       rules: [
         v => !!v || '此为必填项',
       ],
     }
   },
+  watch: {
+    getToken() {
+      this.register()
+    }
+  },
   methods: {
+    verify: function () {
+      window.grecaptcha.reset()
+      window.grecaptcha.execute()
+    },
     register: function () {
       this.loading = true;
       if (this.password !== this.passwd) {
@@ -86,6 +105,9 @@ export default {
       if(event.keyCode === 32){
         event.returnValue = false
       }
+    },
+    getValidateCode: function (value) {
+      this.validateCode = value
     }
   },
   computed: {
@@ -93,6 +115,9 @@ export default {
       return (
           this.username === "" || this.email === "" || this.password === "" || this.passwd === ""
       )
+    },
+    getToken() {
+      return this.$store.state.layout.captcha.token
     }
   },
 }

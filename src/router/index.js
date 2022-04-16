@@ -12,6 +12,8 @@ import ProMain from "@/views/Dashboard/Pro/ProMain";
 import AccountMain from "@/views/Dashboard/Account/AccountMain";
 import Profile from "@/views/Dashboard/Account/Profile";
 import Style from "@/views/Dashboard/Account/Style";
+import Tools from "@/views/Dashboard/Tools";
+import TwoStepAuth from "@/views/Dashboard/Account/TwoStepAuth";
 
 Vue.use(VueRouter)
 
@@ -42,6 +44,14 @@ const routes = [
         path: 'pro',
         name: 'Pro',
         component: ProMain,
+        meta: {
+          icon: 'mdi-chess-king'
+        }
+      },
+      {
+        path: 'tools',
+        name: 'Tools',
+        component: Tools,
         meta: {
           icon: 'mdi-chess-king'
         }
@@ -81,6 +91,11 @@ const routes = [
         path: 'style',
         name: 'Style',
         component: Style,
+      },
+      {
+        path: 'tsa',
+        name: 'TSA',
+        component: TwoStepAuth,
       },
     ],
     meta: {

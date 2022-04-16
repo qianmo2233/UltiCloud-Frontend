@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="primary" dark app>
+  <v-app-bar color="indigo" dark app>
     <v-app-bar-nav-icon @click="$store.dispatch('setNav', !$store.state.layout.nav)" v-if="$vuetify.breakpoint.lgAndDown || $store.state.user.auth.status"/>
     <v-app-bar-title>UltiCloud</v-app-bar-title>
     <global-search/>
@@ -11,6 +11,10 @@
     <v-btn text v-if="$vuetify.breakpoint.lgAndUp" @click="MainSite">
       <v-icon left>mdi-open-in-new</v-icon>
       UltiKits主站
+    </v-btn>
+    <v-btn text v-if="$vuetify.breakpoint.lgAndUp" @click="ServiceStatus">
+      <v-icon left>mdi-open-in-new</v-icon>
+      服务状态
     </v-btn>
     <v-btn text v-if="$vuetify.breakpoint.lgAndUp" @click="Doc">
       <v-icon left>mdi-open-in-new</v-icon>
@@ -30,6 +34,9 @@ export default {
     },
     Doc: function () {
       window.open('https://doc.ultitools.ultikits.com/', '_blank', '')
+    },
+    ServiceStatus: function () {
+      window.open('https://ulti-status.crisp.watch/', '_blank', '')
     }
   }
 }

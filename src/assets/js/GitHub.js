@@ -1,6 +1,7 @@
 const LatestVersionUrl = 'https://api.github.com/repos/wisdommen/UltiTools/releases/latest'
 const PlayersNowUrl = 'https://bstats.org/api/v1/plugins/8652/charts/players/data/?maxElements=1'
 const ServersNowUrl = 'https://bstats.org/api/v1/plugins/8652/charts/servers/data/?maxElements=1'
+const DownloadsUrl = 'https://api.github.com/repos/wisdommen/wisdommen.github.io/contents/collections/Ultitools'
 
 function getLatestVersion(that, success, error) {
     that.$http.get(LatestVersionUrl).then(function (result) {
@@ -26,4 +27,12 @@ function getServers(that, success, error) {
     })
 }
 
-export default {getLatestVersion, getPlayers, getServers}
+function getDownloads(that, success, error) {
+    that.$http.get(DownloadsUrl).then(function (result) {
+        success(that, result.data)
+    }, function (result) {
+        error(that, result.data)
+    })
+}
+
+export default {getLatestVersion, getPlayers, getServers, getDownloads}

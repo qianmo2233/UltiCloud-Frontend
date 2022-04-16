@@ -4,9 +4,10 @@ import store from './store'
 import router from './router'
 import VueResource from 'vue-resource'
 import vuetify from './plugins/vuetify'
-import VuetifyAlgoliaPlaces from 'vuetify-algolia-places';
+import highlight from "highlight.js";
 
 import './assets/css/style.css'
+import 'highlight.js/styles/atom-one-dark.css'
 
 import Auth from '@/assets/js/Auth'
 import Sign from '@/assets/js/Sign'
@@ -37,12 +38,6 @@ Vue.prototype.profile = Profile
 Vue.prototype.github = GitHub
 
 Vue.use(VueResource)
-Vue.use(VuetifyAlgoliaPlaces, {
-  algolia: {
-    appId: '',
-    apiKey: '',
-  },
-});
 
 new Vue({
   store,
@@ -51,3 +46,10 @@ new Vue({
   VueResource,
   render: h => h(App)
 }).$mount('#app')
+
+Vue.directive('highlight',function (el) {
+  let blocks = el.querySelectorAll('pre code');
+  blocks.forEach((block)=>{
+    highlight.highlightBlock(block)
+  })
+})

@@ -16,7 +16,7 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-alert type="info">点击服务器名称来修改服务器信息</v-alert>
+        <v-alert type="info" color="indigo">点击服务器名称来修改服务器信息</v-alert>
       </v-col>
     </v-row>
     <v-row>
@@ -30,9 +30,9 @@
           <template v-slot:default="props">
             <v-lazy transition="fade-transition">
               <v-row>
-                <v-col cols="12">
+                <v-col cols="12" md="6" lg="4" sm="12" v-for="item in props.items" :key="item.serverId">
                   <v-list>
-                    <v-list-item v-for="item in props.items" :key="item.serverId">
+                    <v-list-item>
                       <v-list-item-icon>
                         <v-icon>mdi-server</v-icon>
                       </v-list-item-icon>
@@ -46,6 +46,16 @@
                           {{ getActiveText(item.isActive) }}
                         </v-chip>
                       </v-list-item-action-text>
+                    </v-list-item>
+                  </v-list>
+                </v-col>
+                <v-col cols="12" md="6" lg="4" sm="12">
+                  <v-list>
+                    <v-list-item link @click="dialog = true">
+                      <v-list-item-icon>
+                        <v-icon>mdi-server-plus</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title >点击添加服务器</v-list-item-title>
                     </v-list-item>
                   </v-list>
                 </v-col>
@@ -91,7 +101,7 @@
     </v-bottom-sheet>
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-card>
-        <v-toolbar dark color="primary">
+        <v-toolbar dark color="indigo">
           <v-toolbar-title>添加服务器</v-toolbar-title>
         </v-toolbar>
         <v-container>
@@ -99,13 +109,13 @@
             <v-col cols="12" sm="12" md="6" lg="3">
               <v-card flat class="text-center">
                 <v-card-text>
-                  <v-stepper v-model="e1" class="elevation-0">
+                  <v-stepper v-model="e1" class="elevation-0" color="indigo">
                     <v-stepper-header class="elevation-0">
-                      <v-stepper-step :complete="e1 > 1" step="1">
+                      <v-stepper-step :complete="e1 > 1" step="1" color="indigo">
                         服务器信息
                       </v-stepper-step>
                       <v-divider></v-divider>
-                      <v-stepper-step :complete="e1 > 2" step="2">
+                      <v-stepper-step :complete="e1 > 2" step="2" color="indigo">
                         激活
                       </v-stepper-step>
                     </v-stepper-header>

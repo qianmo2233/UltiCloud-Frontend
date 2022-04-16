@@ -6,6 +6,10 @@
           <v-card elevation="12" rounded>
             <v-card-text>
               <v-list nav dense>
+                <v-subheader>
+                  账户 Account
+                  <v-divider inset/>
+                </v-subheader>
                 <v-list-item link to="profile">
                   <v-list-item-icon>
                     <v-icon>mdi-account-details</v-icon>
@@ -15,6 +19,19 @@
                     <v-list-item-subtitle>Basic Profiles</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
+                <v-list-item link to="tsa">
+                  <v-list-item-icon>
+                    <v-icon>mdi-key</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>二步验证</v-list-item-title>
+                    <v-list-item-subtitle>Two Step Authorization</v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-subheader>
+                  其他 Other
+                  <v-divider inset/>
+                </v-subheader>
                 <v-list-item link to="style">
                   <v-list-item-icon>
                     <v-icon>mdi-palette</v-icon>
@@ -29,7 +46,9 @@
           </v-card>
         </v-col>
         <v-col cols="12" lg="9" md="8" sm="12">
-          <router-view/>
+          <transition name="fade-transition" mode="out-in">
+            <router-view/>
+          </transition>
         </v-col>
       </v-row>
     </v-container>

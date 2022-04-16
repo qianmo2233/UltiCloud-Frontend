@@ -19,6 +19,18 @@
         <v-list-item-subtitle>{{ data.item.page }}</v-list-item-subtitle>
       </v-list-item>
     </template>
+    <template v-slot:no-data>
+      <v-card flat>
+        <v-card-text class="text-center">
+          <h3>暂无搜索结果</h3>
+        </v-card-text>
+      </v-card>
+    </template>
+    <template v-slot:prepend-item>
+      <v-card flat>
+        <v-card-title>搜索结果</v-card-title>
+      </v-card>
+    </template>
   </v-autocomplete>
 </template>
 
