@@ -6,11 +6,11 @@
         <v-progress-circular indeterminate class="mr-1"/> 正在载入数据 ({{ this.$store.state.layout.loading.progress }}%)
       </v-snackbar>
     </transition>
-    <app-bar/>
+    <app-bar v-if="this.$store.state.user.auth.status"/>
     <navbar-main/>
     <snack-bar/>
     <logout/>
-    <v-main :style="$store.state.user.auth.status ? '' : 'height: calc(100vh - 64px) !important;' ">
+    <v-main :style="$store.state.user.auth.status ? 'height: calc(100vh - 64px) !important;' : '' ">
       <transition name="slide-fade" mode="out-in">
         <router-view/>
       </transition>

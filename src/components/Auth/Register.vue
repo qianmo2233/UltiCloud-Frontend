@@ -1,7 +1,7 @@
 <template>
-  <v-row class="d-flex justify-center">
-    <v-col cols="12" lg="3" md="8" sm="12">
-      <v-card class="login-box" elevation="12">
+  <v-row class="d-flex justify-end">
+    <v-col cols="12">
+      <v-card flat color="rgb(0, 0, 0, 0)">
         <v-card-title>注册新账号</v-card-title>
         <v-card-subtitle class="mb-6">
           已有账号?
@@ -19,7 +19,7 @@
           </v-row>
           <v-row>
             <v-col cols="12">
-              <v-btn color="primary" block depressed :loading="loading" :disabled="isAvailable" @click="verify">
+              <v-btn color="indigo" block depressed :loading="loading" :disabled="isAvailable" @click="verify">
                 <v-icon left>mdi-plus</v-icon>
                 注册
               </v-btn>

@@ -13,7 +13,8 @@ import AccountMain from "@/views/Dashboard/Account/AccountMain";
 import Profile from "@/views/Dashboard/Account/Profile";
 import Style from "@/views/Dashboard/Account/Style";
 import Tools from "@/views/Dashboard/Tools";
-import TwoStepAuth from "@/views/Dashboard/Account/TwoStepAuth";
+import TwoFactorAuth from "@/views/Dashboard/Account/TwoFactorAuth";
+import TFA from "@/components/Auth/TFA";
 
 Vue.use(VueRouter)
 
@@ -73,7 +74,12 @@ const routes = [
         path: 'register',
         name: 'Register',
         component: Register,
-      }
+      },
+      {
+        path: 'tfa',
+        name: 'Verify',
+        component: TFA,
+      },
     ],
   },
   {
@@ -93,9 +99,9 @@ const routes = [
         component: Style,
       },
       {
-        path: 'tsa',
-        name: 'TSA',
-        component: TwoStepAuth,
+        path: 'tfa',
+        name: 'TFA',
+        component: TwoFactorAuth,
       },
     ],
     meta: {

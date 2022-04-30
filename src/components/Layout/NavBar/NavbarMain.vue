@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer dark app v-if="$store.state.user.auth.status || $vuetify.breakpoint.lgAndDown" v-model="$store.state.layout.nav">
+  <v-navigation-drawer dark app v-if="$store.state.user.auth.status" v-model="$store.state.layout.nav">
     <account-nav/>
     <v-divider/>
     <list-nav/>

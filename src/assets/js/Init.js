@@ -11,7 +11,13 @@ function check(that, callback) {
             that,
             function (that, data) {
                 that.user.saveUserInfo(that, data)
-                callback(that)
+                that.tfa.get(that, function (that, data) {
+                    that.$store.dispatch('setTFAStatus', data.status === 'enabled').then()
+                    callback(that)
+                }, function () {
+                    that.snackbar.Launch(that, "MoeLoli 服务异常")
+                    callback(that)
+                })
             },
             function (that, data) {
                 that.$router.push({path: "/auth"}).then()

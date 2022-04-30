@@ -21,6 +21,7 @@ import Code from "@/assets/js/Code"
 import Email from "@/assets/js/Email"
 import Profile from "@/assets/js/Profile"
 import GitHub from "@/assets/js/GitHub"
+import TwoFactorAuth from "@/assets/js/TwoFactorAuth";
 
 Vue.config.productionTip = false
 
@@ -36,6 +37,7 @@ Vue.prototype.code = Code
 Vue.prototype.email = Email
 Vue.prototype.profile = Profile
 Vue.prototype.github = GitHub
+Vue.prototype.tfa = TwoFactorAuth
 
 Vue.use(VueResource)
 

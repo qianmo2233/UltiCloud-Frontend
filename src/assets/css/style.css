@@ -27,7 +27,6 @@
  */
 
 .v-main__wrap {
-    height: calc(100vh - 64px);
     overflow-y: scroll !important;
 }
 

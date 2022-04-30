@@ -19,13 +19,16 @@
                     <v-list-item-subtitle>Basic Profiles</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
-                <v-list-item link to="tsa">
+                <v-list-item link to="tfa">
                   <v-list-item-icon>
                     <v-icon>mdi-key</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>二步验证</v-list-item-title>
-                    <v-list-item-subtitle>Two Step Authorization</v-list-item-subtitle>
+                    <v-list-item-title>
+                      双重验证
+                      <v-badge color="indigo" class="ml-1" content="Beta"/>
+                    </v-list-item-title>
+                    <v-list-item-subtitle>Two Factor Authorization</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
                 <v-subheader>
@@ -37,7 +40,10 @@
                     <v-icon>mdi-palette</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>界面设置 未完成</v-list-item-title>
+                    <v-list-item-title>
+                      界面设置
+                      <v-badge color="indigo" class="ml-1" content="Dev"/>
+                    </v-list-item-title>
                     <v-list-item-subtitle>View Settings</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
@@ -57,7 +63,7 @@
         <v-col cols="12" lg="3" md="8" sm="12">
           <v-card class="global-loading" flat color="rgba(0,0,0,0)">
             <v-card-text class="text-center">
-              <v-progress-circular rounded indeterminate :size="50" :width="5" color="primary"/>
+              <v-progress-circular rounded indeterminate :size="50" :width="5" color="indigo"/>
               <p class="mt-2">载入中</p>
             </v-card-text>
           </v-card>

@@ -1,6 +1,6 @@
 <template>
   <v-app-bar color="indigo" dark app>
-    <v-app-bar-nav-icon @click="$store.dispatch('setNav', !$store.state.layout.nav)" v-if="$vuetify.breakpoint.lgAndDown || $store.state.user.auth.status"/>
+    <v-app-bar-nav-icon @click="$store.dispatch('setNav', !$store.state.layout.nav)" v-if="$store.state.user.auth.status"/>
     <v-app-bar-title>UltiCloud</v-app-bar-title>
     <global-search/>
     <v-spacer/>

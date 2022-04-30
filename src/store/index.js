@@ -9,6 +9,7 @@ export default new Vuex.Store({
     user: {
       auth: {
         status: false,
+        tfa: false,
         token: {
           access: '',
           refresh: '',
@@ -134,6 +135,9 @@ export default new Vuex.Store({
     },
     setCaptchaToken(state, value) {
       state.layout.captcha.token = value
+    },
+    setTFAStatus(state, value) {
+      state.user.auth.tfa = value
     }
   },
   actions: {
@@ -214,6 +218,9 @@ export default new Vuex.Store({
     },
     setCaptchaToken({commit}, data) {
       commit('setCaptchaToken', data)
+    },
+    setTFAStatus({commit}, data) {
+      commit('setTFAStatus', data)
     }
   },
   modules: {
