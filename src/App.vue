@@ -9,6 +9,7 @@
     <app-bar v-if="this.$store.state.user.auth.status"/>
     <navbar-main/>
     <snack-bar/>
+    <update-bar/>
     <logout/>
     <v-main :style="$store.state.user.auth.status ? 'height: calc(100vh - 64px) !important;' : '' ">
       <transition name="slide-fade" mode="out-in">
@@ -25,9 +26,10 @@ import Logout from "@/components/Layout/Logout";
 import AppBar from "@/components/Layout/AppBar";
 import NavbarMain from "@/components/Layout/NavBar/NavbarMain";
 import GReCaptcha from "@/components/GReCaptcha";
+import UpdateBar from "@/components/UpdateBar";
 export default {
   name: 'App',
-  components: {GReCaptcha, NavbarMain, AppBar, Logout, SnackBar},
+  components: {UpdateBar, GReCaptcha, NavbarMain, AppBar, Logout, SnackBar},
   data: () => ({
   }),
 

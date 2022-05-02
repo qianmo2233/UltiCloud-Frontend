@@ -19,7 +19,7 @@
           </v-row>
           <v-row>
             <v-col cols="12">
-              <v-btn color="indigo" block depressed :loading="loading" :disabled="isAvailable" @click="verify">
+              <v-btn color="indigo" block depressed :loading="loading" :disabled="isAvailable" @click="register">
                 <v-icon left>mdi-plus</v-icon>
                 注册
               </v-btn>
@@ -36,14 +36,6 @@
                 <v-icon left>mdi-github</v-icon>
                 使用GitHub注册
               </v-btn>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12">
-              <v-divider/>
-            </v-col>
-            <v-col cols="12">
-              <small class="text-caption">本网站受 Google reCAPTCHA 保护, 注册即代表您接受Google的<br><a href="https://policies.google.com/privacy" target="_blank">隐私条款</a> 和 <a href="https://policies.google.com/" target="_blank">使用条款</a></small>
             </v-col>
           </v-row>
         </v-card-text>

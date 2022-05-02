@@ -54,7 +54,7 @@
         <v-row class="mt-2 ml-4">
           <v-col cols="12">
             <h1>
-              欢迎来到UltiCloud用户面板!
+              欢迎来到UltiCloud Desktop!
             </h1>
             <p>UltiCloud是UltiKits旗下的一款用于管理插件授权的面板  使用过程中如有任何问题请及时反馈</p>
           </v-col>
@@ -114,53 +114,57 @@
     </v-row>
     <v-row>
       <v-col cols="12" lg="6" md="12" sm="12">
-        <v-card elevation="12">
-          <v-card-title>UltiKits系列插件<v-btn text class="ml-2"><v-icon left>mdi-cart</v-icon>查看Marketplace</v-btn></v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col col="12" lg="6" md="6" sm="12">
-                <backdrop-card hover href="https://www.mcbbs.net/thread-1062730-1-1.html" target="_blank" rel="noopener">
-                  <template #backdrop>
-                    <v-icon>mdi-toolbox</v-icon>
-                  </template>
-                  <v-icon x-large style="opacity: 0.9">mdi-toolbox</v-icon>
-                  <h2 class="heading my-1">UltiTools<v-icon small>mdi-open-in-new</v-icon></h2>
-                  <h3 class="subtitle-2">30+ 实用功能，一个插件，全部搞定</h3>
-                </backdrop-card>
-              </v-col>
-              <v-col col="12" lg="6" md="6" sm="12">
-                <backdrop-card hover href="https://www.spigotmc.org/resources/ultikits-ulticore.86207/" target="_blank" rel="noopener">
-                  <template #backdrop>
-                    <v-icon>mdi-atom</v-icon>
-                  </template>
-                  <v-icon x-large style="opacity: 0.9">mdi-atom</v-icon>
-                  <h2 class="heading my-1">UltiCore<v-icon small>mdi-open-in-new</v-icon></h2>
-                  <h3 class="subtitle-2">简单易用的GUI&数据包接口，完美多版本兼容方案</h3>
-                </backdrop-card>
-              </v-col>
-              <v-col col="12" lg="6" md="6" sm="12">
-                <backdrop-card hover href="https://www.mcbbs.net/thread-1060351-1-1.html" target="_blank" rel="noopener">
-                  <template #backdrop>
-                    <v-icon>mdi-cash</v-icon>
-                  </template>
-                  <v-icon x-large style="opacity: 0.9">mdi-cash</v-icon>
-                  <h2 class="heading my-1">UltiEconomy<v-icon small>mdi-open-in-new</v-icon></h2>
-                  <h3 class="subtitle-2">轻量级经济系统，支持MySQL数据库</h3>
-                </backdrop-card>
-              </v-col>
-              <v-col col="12" lg="6" md="6" sm="12">
-                <backdrop-card hover href="https://www.mcbbs.net/thread-1060810-1-1.html" target="_blank" rel="noopener">
-                  <template #backdrop>
-                    <v-icon>mdi-magic-staff</v-icon>
-                  </template>
-                  <v-icon x-large style="opacity: 0.9">mdi-magic-staff</v-icon>
-                  <h2 class="heading my-1">UltiLevel<v-icon small>mdi-open-in-new</v-icon></h2>
-                  <h3 class="subtitle-2">轻量高效RPG职业等级系统</h3>
-                </backdrop-card>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
+        <v-row>
+          <v-col cols="12">
+            <v-card elevation="12">
+              <v-card-title>UltiKits系列插件<v-btn text class="ml-2"><v-icon left>mdi-cart</v-icon>查看Marketplace</v-btn></v-card-title>
+              <v-card-text>
+                <v-row>
+                  <v-col col="12" lg="6" md="6" sm="12">
+                    <backdrop-card hover href="https://www.mcbbs.net/thread-1062730-1-1.html" target="_blank" rel="noopener">
+                      <template #backdrop>
+                        <v-icon>mdi-toolbox</v-icon>
+                      </template>
+                      <v-icon x-large style="opacity: 0.9">mdi-toolbox</v-icon>
+                      <h2 class="heading my-1">UltiTools<v-icon small>mdi-open-in-new</v-icon></h2>
+                      <h3 class="subtitle-2">30+ 实用功能，一个插件，全部搞定</h3>
+                    </backdrop-card>
+                  </v-col>
+                  <v-col col="12" lg="6" md="6" sm="12">
+                    <backdrop-card hover href="https://www.spigotmc.org/resources/ultikits-ulticore.86207/" target="_blank" rel="noopener">
+                      <template #backdrop>
+                        <v-icon>mdi-atom</v-icon>
+                      </template>
+                      <v-icon x-large style="opacity: 0.9">mdi-atom</v-icon>
+                      <h2 class="heading my-1">UltiCore<v-icon small>mdi-open-in-new</v-icon></h2>
+                      <h3 class="subtitle-2">简单易用的GUI&数据包接口，完美多版本兼容方案</h3>
+                    </backdrop-card>
+                  </v-col>
+                  <v-col col="12" lg="6" md="6" sm="12">
+                    <backdrop-card hover href="https://www.mcbbs.net/thread-1060351-1-1.html" target="_blank" rel="noopener">
+                      <template #backdrop>
+                        <v-icon>mdi-cash</v-icon>
+                      </template>
+                      <v-icon x-large style="opacity: 0.9">mdi-cash</v-icon>
+                      <h2 class="heading my-1">UltiEconomy<v-icon small>mdi-open-in-new</v-icon></h2>
+                      <h3 class="subtitle-2">轻量级经济系统，支持MySQL数据库</h3>
+                    </backdrop-card>
+                  </v-col>
+                  <v-col col="12" lg="6" md="6" sm="12">
+                    <backdrop-card hover href="https://www.mcbbs.net/thread-1060810-1-1.html" target="_blank" rel="noopener">
+                      <template #backdrop>
+                        <v-icon>mdi-magic-staff</v-icon>
+                      </template>
+                      <v-icon x-large style="opacity: 0.9">mdi-magic-staff</v-icon>
+                      <h2 class="heading my-1">UltiLevel<v-icon small>mdi-open-in-new</v-icon></h2>
+                      <h3 class="subtitle-2">轻量高效RPG职业等级系统</h3>
+                    </backdrop-card>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-col>
       <v-col cols="12" lg="6" md="12" sm="12">
         <v-card elevation="12">

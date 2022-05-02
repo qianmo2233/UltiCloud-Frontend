@@ -15,8 +15,11 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12">
-        <v-alert type="info" color="indigo">点击服务器名称来修改服务器信息</v-alert>
+      <v-col cols="12" md="6" lg="6" sm="12">
+        <v-alert type="info" color="indigo">点击服务器名称来修改服务器信息，点击激活标签可以激活/取消激活服务器</v-alert>
+      </v-col>
+      <v-col cols="12" md="6" lg="6" sm="12">
+        <v-alert type="success">在UltiCloud Desktop中，你可以管理插件配置，监控服务器信息（开发中）</v-alert>
       </v-col>
     </v-row>
     <v-row>
@@ -99,76 +102,36 @@
         </div>
       </v-sheet>
     </v-bottom-sheet>
-    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-      <v-card>
-        <v-toolbar dark color="indigo">
-          <v-toolbar-title>添加服务器</v-toolbar-title>
-        </v-toolbar>
-        <v-container>
-          <v-row class="d-flex justify-center">
-            <v-col cols="12" sm="12" md="6" lg="3">
-              <v-card flat class="text-center">
-                <v-card-text>
-                  <v-stepper v-model="e1" class="elevation-0" color="indigo">
-                    <v-stepper-header class="elevation-0">
-                      <v-stepper-step :complete="e1 > 1" step="1" color="indigo">
-                        服务器信息
-                      </v-stepper-step>
-                      <v-divider></v-divider>
-                      <v-stepper-step :complete="e1 > 2" step="2" color="indigo">
-                        激活
-                      </v-stepper-step>
-                    </v-stepper-header>
-
-                    <v-stepper-items>
-                      <v-stepper-content step="1">
-                        <v-container fluid>
-                          <v-text-field outlined label="服务器名称" required :rules="rules" v-model="name"/>
-                          <v-text-field outlined label="服务器UUID" required :rules="rules" v-model="uuid"/>
-                          <v-text-field outlined label="服务器IP" v-model="ip"/>
-                        </v-container>
-                      </v-stepper-content>
-
-                      <v-stepper-content step="2">
-                        <v-alert :type="$store.state.user.member.pro === 'true' ? 'info' : 'error'">
-                          {{ $store.state.user.member.pro === 'true' ? '你现在是Pro会员，可以点击服务器列表右方的标签进行激活' : '你还不是Pro会员，请先购买' }}
-                        </v-alert>
-                      </v-stepper-content>
-                    </v-stepper-items>
-                  </v-stepper>
-                </v-card-text>
-                <v-card-actions>
-                  <v-row>
-                    <v-col cols="6">
-                      <v-btn text color="error" block @click="dialog = false" :disabled="addLoading">
-                        <v-icon left>mdi-close</v-icon>
-                        取消
-                      </v-btn>
-                    </v-col>
-                    <v-col cols="6" v-if="e1 === 1">
-                      <v-btn text color="primary" block @click="addServer" :disabled="isAvailable" :loading="addLoading">
-                        下一步
-                        <v-icon right>mdi-arrow-right</v-icon>
-                      </v-btn>
-                    </v-col>
-                    <v-col cols="6" v-if="e1 === 2 && $store.state.user.member.pro === 'true'">
-                      <v-btn text color="primary" block @click="dialog = false">
-                        <v-icon left>mdi-check</v-icon>
-                        激活服务器
-                      </v-btn>
-                    </v-col>
-                    <v-col cols="6" v-if="e1 === 2 && $store.state.user.member.pro === 'false'">
-                      <v-btn text color="primary" block >
-                        <v-icon left>mdi-arrow-right</v-icon>
-                        购买Pro会员
-                      </v-btn>
-                    </v-col>
-                  </v-row>
-                </v-card-actions>
-              </v-card>
+    <v-dialog v-model="dialog" width="500px">
+      <v-card flat height="420px">
+        <v-card-title>添加服务器</v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row class="d-flex justify-center">
+              <v-col cols="12" sm="12" md="9" lg="9">
+                <v-text-field outlined label="服务器名称" required :rules="rules" v-model="name"/>
+                <v-text-field outlined label="服务器UUID" required :rules="rules" v-model="uuid"/>
+                <v-text-field outlined label="服务器IP" v-model="ip"/>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-row>
+            <v-col cols="6">
+              <v-btn text color="error" block @click="dialog = false" :disabled="addLoading">
+                <v-icon left>mdi-close</v-icon>
+                取消
+              </v-btn>
+            </v-col>
+            <v-col cols="6">
+              <v-btn text color="primary" block @click="addServer" :disabled="isAvailable" :loading="addLoading">
+                添加
+                <v-icon right>mdi-arrow-right</v-icon>
+              </v-btn>
             </v-col>
           </v-row>
-        </v-container>
+        </v-card-actions>
       </v-card>
     </v-dialog>
     <v-bottom-sheet v-model="sheet" inset>
@@ -213,7 +176,6 @@ export default {
       Server: {
         isActive: "false",
       },
-      e1: 1,
       dialog: false,
       sheet: false,
       loading: false,
@@ -313,7 +275,7 @@ export default {
       this.addLoading = true
       this.server.add(this, this.name, this.uuid, this.ip, function (that) {
         that.addLoading = false
-        that.e1 = 2
+        that.dialog= false
         that.name = ""
         that.uuid = ""
         that.ip = ""
@@ -335,7 +297,7 @@ export default {
         that.init.check(that, function () {
           that.server.add(that, that.name, that.uuid, that.ip, function (that) {
             that.addLoading = false
-            that.e1 = 2
+            that.dialog= false
             that.name = ""
             that.uuid = ""
             that.ip = ""

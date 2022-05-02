@@ -14,35 +14,33 @@
       <v-col cols="12" lg="6" md="6" sm="12">
         <v-row>
           <v-col cols="12">
-            <v-card color="#385F73" dark>
-              <v-card-title class="text-h5">
-                免费试用7天 UltiKits Pro 会员！
-              </v-card-title>
-              <v-card-subtitle>不试试，如何知道好不好？</v-card-subtitle>
-              <v-card-actions>
-                <v-btn text @click="evaluate" :loading="eval.loading" :disabled="$store.state.user.email.validated !== 'true' || $store.state.user.member.pro === 'true'">
-                  {{ getBtnText }}
-                </v-btn>
-              </v-card-actions>
-            </v-card>
+            <div @click="evaluate">
+              <backdrop-card hover rel="noopener">
+                <v-overlay absolute :value="eval.loading">
+                  <v-progress-circular indeterminate/>
+                </v-overlay>
+                <template #backdrop>
+                  <v-icon>mdi-party-popper</v-icon>
+                </template>
+                <v-icon x-large style="opacity: 0.9">mdi-party-popper</v-icon>
+                <h2 class="heading my-1">免费试用7天 UltiKits Pro 会员！</h2>
+                <h3 class="subtitle-2">不试试，如何知道好不好？</h3>
+              </backdrop-card>
+            </div>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12">
-            <v-card class="mx-auto" elevation="12">
-              <v-card-text>
-                <div>我的会员</div>
-                <p class="text-h4 text--primary">
-                  <v-chip label :color="$store.state.user.member.pro === 'true' ? 'rgb(226,89,21)' : 'primary'" dark class="mr-2">{{ $store.state.user.member.pro === 'true' ? "Pro 会员" : "普通会员" }}</v-chip>
-                  <v-chip label :color="$store.state.user.member.pro === 'true' ? 'rgb(226,89,21)' : 'primary'" dark>{{ $store.state.user.member.exp }}</v-chip>
-                </p>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn text color="deep-purple accent-4">
-                  Pro功能
-                </v-btn>
-              </v-card-actions>
-            </v-card>
+            <backdrop-card hover rel="noopener">
+              <v-overlay absolute :value="eval.loading">
+                <v-progress-circular indeterminate/>
+              </v-overlay>
+              <template #backdrop>
+                <v-icon>mdi-chess-king</v-icon>
+              </template>
+              <v-chip label :color="$store.state.user.member.pro === 'true' ? 'rgb(226,89,21)' : 'primary'" dark class="mr-2">{{ $store.state.user.member.pro === 'true' ? "Pro 会员" : "普通会员" }}</v-chip>
+              <v-chip label :color="$store.state.user.member.pro === 'true' ? 'rgb(226,89,21)' : 'primary'" dark>{{ $store.state.user.member.exp }}</v-chip>
+            </backdrop-card>
           </v-col>
         </v-row>
       </v-col>
@@ -314,10 +312,11 @@
 </template>
 
 <script>
+import BackdropCard from "@/components/Layout/BackdropCard";
 import vueQr from 'vue-qr'
 export default {
   name: "ProMain",
-  components: {vueQr},
+  components: {vueQr, BackdropCard},
   data: () => {
     return {
       timer : 0,
@@ -531,24 +530,32 @@ export default {
     },
     evaluate: function () {
       this.eval.loading = true
-      this.code.getCode(this, 1, function (that, code) {
-        that.eval.loading = false
-        that.eval.code = code
-        that.eval.dialog = true
-        that.snackbar.Launch(that, "领取成功")
-      }, function (that) {
-        that.init.check(that, function () {
-          that.code.getCode(that, 1, function (that, code) {
-            that.eval.loading = false
-            that.eval.code = code
-            that.eval.dialog = true
-            that.snackbar.Launch(that, "领取成功")
-          }, function (that, data) {
-            that.eval.loading = false
-            that.snackbar.Launch(that, "领取失败" + data.msg)
+      if (this.$store.state.user.email.validated !== 'true') {
+        this.snackbar.Launch(this, "请先通过邮箱验证")
+        this.eval.loading = false
+      } else if (this.$store.state.user.member.pro === 'true') {
+        this.snackbar.Launch(this, "你已是Pro会员")
+        this.eval.loading = false
+      } else {
+        this.code.getCode(this, 1, function (that, code) {
+          that.eval.loading = false
+          that.eval.code = code
+          that.eval.dialog = true
+          that.snackbar.Launch(that, "领取成功")
+        }, function (that) {
+          that.init.check(that, function () {
+            that.code.getCode(that, 1, function (that, code) {
+              that.eval.loading = false
+              that.eval.code = code
+              that.eval.dialog = true
+              that.snackbar.Launch(that, "领取成功")
+            }, function (that, data) {
+              that.eval.loading = false
+              that.snackbar.Launch(that, "领取失败" + data.msg)
+            })
           })
         })
-      })
+      }
     },
     NewYearPromo: function () {
       this.promo.loading = true

@@ -5,7 +5,7 @@
         <div style="width: 100%; height: calc(100vh + 12px); overflow: hidden!important">
           <v-img :src="require('/src/assets/img/auth.jpg')" width="100%" height="100%">
             <v-overlay absolute value="true">
-              <h1 style="padding: -500px!important">欢迎来到 UltiCloud！</h1>
+              <h1 style="padding: -500px!important">欢迎来到 UltiCloud Desktop！</h1>
               <br>
               <p>登录并管理你的服务器</p>
             </v-overlay>
