@@ -69,7 +69,7 @@ if (isDevelopment) {
 }
 
 function updateApp(window) {
-  const feedUrl = 'http://192.168.1.100:9000/final'
+  const feedUrl = 'http://120.26.13.162/latest'
   let mainWindow = window
   autoUpdater.autoDownload = true
   autoUpdater.setFeedURL(feedUrl);
