@@ -16,6 +16,7 @@ async function createWindow() {
     width: 1500,
     height: 820,
     autoHideMenuBar: true,
+    titleBarStyle: 'hidden',
     webPreferences: {
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION
