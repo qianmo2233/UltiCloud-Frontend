@@ -167,7 +167,7 @@
                           <v-icon left>mdi-credit-card</v-icon>
                           支付宝支付
                         </v-btn>
-                        <v-btn color="teal" class="mt-2" block disabled>
+                        <v-btn color="teal" class="mt-2" block>
                           <v-icon left>mdi-wechat</v-icon>
                           微信支付
                         </v-btn>
