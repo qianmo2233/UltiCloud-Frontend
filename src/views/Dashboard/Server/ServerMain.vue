@@ -23,9 +23,11 @@
       <v-col cols="12">
         <v-data-iterator :items="$store.state.server.list" :search="search" hide-default-footer disable-pagination :loading="loading">
           <template v-slot:header>
-            <v-toolbar class="mb-3" elevation="0">
-              <v-text-field v-model="search" clearable flat solo-inverted hide-details prepend-inner-icon="mdi-magnify" label="搜索"></v-text-field>
-            </v-toolbar>
+            <v-row class="d-flex justify-end">
+              <v-col cols="12" sm="12" md="4" lg="3">
+                <v-text-field v-model="search" clearable flat solo-inverted hide-details prepend-inner-icon="mdi-magnify" color="indigo" label="搜索"></v-text-field>
+              </v-col>
+            </v-row>
           </template>
           <template v-slot:default="props">
             <v-lazy transition="fade-transition">
@@ -63,25 +65,31 @@
             </v-lazy>
           </template>
           <template v-slot:loading>
-          <v-row>
-            <v-col cols="12">
-              <v-skeleton-loader type="list-item-two-line"/>
-              <v-skeleton-loader type="list-item-two-line"/>
-              <v-skeleton-loader type="list-item-two-line"/>
-            </v-col>
-          </v-row>
-        </template>
+            <v-row>
+              <v-col cols="12" class="d-flex justify-center">
+                <loading-bar class="mt-10"/>
+              </v-col>
+            </v-row>
+          </template>
           <template v-slot:no-data>
-            <v-row class="fill-height mt-10" align-content="center" justify="center">
-              <v-col class="subtitle-1 text-center" cols="12">
-                没有数据
+            <v-row class="fill-height" align-content="center" justify="center">
+              <v-col cols="12" class="d-flex justify-center">
+                <v-img :src="require('/src/assets/img/empty.svg')" v-show="!$vuetify.theme.dark" max-height="400px" max-width="400px"/>
+                <v-img :src="require('/src/assets/img/empty-dark.svg')" v-show="$vuetify.theme.dark" max-height="400px" max-width="400px"/>
+              </v-col>
+              <v-col class="text-h5 text-center" cols="12">
+                这里好像什么都没有...
               </v-col>
             </v-row>
           </template>
           <template v-slot:no-results>
-            <v-row class="fill-height mt-10" align-content="center" justify="center">
-              <v-col class="subtitle-1 text-center" cols="12">
-                没有结果
+            <v-row class="fill-height" align-content="center" justify="center">
+              <v-col cols="12" class="d-flex justify-center">
+                <v-img :src="require('/src/assets/img/result.svg')" v-show="!$vuetify.theme.dark" max-height="400px" max-width="400px"/>
+                <v-img :src="require('/src/assets/img/result-dark.svg')" v-show="$vuetify.theme.dark" max-height="400px" max-width="400px"/>
+              </v-col>
+              <v-col class="text-h5 text-center" cols="12">
+                并没有符合条件的结果...
               </v-col>
             </v-row>
           </template>
@@ -206,8 +214,10 @@
 </template>
 
 <script>
+import LoadingBar from "@/components/Layout/LoadingBar";
 export default {
   name: "ServerMain",
+  components: {LoadingBar},
   data: ()=> {
     return {
       Server: {

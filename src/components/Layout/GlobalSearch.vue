@@ -2,7 +2,9 @@
   <v-autocomplete v-if="$vuetify.breakpoint.mdAndUp && $store.state.user.auth.status"
       v-model="selected"
       class="mt-7 ml-12"
+      flat
       solo-inverted
+      color="indigo"
       clearable
       prepend-inner-icon="mdi-magnify"
       label="全局搜索"
@@ -22,13 +24,14 @@
     <template v-slot:no-data>
       <v-card flat>
         <v-card-text class="text-center">
+          <v-row>
+            <v-col cols="12" class="d-flex justify-center">
+              <v-img :src="require('/src/assets/img/search.svg')" v-show="!$vuetify.theme.dark" max-height="200px" max-width="200px"/>
+              <v-img :src="require('/src/assets/img/search-dark.svg')" v-show="$vuetify.theme.dark" max-height="200px" max-width="200px"/>
+            </v-col>
+          </v-row>
           <h3>暂无搜索结果</h3>
         </v-card-text>
-      </v-card>
-    </template>
-    <template v-slot:prepend-item>
-      <v-card flat>
-        <v-card-title>搜索结果</v-card-title>
       </v-card>
     </template>
   </v-autocomplete>

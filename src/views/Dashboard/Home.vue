@@ -46,9 +46,10 @@
     </v-dialog>
     <v-row>
       <v-col cols="12" md="12" sm="12" lg="8">
-        <v-row class="mt-16 ml-4">
+        <v-row class="mt-16 mb-4 ml-4">
           <v-col cols="12">
-            <v-img :src="require('/src/assets/img/icon-512x512.png')" max-width="100" max-height="100"/>
+            <v-img v-show="!$vuetify.theme.dark" :src="require('/src/assets/img/banner-dark.png')" max-width="600px" max-height="600px"/>
+            <v-img v-show="$vuetify.theme.dark" :src="require('/src/assets/img/banner.png')" max-width="600px" max-height="600px"/>
           </v-col>
         </v-row>
         <v-row class="mt-2 ml-4">
@@ -189,8 +190,8 @@
               <v-col class="subtitle-1 text-center" cols="12">
                 正在获取更新日志
               </v-col>
-              <v-col cols="12" lg="3" md="4" sm="12">
-                <v-progress-linear indeterminate rounded height="6" color="indigo"></v-progress-linear>
+              <v-col cols="12" lg="3" md="4" sm="12" class="d-flex justify-center">
+                <loading-bar/>
               </v-col>
             </v-row>
             <v-row v-if="!loading">
@@ -246,10 +247,11 @@
 <script>
 import {marked} from 'marked';
 import BackdropCard from "@/components/Layout/BackdropCard";
+import LoadingBar from "@/components/Layout/LoadingBar";
 
 export default {
   name: "Home",
-  components: {BackdropCard},
+  components: {LoadingBar, BackdropCard},
   data: ()=> {
     return {
       loading: true,

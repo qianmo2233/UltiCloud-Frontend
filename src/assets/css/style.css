@@ -96,7 +96,7 @@ li {
     visibility: hidden!important;
 }
 
-pre{
+pre {
     box-sizing:border-box;
     /*以下样式是自动换行代码*/
     white-space: pre-wrap; /* css-3 */
@@ -117,4 +117,8 @@ pre{
     border-radius:4px;
     background-color: #464646;
     user-select: text
+}
+
+a {
+    text-decoration:none;
 }

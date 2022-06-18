@@ -7,6 +7,7 @@ import vuetify from './plugins/vuetify'
 import highlight from "highlight.js";
 
 import './assets/css/style.css'
+import 'loaders.css/loaders.min.css'
 import 'highlight.js/styles/atom-one-dark.css'
 
 import Auth from '@/assets/js/Auth'
@@ -22,6 +23,7 @@ import Email from "@/assets/js/Email"
 import Profile from "@/assets/js/Profile"
 import GitHub from "@/assets/js/GitHub"
 import TwoFactorAuth from "@/assets/js/TwoFactorAuth";
+import Forget from "@/assets/js/Forget"
 
 Vue.config.productionTip = false
 
@@ -38,6 +40,7 @@ Vue.prototype.email = Email
 Vue.prototype.profile = Profile
 Vue.prototype.github = GitHub
 Vue.prototype.tfa = TwoFactorAuth
+Vue.prototype.forget = Forget
 
 Vue.use(VueResource)
 

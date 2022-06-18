@@ -20,12 +20,18 @@ function check(that, callback) {
                 })
             },
             function (that, data) {
+                localStorage.removeItem("access_token")
+                localStorage.removeItem("refresh_token")
+                localStorage.removeItem("id")
                 that.$router.push({path: "/auth"}).then()
                 that.snackbar.Launch(that, "身份令牌无效,请重新登录")
                 console.log(data)
             }
         )
     }, function (that, data) {
+        localStorage.removeItem("access_token")
+        localStorage.removeItem("refresh_token")
+        localStorage.removeItem("id")
         that.$router.push({path: "/auth"}).then()
         that.snackbar.Launch(that, "身份令牌无效,请重新登录")
         console.log(data)

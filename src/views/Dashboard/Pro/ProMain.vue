@@ -14,11 +14,19 @@
       <v-col cols="12" lg="6" md="6" sm="12">
         <v-row>
           <v-col cols="12">
-            <v-card color="#385F73" dark>
-              <v-card-title class="text-h5">
-                免费试用7天 UltiKits Pro 会员！
-              </v-card-title>
-              <v-card-subtitle>不试试，如何知道好不好？</v-card-subtitle>
+            <v-card class="mt-3">
+              <v-row>
+                <v-col cols="7">
+                  <v-card-title class="text-h5">
+                    免费试用7天 UltiKits Pro 会员！
+                  </v-card-title>
+                  <v-card-subtitle>不试试，如何知道好不好？</v-card-subtitle>
+                </v-col>
+                <v-col cols="5">
+                  <v-img :src="require('/src/assets/img/launch.svg')" v-show="!$vuetify.theme.dark" max-height="250px" max-width="250px"/>
+                  <v-img :src="require('/src/assets/img/launch-dark.svg')" v-show="$vuetify.theme.dark" max-height="250px" max-width="250px"/>
+                </v-col>
+              </v-row>
               <v-card-actions>
                 <v-btn text @click="evaluate" :loading="eval.loading" :disabled="$store.state.user.email.validated !== 'true' || $store.state.user.member.pro === 'true'">
                   {{ getBtnText }}
@@ -101,11 +109,11 @@
                     <v-data-iterator :items="prices" hide-default-footer disable-pagination :loading="priceLoading">
                       <template v-slot:loading>
                         <v-row class="fill-height mt-10" align-content="center" justify="center">
+                          <v-col cols="6" class="d-flex justify-center">
+                            <loading-bar/>
+                          </v-col>
                           <v-col class="subtitle-1 text-center" cols="12">
                             加载中
-                          </v-col>
-                          <v-col cols="6">
-                            <v-progress-linear indeterminate rounded height="6" color="indigo"></v-progress-linear>
                           </v-col>
                         </v-row>
                       </template>
@@ -315,9 +323,10 @@
 
 <script>
 import vueQr from 'vue-qr'
+import LoadingBar from "@/components/Layout/LoadingBar";
 export default {
   name: "ProMain",
-  components: {vueQr},
+  components: {LoadingBar, vueQr},
   data: () => {
     return {
       timer : 0,

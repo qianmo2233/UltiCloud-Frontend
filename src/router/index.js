@@ -15,6 +15,7 @@ import Style from "@/views/Dashboard/Account/Style";
 import Tools from "@/views/Dashboard/Tools";
 import TwoFactorAuth from "@/views/Dashboard/Account/TwoFactorAuth";
 import TFA from "@/components/Auth/TFA";
+import Forget from "@/components/Auth/Forget";
 
 Vue.use(VueRouter)
 
@@ -79,6 +80,11 @@ const routes = [
         path: 'tfa',
         name: 'Verify',
         component: TFA,
+      },
+      {
+        path: 'forget',
+        name: 'Forget Password',
+        component: Forget,
       },
     ],
   },

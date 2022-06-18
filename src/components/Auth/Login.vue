@@ -4,8 +4,6 @@
       <v-card flat color="rgb(0, 0, 0, 0)">
         <v-card-title>登录UltiCloud</v-card-title>
         <v-card-subtitle class="mb-6">
-          没有账号?
-          <router-link to="register">立即注册</router-link>
         </v-card-subtitle>
         <v-expand-transition>
           <v-card-text class="text-center" v-show="!oauth">
@@ -22,6 +20,12 @@
                   <v-icon left>mdi-login</v-icon>
                   登录
                 </v-btn>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12">
+                <router-link to="register" class="mr-5">注册账号</router-link>
+                <router-link to="forget" class="ml-5">找回密码</router-link>
               </v-col>
             </v-row>
             <v-row>
@@ -52,7 +56,7 @@
             <v-divider inset class="mb-6"/>
             <v-row>
               <v-col cols="12">
-                <v-progress-circular class="mb-1" indeterminate color="indigo"/>
+                <loading-bar/>
                 <p class="mt-1">正在使用GitHub登录</p>
               </v-col>
             </v-row>
@@ -80,8 +84,10 @@
 </template>
 
 <script>
+import LoadingBar from "@/components/Layout/LoadingBar";
 export default {
   name: "Login",
+  components: {LoadingBar},
   data: () => {
     return {
       username: "",

@@ -4,17 +4,13 @@
     <v-app-bar-title>UltiCloud</v-app-bar-title>
     <global-search/>
     <v-spacer/>
-    <v-btn text v-if="$vuetify.breakpoint.lgAndUp" disabled>
-      <v-icon left>mdi-open-in-new</v-icon>
-      管理员面板
+    <v-btn text v-if="$vuetify.breakpoint.lgAndUp" @click="ServiceStatus">
+      <v-icon left>mdi-new-box</v-icon>
+      新功能
     </v-btn>
     <v-btn text v-if="$vuetify.breakpoint.lgAndUp" @click="MainSite">
       <v-icon left>mdi-open-in-new</v-icon>
       UltiKits主站
-    </v-btn>
-    <v-btn text v-if="$vuetify.breakpoint.lgAndUp" @click="ServiceStatus">
-      <v-icon left>mdi-open-in-new</v-icon>
-      服务状态
     </v-btn>
     <v-btn text v-if="$vuetify.breakpoint.lgAndUp" @click="Doc">
       <v-icon left>mdi-open-in-new</v-icon>
@@ -25,6 +21,7 @@
 
 <script>
 import GlobalSearch from "@/components/Layout/GlobalSearch";
+import Driver from "driver.js";
 export default {
   name: "AppBar",
   components: {GlobalSearch},
@@ -36,7 +33,18 @@ export default {
       window.open('https://doc.ultitools.ultikits.com/', '_blank', '')
     },
     ServiceStatus: function () {
-      window.open('https://ulti-status.crisp.watch/', '_blank', '')
+      const driver = new Driver();
+      driver.highlight({
+        element: '#res',
+        popover: {
+          title: '未来的新功能',
+          description: '将来这里会有许多使用的新功能，包括旧数据转换，可视化配置等',
+          // 位置支持设置为 left, left-center, left-bottom, top,
+          // top-center, top-right, right, right-center, right-bottom,
+          // bottom, bottom-center, bottom-right, mid-center
+          position: 'right',
+        }
+      });
     }
   }
 }
