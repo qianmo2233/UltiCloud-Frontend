@@ -158,19 +158,23 @@
                 </v-row>
                 <v-row>
                   <v-col cols="12">
+                    <v-alert color="green" dark>
+                      UltiKits现已支持<v-img :src="require('/src/assets/img/wechat-pay.svg')" max-width="150px"/>
+                    </v-alert>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="12">
                     <v-row>
-                      <v-col cols="6">
+                      <v-col cols="4">
                         <div>总计: <h1>{{ getPrice }}</h1> CNY</div>
                       </v-col>
-                      <v-col cols="6">
-                        <v-btn color="primary" class="mb-2" block dark :loading="pay.loading" @click="checkout">
-                          <v-icon left>mdi-credit-card</v-icon>
-                          支付宝支付
-                        </v-btn>
-                        <v-btn color="teal" class="mt-2" block disabled>
-                          <v-icon left>mdi-wechat</v-icon>
-                          微信支付
-                        </v-btn>
+                      <v-col cols="8">
+                        <v-btn-toggle v-model="pay.method" tile :color="getBtnColor" mandatory group class="mb-2">
+                          <v-btn value="ALIPAY" block><v-icon left>mdi-credit-card-outline</v-icon>支付宝</v-btn>
+                          <v-btn value="WECHAT_PAY" block><v-icon left>mdi-wechat</v-icon>微信支付</v-btn>
+                        </v-btn-toggle>
+                        <v-btn outlined block color="indigo" class="mt-2" @click="checkout" :loading="pay.loading"><v-icon left>mdi-check</v-icon>提交订单</v-btn>
                       </v-col>
                     </v-row>
                   </v-col>
@@ -271,7 +275,7 @@
               <v-row>
                 <v-col cols="12">
                   <h1>{{ pay.amount + ' CNY' }}</h1>
-                  <div>打开手机支付宝扫扫一扫</div>
+                  <div>打开手机{{ getMethodText }}扫扫一扫</div>
                 </v-col>
               </v-row>
               <vue-qr :text="pay.url"/>
@@ -282,9 +286,9 @@
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <v-btn text color="primary" block @click="openAlipay">
+                  <v-btn text :color="getBtnColor" block @click="openAlipay">
                     <v-icon left>mdi-open-in-new</v-icon>
-                    转跳至手机支付宝
+                    转跳至手机{{ getMethodText }}
                   </v-btn>
                 </v-col>
               </v-row>
@@ -335,6 +339,7 @@ export default {
         id: '',
         url: '',
         amount: '',
+        method: 'ALIPAY',
         loading: false,
       },
       choose: 0,
@@ -365,6 +370,7 @@ export default {
           { text: '创建时间', value: 'createDate' },
           { text: '描述', value: 'description' },
           { text: '金额', value: 'amount' },
+          { text: '支付方式', value: 'paymentMethod' },
           { text: '状态', value: 'tradeStatus' },
         ],
       }
@@ -373,6 +379,16 @@ export default {
   computed: {
     getPrice: function () {
       return this.priceLoading ? '' : this.prices[this.choose].price
+    },
+    getBtnColor: function () {
+      switch (this.pay.method) {
+        case "ALIPAY":
+          return "blue"
+        case "WECHAT_PAY":
+          return "green"
+        default :
+          return "white"
+      }
     },
     getBtnText: function() {
       if(this.$store.state.user.email.validated !== 'true') {
@@ -383,6 +399,16 @@ export default {
         return '免费体验'
       }
     },
+    getMethodText: function () {
+      switch (this.pay.method) {
+        case "ALIPAY":
+          return "支付宝"
+        case "WECHAT_PAY":
+          return "微信"
+        default :
+          return ""
+      }
+    }
   },
 
   created() {
@@ -430,19 +456,29 @@ export default {
     checkout: function () {
       let select = this.prices[this.choose];
       this.pay.loading = true
-      this.payment.CreatePayment(this, select.price, select.name.split("_")[1] === "promo" ? select.name.split("_")[2] + '-Pro会员' : select.name.split("_")[1] + '-Pro会员', function (that, data) {
-        that.pay.id = data.alipay_trade_precreate_response.out_trade_no
+      this.payment.CreatePayment(
+          this,
+          select.price,
+          select.name.split("_")[1] === "promo" ? select.name.split("_")[2] + '-UltiKits会员' : select.name.split("_")[1] + '-UltiKits会员',
+          this.pay.method,
+          function (that, data) {
+        that.pay.id = that.pay.method === "ALIPAY" ? data.alipay_trade_precreate_response.out_trade_no : ""
         that.pay.amount = select.price
-        that.pay.url = data.alipay_trade_precreate_response.qr_code
+        that.pay.url = that.pay.method === "ALIPAY" ? data.alipay_trade_precreate_response.qr_code : data.qr_code
         that.pay.loading = false
         that.sheet = true
         that.timer = setInterval(that.check,5000);
       }, function (that) {
         that.init.check(that, function () {
-          that.payment.CreatePayment(that, 0.01, select.name, function (that, data) {
-            that.pay.id = data.alipay_trade_precreate_response.out_trade_no
+          that.payment.CreatePayment(
+              that,
+              select.price,
+              select.name.split("_")[1] === "promo" ? select.name.split("_")[2] + '-UltiKits会员' : select.name.split("_")[1] + '-UltiKits会员',
+              that.pay.method,
+              function (that, data) {
+            that.pay.id = that.pay.method === "ALIPAY" ? data.alipay_trade_precreate_response.out_trade_no : ""
             that.pay.amount = select.price
-            that.pay.url = data.alipay_trade_precreate_response.qr_code
+            that.pay.url = that.pay.method === "ALIPAY" ? data.alipay_trade_precreate_response.qr_code : data.qr_code
             that.pay.loading = false
             that.sheet = true
             that.timer = setInterval(that.check,5000);

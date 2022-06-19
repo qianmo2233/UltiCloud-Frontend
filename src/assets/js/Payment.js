@@ -3,10 +3,10 @@ const CheckPaymentUrl = "https://panel.ultikits.com:4433/payment/check"
 const CancelPaymentUrl = "https://panel.ultikits.com:4433/payment/recall"
 const HistoryPaymentUrl = "https://panel.ultikits.com:4433/payment/history"
 
-function CreatePayment(that, amount, description, success, error) {
+function CreatePayment(that, amount, description, method, success, error) {
     let time = Date.now()
     that.$http.post(
-        CreatePaymentUrl + '?id=' + localStorage.getItem('id') + '&amount=' + amount + '&description=' + description,
+        CreatePaymentUrl + '?id=' + localStorage.getItem('id') + '&amount=' + Math.trunc(amount * 100) + '&description=' + description + "&method=" + method,
         {username: that.$store.state.user.profile.username, time: time, key: that.sign.getSignString(that.$store.state.user.profile.username, time)},
         {headers: {Authorization: 'Bearer ' + that.$store.state.user.auth.token.access}},
     ).then(function (result) {
