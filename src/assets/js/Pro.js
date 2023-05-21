@@ -1,4 +1,4 @@
-const getAllPriceUrl = "https://panel.ultikits.com:4433/price/all"
+const getAllPriceUrl = "https://api.ultikits.com/price/all"
 
 function getAllPrice(that, success, error) {
     that.$http.get(getAllPriceUrl).then(function (result) {

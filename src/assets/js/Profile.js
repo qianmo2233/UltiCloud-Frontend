@@ -1,4 +1,4 @@
-const EditProfileUrl = "https://panel.ultikits.com:4433/user/updateuser/"
+const EditProfileUrl = "https://api.ultikits.com/user/updateuser/"
 
 function editEmail(that, data, success, error) {
     let time = Date.now()

@@ -1,5 +1,5 @@
-const GetTokenUrl = "https://panel.ultikits.com:4433/user/getToken"
-const RefreshTokenUrl = "https://panel.ultikits.com:4433/user/refreshToken"
+const GetTokenUrl = "https://api.ultikits.com/user/getToken"
+const RefreshTokenUrl = "https://api.ultikits.com/user/refreshToken"
 const VerifyUrl = "https://recaptcha.moe-loli.ml/recaptcha/verify.php"
 
 function getToken(username, password, that, success, failure) {

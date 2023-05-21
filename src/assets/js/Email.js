@@ -1,4 +1,4 @@
-const EmailUrl = "https://panel.ultikits.com:4433/user/"
+const EmailUrl = "https://api.ultikits.com/user/"
 
 function sendEmail(that, success, error) {
     let time = Date.now()

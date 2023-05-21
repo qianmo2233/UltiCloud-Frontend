@@ -1,7 +1,7 @@
-const ActiveKeyUrl = 'https://panel.ultikits.com:4433/user/active/'
-const GetCodeUrl = 'https://panel.ultikits.com:4433/promotion/getPromoteCode/'
-const RedeemUrl = 'https://panel.ultikits.com:4433/redeem/redeem'
-const PromoUrl = 'https://panel.ultikits.com:4433/redeem/promo/redeemOrderId'
+const ActiveKeyUrl = 'https://api.ultikits.com/user/active/'
+const GetCodeUrl = 'https://api.ultikits.com/promotion/getPromoteCode/'
+const RedeemUrl = 'https://api.ultikits.com/redeem/redeem'
+const PromoUrl = 'https://api.ultikits.com/redeem/promo/redeemOrderId'
 
 function activeKey(that, cdk, success, error) {
     that.$http.post(

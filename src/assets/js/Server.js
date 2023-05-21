@@ -1,7 +1,7 @@
-const GetServerUrl = "https://panel.ultikits.com:4433/user/"
-const UpdateServerUrl = "https://panel.ultikits.com:4433/server/updateserver/"
-const AddServerUrl = "https://panel.ultikits.com:4433/server/addserver"
-const DeleteServerUrl = "https://panel.ultikits.com:4433/server/delserver/"
+const GetServerUrl = "https://api.ultikits.com/user/"
+const UpdateServerUrl = "https://api.ultikits.com/server/updateserver/"
+const AddServerUrl = "https://api.ultikits.com/server/addserver"
+const DeleteServerUrl = "https://api.ultikits.com/server/delserver/"
 
 function getList(that, success, error) {
     let time = Date.now()

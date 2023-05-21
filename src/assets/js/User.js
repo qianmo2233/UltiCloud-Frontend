@@ -1,5 +1,5 @@
-const getUserInfoUrl = "https://panel.ultikits.com:4433/user/"
-const addUserInfoUrl = "https://panel.ultikits.com:4433/user/adduser"
+const getUserInfoUrl = "https://api.ultikits.com/user/"
+const addUserInfoUrl = "https://api.ultikits.com/user/adduser"
 
 function getUserInfo(token, id, that, success, failure) {
     that.$http.post(

@@ -1,4 +1,4 @@
-const ForgetUrl = "https://panel.ultikits.com:4433/user/resetPassword"
+const ForgetUrl = "https://api.ultikits.com/user/resetPassword"
 
 function getCode(account, that, success, failure) {
     let time = Date.now()

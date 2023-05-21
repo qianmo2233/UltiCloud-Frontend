@@ -1,7 +1,7 @@
-const CreatePaymentUrl = "https://panel.ultikits.com:4433/payment/create"
-const CheckPaymentUrl = "https://panel.ultikits.com:4433/payment/check"
-const CancelPaymentUrl = "https://panel.ultikits.com:4433/payment/recall"
-const HistoryPaymentUrl = "https://panel.ultikits.com:4433/payment/history"
+const CreatePaymentUrl = "https://api.ultikits.com/payment/create"
+const CheckPaymentUrl = "https://api.ultikits.com/payment/check"
+const CancelPaymentUrl = "https://api.ultikits.com/payment/recall"
+const HistoryPaymentUrl = "https://api.ultikits.com/payment/history"
 
 function CreatePayment(that, amount, description, method, success, error) {
     let time = Date.now()
