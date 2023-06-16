@@ -86,6 +86,19 @@
           <v-list-item-subtitle>Settings</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
+      <v-subheader>
+        开发者 Developer
+        <v-divider inset/>
+      </v-subheader>
+      <v-list-item link to="/dashboard/plugins">
+        <v-list-item-icon>
+          <v-icon>mdi-chip</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>插件管理</v-list-item-title>
+          <v-list-item-subtitle>Plugin Management</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
     </div>
     <div v-if="$vuetify.breakpoint.mdAndDown">
       <v-subheader>

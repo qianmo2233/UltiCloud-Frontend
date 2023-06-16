@@ -16,6 +16,7 @@ import Tools from "@/views/Dashboard/Tools";
 import TwoFactorAuth from "@/views/Dashboard/Account/TwoFactorAuth";
 import TFA from "@/components/Auth/TFA";
 import Forget from "@/components/Auth/Forget";
+import PluginManagement from "@/views/Dashboard/developer/PluginManagement.vue";
 
 Vue.use(VueRouter)
 
@@ -54,6 +55,14 @@ const routes = [
         path: 'tools',
         name: 'Tools',
         component: Tools,
+        meta: {
+          icon: 'mdi-chess-king'
+        }
+      },
+      {
+        path: 'plugins',
+        name: 'Plugin Management',
+        component: PluginManagement,
         meta: {
           icon: 'mdi-chess-king'
         }
