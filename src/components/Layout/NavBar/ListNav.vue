@@ -23,6 +23,15 @@
           <v-list-item-subtitle>Servers</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
+      <v-list-item link to="/dashboard/developer">
+        <v-list-item-icon>
+          <v-icon>mdi-cloud-tags</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>开发者中心</v-list-item-title>
+          <v-list-item-subtitle>Developer</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
       <v-list-item link to="/dashboard/pro">
         <v-list-item-icon>
           <v-icon>mdi-chess-king</v-icon>

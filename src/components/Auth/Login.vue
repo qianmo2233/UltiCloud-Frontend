@@ -16,7 +16,7 @@
             </v-row>
             <v-row>
               <v-col cols="12">
-                <v-btn color="indigo" block depressed @click="verify" :loading="loading">
+                <v-btn color="indigo" dark block depressed @click="verify" :loading="loading">
                   <v-icon left>mdi-login</v-icon>
                   登录
                 </v-btn>

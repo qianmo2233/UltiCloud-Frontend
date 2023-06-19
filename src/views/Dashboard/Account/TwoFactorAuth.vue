@@ -118,9 +118,9 @@ export default {
     }
   },
   created() {
-    this.init.check(this, function (that) {
-      that.loaded = true
-    })
+    //this.init.check(this, function (that) {
+    //  that.loaded = true
+    //})
   },
   methods: {
     enable: function () {

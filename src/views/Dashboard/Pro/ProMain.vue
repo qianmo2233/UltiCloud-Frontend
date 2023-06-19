@@ -462,9 +462,9 @@ export default {
           select.name.split("_")[1] === "promo" ? select.name.split("_")[2] + '-UltiKits会员' : select.name.split("_")[1] + '-UltiKits会员',
           this.pay.method,
           function (that, data) {
-        that.pay.id = that.pay.method === "ALIPAY" ? data.alipay_trade_precreate_response.out_trade_no : ""
+        that.pay.id = data.outTradeNo
         that.pay.amount = select.price
-        that.pay.url = that.pay.method === "ALIPAY" ? data.alipay_trade_precreate_response.qr_code : data.qr_code
+        that.pay.url = data.qrCode
         that.pay.loading = false
         that.sheet = true
         that.timer = setInterval(that.check,5000);
